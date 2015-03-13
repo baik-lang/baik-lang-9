@@ -20,12 +20,12 @@ in Indonesian for Linux and Windows. It supports Animation,
 PDF, UTF8, Printer, OOP, GUI, CGI, Databases, Graphics and TCP/IP.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-lang-%{name}-%{version}
 
 %install
 install -d -m 755 $RPM_BUILD_ROOT/usr/bin
 make
-cp -rf bin/baik $RPM_BUILD_ROOT/usr/bin
+cp -rf baik $RPM_BUILD_ROOT/usr/bin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
