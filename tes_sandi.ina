@@ -1,0 +1,32 @@
+#!/usr/bin/baik
+
+namadb = "sandi.db"
+sql = "select * from digiorchid"
+
+kon = sqlite_koneksi namadb
+hasil = sqlite_hasil kon, sql
+
+num = sqlite_total hasil
+tulis "jumlah data : ", num, "\n"
+
+baris = sqlite_isidata hasil, 0
+kolomnum = panjang baris
+tulis "jumlah kolom : ", kolomnum, "\n"
+
+nama  = baris[0]
+sandi = baris[1]
+
+tulis "nama : ", nama , ", sandi : ", sandi, "\n"
+
+nama_asli  = "admin"
+sandi_asli = "digiorchid"
+
+jika nama == nama_asli dan sandi == sandi_asli maka
+  tulis "Auth OK \n"
+lainnya
+  tulis "Auth NG \n"
+akhirjika
+
+tutup kon
+
+tamat

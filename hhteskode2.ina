@@ -1,0 +1,8 @@
+
+sub just_print(b) {
+  b = b + 1
+  tulis "INI dari Kode Luar : ", b, "\n"
+
+}
+
+

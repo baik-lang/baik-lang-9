@@ -1,0 +1,43 @@
+#!/usr/bin/baik
+
+POST_CGI
+
+tulis "Content-type: text/html\n\n"
+
+nama_asli  = post_nilai 0
+sandi_asli = post_nilai 1
+
+namadb = "sandi.db"
+sql = "select * from digiorchid"
+
+kon = sqlite_koneksi namadb
+hasil = sqlite_hasil kon, sql
+
+num = sqlite_total hasil
+#tulis "jumlah data : ", num, "\n"
+
+baris = sqlite_isidata hasil, 0
+kolomnum = panjang baris
+#tulis "jumlah kolom : ", kolomnum, "\n"
+
+nama  = baris[0]
+sandi = baris[1]
+
+#tulis "nama : ", nama , ", sandi : ", sandi, "\n"
+
+jika nama == nama_asli dan sandi == sandi_asli maka
+  tulis "<script language=\"JavaScript\"> \n"
+  tulis " function disp() { location=\"111174/orchid.ina\"; } \n"
+  tulis "</script>"
+  tulis "<html> <BR> \n"
+  tulis "<body onload=\"disp()\";> \n"
+lainnya
+  tulis "<html>"
+  tulis "Auth Failed ! <BR> \n"
+akhirjika
+
+tutup kon
+
+tulis "</html>"
+
+tamat

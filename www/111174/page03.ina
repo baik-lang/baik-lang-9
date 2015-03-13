@@ -1,0 +1,69 @@
+#!/usr/bin/baik
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2012
+
+warna_halaman = "biru muda"
+#lokasi_filestyle = "C:/Program Files/Apache Group/Apache/style"
+lokasi_filestyle = "/var/www/111174"
+SEDIA_KERTASWEB lokasi_filestyle, warna_halaman
+
+KERTASWEB_AWAL  "Intelligent Orchid"
+
+lokasi_urlstyle = "."
+KERTASWEB_MODEL lokasi_urlstyle
+
+KERTASWEB_MENU_AWAL
+
+  Nama = "Main Page"
+  Deskripsi = "Inteligent Orchid"
+  Halaman = "page01.ina"
+
+  KERTASWEB_MENU Nama, Deskripsi, Halaman
+
+  Nama = "Switch 01"
+  Deskripsi = "sw01"
+  Halaman = "page02.ina"
+
+  KERTASWEB_MENU Nama, Deskripsi, Halaman
+
+  Nama = "Switch 02"
+  Deskripsi = "sw02"
+  Halaman = "page03.ina"
+
+  KERTASWEB_MENU Nama, Deskripsi, Halaman
+
+  Nama = "Setup"
+  Deskripsi = "miantenance"
+  Halaman = "page04.ina"
+
+  KERTASWEB_MENU Nama, Deskripsi, Halaman
+
+  KERTASWEB_HAKCIPTA "All rights reserved - DigiOrchid 2012"
+
+KERTASWEB_MENU_AKHIR
+
+Judul = "Switch 02 - Intelligent Orchid "
+Nama = "IP based Electric Control System"
+Deskripsi = WAKTU
+
+ISIWEB_AWAL
+  ISIWEB_TITEL Judul, Nama, Deskripsi
+
+  tulis "<h2>Power On </h2>"
+  tulis "power on <BR>"
+
+  tulis "<h2>Power Off </h2>"
+  tulis "power off <BR>"
+
+  tulis "<h2>Status </h2>"
+  tulis "get status <BR>"
+
+ISIWEB_AKHIR
+
+KERTASWEB_AKHIR
+
+END
+
+
+
+

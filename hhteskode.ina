@@ -1,0 +1,23 @@
+# #########################################################
+# Program Utama
+# #########################################################
+
+p = 1
+
+tulis "before p=",p,"\n"
+
+KODE_LUAR "hhteskode2.ina"
+
+tulis "after p=",p,"\n"
+
+Tulis "Penggunaan Kode Luar untuk pendefinisian SUB\n"
+
+a = 5
+&just_print(a)
+
+tulis "after a=",a,"\n"
+
+Tulis "Program Selesai OK\n"
+TAMAT
+
+

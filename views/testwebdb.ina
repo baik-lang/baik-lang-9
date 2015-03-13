@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Simple BAIK Sakti Framework</title>
+    </head>
+    <body>
+        <h1>BAIK VIEW : <? tulis buffer ?></h1>
+
+        <?
+
+        tulis "<table border='0' cellspacing='1' bgcolor='#3333ff'>"
+        tulis "<tr>"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>No</th>\n"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Produk</th>\n"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Merk</th>\n"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Harga</th>\n"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Tgl</th>\n"
+        tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Stok</th>\n"
+        tulis "</tr>\n\n"
+
+        ### mengambil isi data per baris dari suatu Tabel
+
+        untaian col[3]
+        col[0] = 1.2
+        col[1] = 3.5
+
+        untuk (i=0; i<num; i=i+1) ulang
+
+          tulis "loop i = ", i, " <BR>\n"
+
+          tulis "col[0] = ", col[0], " <BR>\n"
+          tulis "col[1] = ", col[1], " <BR>\n"
+
+          baris = mysql_isidata hasil
+          tulis "baris[0] = ", baris[0], " , "
+          tulis "baris[1] = ", baris[1], " , "
+          tulis "baris[2] = ", baris[2], " <BR>\n"
+
+        lagi
+
+
+        tulis "</table>"
+
+        ?>
+
+    </body>
+</html>
+
+
