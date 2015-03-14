@@ -10,10 +10,12 @@ BuildRoot:%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:mariadb-server
 Requires:sqlite
 Requires:openlibm
+Requires:gd
 BuildRequires:gcc
 BuildRequires:mariadb-devel
 BuildRequires:sqlite-devel
 BuildRequires:openlibm-devel
+BuildRequires:gd-devel
 %description
 BAIK is a scripting language which syntax is 
 in Indonesian for Linux and Windows. It supports Animation, 
