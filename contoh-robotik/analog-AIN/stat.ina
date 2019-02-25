@@ -1,0 +1,15 @@
+# ################################################
+# Contoh pengambil status analog input
+# Dites pada Beaglebone black
+# Sensor : LM35
+# Copyright : Haris Hasanudin 2015
+# ################################################
+
+
+tulis "tes Analog Input dgn BAIK\n"
+
+val = ain_status "AIN2"
+
+tulis "val=", val, "\n"
+
+tamat

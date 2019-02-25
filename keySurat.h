@@ -4,6 +4,7 @@
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
+// 2015/8/13 For WebMail : AUTH PLAIN
 
 void keySurat ()
 {
@@ -18,6 +19,7 @@ void keySurat ()
   char mailfrom[128],
         mailto[1024],
         subject[256],
+		password[1024],
         body[4096],
         mailServer[1024], mailPort[8];
 
@@ -31,6 +33,7 @@ void keySurat ()
   memset(&mailfrom, '\0', sizeof(mailfrom));
   memset(&mailto, '\0', sizeof(mailto));
   memset(&subject, '\0', sizeof(subject));
+  memset(&password, '\0', sizeof(password));
   memset(&body, '\0', sizeof(body));
   memset(&mailServer, '\0', sizeof(mailServer));
   memset(&mailPort, '\0', sizeof(mailPort));
@@ -68,7 +71,9 @@ void keySurat ()
                 strcpy(body, lex.detail.string );
               } else if(n == 4) {
                 strcpy(mailServer, lex.detail.string );
-              } 
+			  } else if (n == 5) {
+				strcpy(password, lex.detail.string);
+			  }
 
 	      break;
 	    
@@ -94,6 +99,8 @@ void keySurat ()
                 strcpy(body, tmpMsg );
               } else if(n == 4) {
                 strcpy(mailServer, tmpMsg );
+              } else if(n == 5) {
+                strcpy(password, tmpMsg );
               } 
 
 	      break;
@@ -110,10 +117,7 @@ void keySurat ()
 
     //printf("n=%d \n", n);
 
-    if(n != 5) {
-          Error("SURAT tidak lengkap");
-    } else {
-
+    if(n == 5) {
           /*
           printf("from %s \n", mailfrom);
           printf("to %s \n", mailto);
@@ -135,9 +139,27 @@ void keySurat ()
            printf("Gagal kirim mail\n");
          }
          #endif
-         
-
-    }
+	}
+	else if (n == 6) {
+        #ifdef WINDOWS
+		if (win_sendMail2(mailServer, "587", password, mailfrom, mailto, subject, body) == 0) {
+			//printf("send mail.\n");
+		}
+		else {
+			printf("Gagal kirim mail\n");
+		}
+        #else
+		if (ux_sendMail2(mailServer, "587", password, mailfrom, mailto, subject, body) == 0) {
+			//printf("send mail.\n");
+		}
+		else {
+			printf("Gagal kirim mail\n");
+		}
+        #endif
+	}
+	else {
+		Error("SURAT tidak lengkap");
+	}
 
 	ungetlex();
 

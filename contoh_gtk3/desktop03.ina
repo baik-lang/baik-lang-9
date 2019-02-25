@@ -1,0 +1,33 @@
+# ##########################################
+# tes program Desktop dengan BAIK9 - MASUKAN
+# ##########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MASUKAN dgn BAIK9 - GTK3"
+luas_layar  lyr1, 580, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "label nama"
+set_warnahuruf lbl1, "biru"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 100, 20
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "kuning"
+hias_alas alas1, msk1, 120, 15, 150, 20
+
+aksi_tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

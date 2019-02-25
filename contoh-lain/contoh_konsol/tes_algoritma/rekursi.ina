@@ -1,0 +1,31 @@
+tulis "tes rekursif dgn BAIK - 01\n"
+
+A = 1
+
+F = &tesRec(A)
+
+tulis "F=",F,"\n"
+tulis "== selesai ==\n"
+
+tamat
+
+
+fungsi tesRec(a) {
+  ret = 0
+
+  tulis "a START========",a,"\n"
+
+  kalau a == 10 maka
+    ret = a
+  lainnya
+    tulis "a else=",a,"\n"
+    B = a + 1
+    ret = &tesRec(B)
+
+  akhirkalau
+
+  tulis "a end=",a,"\n"
+
+  balik ret
+}
+

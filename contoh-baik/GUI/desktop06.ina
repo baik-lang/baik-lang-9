@@ -1,0 +1,34 @@
+# ##########################################
+# tes program Desktop dengan BAIK5 - KERTAS
+# ##########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "KERTAS dgn BAIK v5"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+kertas1 = kertas
+
+set_kertas kertas1, "ini area KERTAS 
+buat menulis apa saja\n
+bisa lebih dari satu baris\n
+\n
+\n
+BAIK Bahasa Komputer Indonesia\n"
+
+set_warnahuruf kertas1, "biru laut"
+set_warnadasar kertas1, "hijau zaitun"
+hias_alas alas1, kertas1, 10, 10, 260, 85
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

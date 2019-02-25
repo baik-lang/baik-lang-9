@@ -408,14 +408,14 @@ void string_printData(void){
     struct string_list *ptr_loc=NULL;
     long i=0;
 
-    printf("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n");
+    printf("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| <BR>\n");
     for ( ptr_loc = pstartstr ; ptr_loc ; ptr_loc = ptr_loc->pnext ){
       if(strlen(ptr_loc->mystring) > 0) {
-		 printf("stackid %li var: %s\n", ptr_loc->stackid, ptr_loc->mystring);
+		 printf("stackid %li var: %s <BR>\n", ptr_loc->stackid, ptr_loc->mystring);
       }
       i++;
     }
-    printf("|___________________________________|\n");
+    printf("|___________________________________| <BR>\n");
 }
 
 //

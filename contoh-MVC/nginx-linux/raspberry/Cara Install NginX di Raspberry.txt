@@ -1,0 +1,20 @@
+# ######################################
+# Cara Install NginX di Raspberry
+# ######################################
+
+1. Sambung Raspberry ke Internet
+
+2. Ambil package 
+   apt-get install nginx-full
+   apt-get install libfcgi-dev
+   apt-get install spawn-fcgi
+   apt-get install fcgiwrap
+
+3. Kompilasi BAIK
+   copy baik ke /usr/bin/baik
+
+4. Setup konfigurasi Nginx seperti pada direktory etc_nginx
+
+Selesai.
+
+

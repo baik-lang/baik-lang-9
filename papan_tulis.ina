@@ -1,0 +1,288 @@
+# ###########################################
+# PAPAN TULIS dgn Printer - BAIK versi 7
+# ###########################################
+global jenis_font, besar_font, nm_file, print_ope
+jenis_font = "Arial"
+besar_font = 10
+
+global tinggi_print, lebar_print
+global tinggi_teks,  lebar_teks
+
+global tot_baris, tot_hal, baris_per_hal
+global isi_arsip, isi_baris
+
+global step_line
+global jarak_baris, jarak_kopheader
+jarak_baris = 6
+
+global TINGGI_HEADER, CELAH_HEADER
+TINGGI_HEADER = 18.0
+CELAH_HEADER  = 8.5
+
+global lyr1
+# ###########################################
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Papan Tulis dgn Cetak Printer"
+luas_layar  lyr1, 400, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnPemisah1 = menu_pemisah
+mnPemisah2 = menu_pemisah
+mnPemisah3 = menu_pemisah
+mnPemisah4 = menu_pemisah
+
+mnMenu1  = isi_menu "Utama"
+mnBaru   = isi_menu "Tulis TeKs"
+
+mnBuka   = isi_menu "Buka TeKs"
+mnSimpan   = isi_menu "Simpan TeKs"
+
+mnHapus  = isi_menu "Hapus Teks"
+mnSalin  = isi_menu "Salin Teks Papanklip"
+mnPotong  = isi_menu "Potong Teks Papanklip"
+mnUnduh  = isi_menu "Unduh Teks Papanklip"
+
+mnPrint = isi_menu "Cetak Teks"
+
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnPemisah1
+
+ tambah_menu  mn01, mnBuka
+ tambah_menu  mn01, mnSimpan
+ tambah_menu  mn01, mnPemisah2
+
+ tambah_menu  mn01, mnHapus
+ tambah_menu  mn01, mnSalin
+ tambah_menu  mn01, mnPotong
+ tambah_menu  mn01, mnUnduh
+
+ tambah_menu  mn01, mnPemisah3
+ tambah_menu  mn01, mnPrint
+
+ tambah_menu  mn01, mnPemisah4
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+
+# -------------------------
+
+mn02       = menu
+
+mnMenu2    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnLencana
+akhir_menu    papan, mnMenu2
+
+# ==========================
+
+susun_menu alas1, papan
+
+# ==========================
+
+jt_nama = "Papan Tulis BAIK"
+jt_versi = "versi 2.0"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Bahasa Komputer berejaan Indonesia"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "BaikLogo3.png"
+aksi_jatidiri  mnLencana, jt_nama, 
+               jt_versi, jt_penulis, jt_komentar, jt_www, jt_logo
+
+# ==========================
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+teks1 = kertas
+set_kertas teks1, "ini papan tulis haris"
+hias_layar_gulung lyr2, teks1
+
+tampil_layar lyr1
+tampil_layar lyr2
+
+kl = papanklip
+
+aksi_fungsi mnBaru, &aksi1(teks1)
+aksi_fungsi mnHapus, &aksi2(teks1)
+aksi_fungsi mnSalin, &aksi3(teks1, kl)
+aksi_fungsi mnPotong, &aksi4(teks1, kl)
+aksi_fungsi mnUnduh, &aksi5(teks1, kl)
+
+aksi_fungsi mnSimpan, &aksi6(teks1)
+aksi_fungsi mnBuka, &aksi7(teks1)
+
+aksi_fungsi mnPrint, &aksi8(teks1)
+
+tutup_program mnKeluar
+tutup_program lyr1
+
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(kertas1) {
+  kt  = teks_terpilih kertas1
+  pos = posisi_teks kertas1
+
+  tulis "teks terpilih => ", kt, "\n"
+  tulis "teks posisi => ", pos, "\n"
+
+}
+
+Fungsi aksi2(kertas1) {
+  hapus_teks_terpilih kertas1
+}
+
+Fungsi aksi3(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  salin_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi4(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  potong_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi5(kertas1, klip1) {
+  krt = kertas1
+  klip = klip1
+  unduh_teks_papanklip krt, klip
+}
+
+Fungsi aksi6(kertas1) {
+  # ambil teks dari kertas
+  A = teks_kertas kertas1
+
+  # buka dialog arsip
+  arsip1 = Dialog_Arsip
+
+  kalau arsip1 <> "" maka
+    fid = arsip arsip1, "t"
+      # tulis teks ke arsip
+      simpan_teks fid, A
+    tutup fid
+  akhirkalau
+
+  tulis "simpan arsip selesai.\n"
+
+}
+
+Fungsi aksi7(kertas1) {
+  # buka dialog arsip
+  arsip1 = Dialog_Arsip
+
+  kalau arsip1 <> "" maka
+    fid = arsip arsip1, "b"
+      # ambil teks dari arsip
+      A = baca_teks fid
+    tutup fid
+
+    set_kertas kertas1, A
+  akhirkalau
+
+  tulis "ambil arsip selesai.\n"
+
+}
+
+Fungsi aksi8(kertas1) {
+  tulis "Cetak Printer ...\n"
+
+  print_ope = operasi_cetak
+  aksi_siap_cetak print_ope, &lakukan2_1(kertas1)
+  aksi_cetak_teks print_ope, &lakukan2_2()
+  mulai_cetak lyr1, print_ope
+
+}
+
+Fungsi lakukan2_1(mykertas) {
+  isi_arsip =  teks_kertas mykertas
+  isi_baris = pisah_per_baris isi_arsip
+  tot_baris = jumlah_baris_arsip isi_baris
+
+  step_line  = besar_font + besar_font * 5 + jarak_baris
+  jarak_kopheader = step_line * 2
+
+  tinggi_print = tinggi_cetakan TINGGI_HEADER, CELAH_HEADER
+  tinggi_print = tinggi_print - jarak_kopheader
+
+  baris_per_hal = baris_per_halaman tinggi_print, besar_font, jarak_baris
+  baris_per_hal = abs baris_per_hal
+
+  tot_hal = (tot_baris - 1) / baris_per_hal + 1
+  set_operasi_cetak print_ope, tot_hal
+
+  hapus isi_arsip
+}
+
+Fungsi lakukan2_2() {
+  konteks       = konteks_cetakan
+  lebar_print   = lebar_cetakan
+  layout_print  = tatanan_cetakan
+
+  atribut_print = set_atribut_cetak layout_print, jenis_font, besar_font
+
+# -------------------------------------------------------------------
+  tinggi_teks = tinggi_teks_cetak layout_print
+
+  posx = 300
+  posy =  (TINGGI_HEADER - tinggi_teks) / 2
+  tulis_teks_cetak konteks, layout_print, posx, posy, "Contoh Cetak Teks dengan BAIK 7"
+# -------------------------------------------------------------------
+  n = halaman_aktual
+  tot_hal = absolut tot_hal
+  view_hal = gabung n, "/", tot_hal
+
+  lebar_teks = lebar_teks_cetak layout_print, view_hal
+
+  posx = lebar_print - lebar_teks - 100
+  posy =  (TINGGI_HEADER - tinggi_teks) / 2
+  tulis_teks_cetak konteks, layout_print, posx, posy, view_hal
+# -------------------------------------------------------------------
+  start_line = (n - 1) * baris_per_hal
+  end_line   = (n - 1) * baris_per_hal + baris_per_hal
+
+  jarak_kopheader = step_line * 2
+
+
+  untuk(i=start_line; i < end_line; i++) ulang
+      kalau i >= tot_baris maka keluar_untuk
+      posx = 0
+
+      kalau i == 0 maka
+        posy = step_line
+      lainkalau i < baris_per_hal maka
+        posy = step_line + i * step_line
+      lainnya
+        posy = step_line + (i - start_line) * step_line
+      akhirkalau
+
+      posy = posy + jarak_kopheader
+
+      msg  = teks_per_baris isi_baris, i
+      tulis_teks_cetak konteks, layout_print, posx, posy, msg
+  lagi
+
+}
+
+
+

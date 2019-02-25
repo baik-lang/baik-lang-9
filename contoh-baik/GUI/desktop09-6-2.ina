@@ -1,0 +1,28 @@
+# ################################
+# BAIK5 - CITRA
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "CITRA Gambar dgn BAIK v5"
+luas_layar  lyr1, 250, 180
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+aksi_tutup_program lyr1
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+gmb = citra "BaikLogo3.png"
+hias_layar lyr2, gmb
+
+tampil_layar lyr1
+tampil_layar lyr2
+kibar_layar
+
+TAMAT
+

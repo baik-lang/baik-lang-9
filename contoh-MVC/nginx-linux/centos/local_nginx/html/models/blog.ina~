@@ -1,0 +1,10 @@
+
+sub handle(myparams) {
+
+    mystr = "Hello MVC Baik"
+    tulis "INSIDE: ", mystr, "<BR>\n"
+    tulis "INSIDE: ", myparams, "<BR>\n"
+
+    balik mystr
+
+}

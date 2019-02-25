@@ -1,0 +1,50 @@
+#!/usr/local/bin/baik
+
+tulis "Content-type: text/html\n\n";
+
+# inisialisasi
+buffer = ""
+model  = ""
+
+# ambil data GET dari web request
+buffer = lingkup "QUERY_STRING"; 
+argumen[] = pisah buffer, "="
+
+urltarget = argumen[1]
+params[]  = pisah urltarget, "/"
+model     = params[0]
+
+tulis "<html>\n<body>\n";
+tulis "<div style=\"width: 100%; font-size: 28px; font-weight: bold; text-align: center;\">\n";
+tulis "SAKTI - Struktur, Alur, Kontrol Tampilan Internet";
+tulis "\n</div>\n";
+
+l = panjang argumen
+tulis "panjang data = ", l, "<BR>\n"
+untuk(i=0;i<l;i=i+1) ulang
+  tulis "argumen[",i,"] = ", argumen[i], "<BR>\n"
+lagi
+
+tulis "model: ", model, "<BR>\n"
+
+mymodel = gabung "./models/", model, ".ina"
+tulis "mymodel: ", mymodel, "<BR>\n"
+
+kode_luar mymodel
+
+tulis "after loading include file ... <BR>"
+
+ret = &handle(buffer)
+
+tulis "ret: ", ret, "<BR>\n"
+
+myview = gabung "./views/", model, ".ina"
+tulis "myview: ", myview, "<BR>\n"
+
+rupa_html myview
+
+
+tulis "</body>\n</html>\n";
+
+
+

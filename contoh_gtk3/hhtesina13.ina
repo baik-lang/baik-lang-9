@@ -1,0 +1,105 @@
+# ################################
+# tes GUI MENU dengan BAIK9
+# tekan tombol-selesai untuk keluar
+# ################################
+a=1
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MENU dan Rambu Program dgn BAIK9"
+luas_layar  lyr1, 400, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan1 = papan_menu
+
+# -------------------------
+mn01     = menu
+
+mnFile   = isi_menu "Utama"
+mnBaru   = isi_menu "Info Baru"
+mnAwas   = isi_menu "Peringatan Baru"
+mnSalah  = isi_menu "Kesalahan Baru"
+
+mnPemisah = menu_pemisah
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnFile, mn01
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnAwas
+ tambah_menu  mn01, mnSalah
+
+ tambah_menu  mn01, mnPemisah
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan1, mnFile
+
+# -------------------------
+mn02       = menu
+
+mnMenu2    = isi_menu     "Tampilan"
+mnStat     = isi_menu_cek "Papan Status"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnStat
+akhir_menu    papan1, mnMenu2
+
+# -------------------------
+
+mn03       = menu
+
+mnMenu3    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu3, mn03
+ tambah_menu  mn03, mnLencana
+akhir_menu    papan1, mnMenu3
+
+# ==========================
+susun_menu alas1, papan1
+
+
+# -------------------------
+papan2 = papan_status
+susun_papan_status alas1, papan2
+
+# ==========================
+
+aksi_fungsi mnStat, &aksi1(mnStat, papan2)
+
+aksi_tutup_program lyr1
+
+aksi_rambu_info  mnBaru, "Ini Rambu Info", "tes tampil rambu Info"
+aksi_rambu_awas  mnAwas, "Ini Peringatan", "tes tampil rambu Peringatan", "baik_logo.png"
+aksi_rambu_salah  mnSalah, "Ini Kesalahan", "tes tampil rambu Kesalahan"
+
+jt_nama = "Bahasa BAIK"
+jt_versi = "ver 5"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Bahasa Komputer berejaan Indonesia"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "baik_logo.png"
+aksi_jatidiri  mnLencana, jt_nama, jt_versi, jt_penulis, jt_komentar, jt_www, jt_logo
+
+aksi_tutup_program mnKeluar
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+# ################################
+Fungsi aksi1(mnstat1, pitastatus) {
+  a = status_menu_cek mnstat1
+  tulis "status => ", a, "\n"
+
+  kalau a==1 maka
+   tulis "status ada cek\n"
+  lainnya
+    tulis "status tidak ada cek\n"
+  akhirkalau
+
+}

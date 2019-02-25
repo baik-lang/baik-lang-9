@@ -1,0 +1,27 @@
+
+sub handle(myparams) {
+
+  mystr = "OK"
+
+  tulis "Data Input<BR>"
+
+  tulis "<FORM METHOD='post' ACTION='index.ina?url=kontrol/inputdb.ina'>"
+
+  tulis "<table>"
+  tulis "  <tr><td>Produk : </td><td><INPUT TYPE='text' NAME='data0' SIZE='50'></td></tr>"
+  tulis "  <tr><td>Merk :   </td><td><INPUT TYPE='text' NAME='data1' SIZE='50'></td></tr>"
+  tulis "  <tr><td>Harga:   </td><td><INPUT TYPE='text' NAME='data2' SIZE='50'></td></tr>"
+  tulis "  <tr><td>Tanggal :</td><td><INPUT TYPE='text' NAME='data3' SIZE='50'></td></tr>"
+  tulis "  <tr><td>Stok :   </td><td><INPUT TYPE='text' NAME='data4' SIZE='50'></td></tr>"
+  tulis "  <BR>"
+  tulis "</table>"
+
+  tulis "  <INPUT TYPE='submit' VALUE='MASUKAN'>"
+  tulis "</FORM>"
+
+
+
+  balik mystr
+
+}
+

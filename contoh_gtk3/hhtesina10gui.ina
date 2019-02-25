@@ -1,0 +1,35 @@
+# ################################
+# tes GUI program dengan BAIK9
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "GUI Tombol dan Aksi_Rambu Program dgn BAIK9"
+luas_layar  lyr1, 400, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+tmb1 = tombol "tmb01"
+hias_alas alas1, tmb1, 150, 50, 80, 35
+
+tmb2 = tombol "tmb02"
+hias_alas alas1, tmb2, 15, 15, 80, 35
+
+tmb3 = tombol "tmb03"
+hias_alas alas1, tmb3, 100, 100, 80, 35
+
+aksi_rambu_info   tmb1, "Ini Info", "tes rambu info"
+aksi_rambu_awas   tmb2, "Ini Peringatan", "tes rambu awas", "baik_logo.png"
+aksi_rambu_salah  tmb3, "Ini Rambu Salah", "tes rambu SALAH"
+
+
+aksi_tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT

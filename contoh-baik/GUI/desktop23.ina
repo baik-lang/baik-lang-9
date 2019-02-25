@@ -1,0 +1,48 @@
+# ###################################
+# tes GUI dengan BAIK5 - PAPAN_STATUS
+# ###################################
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Aksi Papan Status dgn BAIK"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+papan1 = papan_status
+susun_papan_status alas1, papan1
+
+set_status papan1, "helo haris"
+
+lyr2 = layar_gulung
+isi_alas_tegak alas1, lyr2
+
+alas2 = alas_tetap
+hias_layar lyr2, alas2
+tombol01 = tombol "tulis status"
+hias_alas alas2, tombol01, 50, 50, 80, 35
+
+tombol02 = tombol "hapus status"
+hias_alas alas2, tombol02, 180, 50, 80, 35
+
+aksi_fungsi tombol01, &aksi1(papan1)
+aksi_fungsi tombol02, &aksi2(papan1)
+
+aksi_tutup_layar lyr1
+tampil_layar lyr1
+
+kibar_layar
+
+TAMAT
+
+
+# ################################
+Fungsi aksi1(pitastatus) {
+  set_status pitastatus, "Helo Haris BAIK"
+}
+
+Fungsi aksi2(pitastatus) {
+  hapus_status pitastatus
+}
+

@@ -1,0 +1,30 @@
+# ################################
+# tes program Desktop dengan BAIK5
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TIPS dgn BAIK v5"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+btn00 = tombol "tombol0"
+set_tips btn00,"tekan tombol ini"
+hias_alas alas1, btn00, 20, 20, 80, 35
+
+btn01 = tombol "tombol1"
+set_warnadasar btn01, "biru"
+set_tips btn01,"tekan tombol ini"
+hias_alas alas1, btn01, 110, 60, 80, 35
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

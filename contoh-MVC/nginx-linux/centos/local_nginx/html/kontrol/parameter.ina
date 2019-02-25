@@ -1,0 +1,22 @@
+
+
+sub setParam() {
+  # inisialisasi parameter
+  # ######################################################################
+  # Hati-hati dgn variable GLOBAL
+  global kon    # untuk koneksi database
+  global num    # untuk total data dr database
+  global hasil  # untuk data dr database
+
+  buffer = ""
+  model  = ""
+
+  ### parameter untuk database
+  alamatdb  = "localhost"
+  pemakai   = "haris"
+  katasandi = "haris"
+  namadb    = "warungdb"
+  nomerport =  3306
+
+  # ######################################################################
+}

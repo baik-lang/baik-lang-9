@@ -1,0 +1,887 @@
+
+
+
+// ///////////////////////////////////////////////////////
+
+
+MVCPARSING MVC_expression(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  return ( MVC_AndOr(mvc_lex, mvc_pg) );
+}
+
+
+
+MVCPARSING MVC_AndOr(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  MVCPARSING dat, tmp;
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  memset(&dat, '\0', sizeof(dat));
+  memset(&tmp, '\0', sizeof(tmp));
+
+  dat.val=0; tmp.val=0;
+  dat = MVC_NotFunc(mvc_lex, mvc_pg);
+
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_AndOr: Program berhenti diluar perkiraan");
+
+  while ( mvc_lex.type == _MVC_OR || mvc_lex.type == _MVC_AND ){
+
+    switch( mvc_lex.type )
+      {
+      case _MVC_AND:
+        tmp = MVC_NotFunc(mvc_lex, mvc_pg);
+	dat.val = ( dat.val && tmp.val ) ? 1 : 0;
+	break;
+      case _MVC_OR:
+        tmp = MVC_NotFunc(mvc_lex, mvc_pg);
+	dat.val = ( dat.val || tmp.val ) ? 1 : 0;
+	break;
+      }
+
+    //getlex();
+    par = MVCgetlex(mvc_lex, mvc_pg);
+    mvc_lex = par.mvc_lex;
+    mvc_pg  =par.mvc_pg;
+  }
+
+  //ungetlex();
+  par = MVCungetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  // printf("MVC_AndOr val %d\n", dat.val);
+  // printf("MVC_AndOr str %s\n", dat.str);
+
+  dat.mvc_lex = mvc_lex;
+  dat.mvc_pg  = mvc_pg;
+
+  return dat;
+}
+
+
+
+MVCPARSING MVC_NotFunc(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  MVCPARSING datx, tmp;
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  memset(&datx, '\0', sizeof(datx));
+  memset(&tmp, '\0', sizeof(tmp));
+
+  datx.val=0; tmp.val=0;
+
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_NotFunc: Program berhenti diluar perkiraan");
+
+  if( mvc_lex.type != _NOT ){
+    //ungetlex();
+    par = MVCungetlex(mvc_lex, mvc_pg);
+    mvc_lex = par.mvc_lex;
+    mvc_pg  =par.mvc_pg;
+
+    // printf("MVC_NotFunc: before MVC_Compare\n");
+    tmp = MVC_Compare(mvc_lex, mvc_pg);
+    // printf("MVC_NotFunc: after MVC_Compare\n");
+
+    return ( tmp );
+  }
+
+  // printf("MVC_NotFunc: before MVC_Compare\n");
+  tmp = MVC_Compare(mvc_lex, mvc_pg);
+  // printf("MVC_NotFunc: after MVC_Compare\n");
+
+  datx.val = ( ( tmp.val != 0 ) ? 0 : 1 );
+
+  // printf("MVC_NotFunc datx_val %d\n" , datx.val);
+
+  datx.mvc_lex = mvc_lex;
+  datx.mvc_pg  = mvc_pg;
+
+  return datx;
+}
+
+
+MVCPARSING MVC_Compare(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  MVCPARSING datx = MVC_AddSub(mvc_lex, mvc_pg);
+  MVCPARSING daty = datx;
+
+  MVCPARSING datx2;
+
+  char symbol;
+  int idx, idx2;
+
+  MVCPARSING tmp;
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  memset(&datx2, '\0', sizeof(datx2));
+  memset(&tmp, '\0', sizeof(tmp));
+
+  // printf("inside MVC_Compare\n");
+
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_Compare: Program berhenti diluar perkiraan");
+
+  if( ( mvc_lex.type != TYPE_MVC_SYM ) || 
+      ( mvc_lex.detail.symbol != '=' &&
+        mvc_lex.detail.symbol != '<' &&
+        mvc_lex.detail.symbol != '>' ) ){
+
+    //ungetlex();
+    par = MVCgetlex(mvc_lex, mvc_pg);
+    mvc_lex = par.mvc_lex;
+    mvc_pg  =par.mvc_pg;
+
+    return daty;
+  }
+
+  symbol = mvc_lex.detail.symbol;
+
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_Compare: Program berhenti diluar perkiraan");
+
+  switch( symbol )
+    {
+    case '=':
+      if( mvc_lex.type == TYPE_MVC_SYM ){
+	switch( mvc_lex.detail.symbol )
+	  {
+
+	  case '=':
+            /* printf("perbandingan , type %d\n", datx.datatype); */
+            if(datx.datatype == 0) {
+              /*
+              perbandingan : integer
+              return : integer
+              */
+              daty.val = ( datx.val == MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+            } else if(datx.datatype == 1) {
+              daty.val = ( datx.floatdata == MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+            } else if(datx.datatype == 3 || datx.datatype == 42 ) {
+              tmp = MVC_AddSub(mvc_lex, mvc_pg);
+              if( !strcmp(datx.str, tmp.str) ) {
+                daty.val = 1;
+              } else { 
+                daty.val = 0;
+              }   
+            } else if(datx.datatype == 8) {
+              /* array string */
+              // printf("perbandingan array string \n");
+              idx = atoi(datx.array_idx);
+              /*printf("s %s\n", datx.array_s[idx]); */
+              datx2 = MVC_AddSub(mvc_lex, mvc_pg);
+              // printf("datx2 s %s %d\n", datx2.str, datx2.datatype);
+              if(datx2.datatype == 0 || datx2.datatype == 3) {
+
+                  memset(&TmpStrBox.var.array_name, '\0', sizeof(TmpStrBox.var.array_name));
+
+                  strcpy(TmpStrBox.var.array_name, datx.array_name);
+				  renban = datx.array_s;
+				  if(renban < 0) {
+                    printf("! variabel untaian tidak ditemukan\n");
+				  } else {
+                    TmpStrBox.str.stackid = renban;
+                    TmpStrBox.str.idx = idx;
+
+					strarryPos = string_findData(TmpStrBox.str);
+					if(strarryPos < 0) {
+  					  printf("! nilai untaian kata tidak ditemukan\n");
+					} else {
+                      TmpStrBox.str = string_getElement(strarryPos);
+					  // printf("get datx str %s\n", TmpStrBox.str.mystring);
+					  daty.val = (!strcmp(TmpStrBox.str.mystring, datx2.str) ) ? 1 : 0;
+
+					}
+
+				  }
+
+				  //daty.val = ( datx.array_s == datx2.str) ) ? 1 : 0;
+              } else if(datx2.datatype == 8) {
+                idx2 = atoi(datx2.array_idx);
+				daty.val = ( datx.array_s == datx2.array_s ) ? 1 : 0;
+              }
+            }
+
+	    break;
+	  default:
+	    Error("setelah '=', ada simbol lain selain '=' ");
+	  }
+      }
+      /* '=' */
+      else{
+	    //ungetlex();
+            par = MVCungetlex(mvc_lex, mvc_pg);
+            mvc_lex = par.mvc_lex;
+            mvc_pg  =par.mvc_pg;
+	    return ( MVC_AddSub(mvc_lex, mvc_pg) );
+      }
+      break;
+      
+    case '>':
+      if( mvc_lex.type == TYPE_MVC_SYM ){
+	switch( mvc_lex.detail.symbol )
+	  {
+	    /* '>=' */
+	  case '=':
+            if(datx.datatype == 0) {
+              daty.val = ( datx.val >= MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+            } else  if(datx.datatype == 1) {
+              daty.val = ( datx.floatdata >= MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+            }
+
+	    break;
+	  default:
+	    Error("setelah '>', ada simbol lain selain '=' ");
+	  }
+      }
+      /* '>' */
+      else{
+	//ungetlex();
+        par = MVCungetlex(mvc_lex, mvc_pg);
+        mvc_lex = par.mvc_lex;
+        mvc_pg  =par.mvc_pg;
+
+        if(datx.datatype == 0) {
+          daty.val = ( datx.val > MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+        } else  if(datx.datatype == 1) {
+          daty.val = ( datx.floatdata > MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+      }
+      break;
+      
+    case '<':
+      if( mvc_lex.type == TYPE_MVC_SYM ){
+	switch( mvc_lex.detail.symbol )
+	  {
+	    /* '<>' */
+	  case '>':
+            if(datx.datatype == 0) {
+              daty.val = ( datx.val != MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+            } else  if(datx.datatype == 1) {
+              daty.val = ( datx.floatdata != MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+            } else  if(datx.datatype == 3 ||   // string
+				       datx.datatype == 42 ||  // font dialog
+					   datx.datatype == 43 ||  // color dialog
+					   datx.datatype == 44     // arsip dialog 
+					   ) { 
+              tmp = MVC_AddSub(mvc_lex, mvc_pg);
+              daty.val = ( strcmp(datx.str, tmp.str) ) ? 1 : 0;
+            } else if(datx.datatype == 8) {
+              /* array string */
+              idx = atoi(datx.array_idx);
+              /*printf("s %s\n", datx.array_s[idx]); */
+              datx2 = MVC_AddSub(mvc_lex, mvc_pg);
+              /* printf("s %s %d\n", datx2.str, datx2.datatype); */
+              if(datx2.datatype == 0 || datx2.datatype == 3) {
+
+                  memset(&TmpStrBox.var.array_name, '\0', sizeof(TmpStrBox.var.array_name));
+                  strcpy(TmpStrBox.var.array_name, datx.array_name);
+				  renban = datx.array_s;
+				  if(renban < 0) {
+                    printf("> variabel untaian tidak ditemukan\n");
+				  } else {
+                    TmpStrBox.str.stackid = renban;
+                    TmpStrBox.str.idx = idx;
+
+					strarryPos = string_findData(TmpStrBox.str);
+					if(strarryPos < 0) {
+  					  printf("> nilai untaian kata tidak ditemukan\n");
+					} else {
+                      TmpStrBox.str = string_getElement(strarryPos);
+					  daty.val = ( !strcmp(TmpStrBox.str.mystring, datx2.str) ) ? 1 : 0;
+
+					}
+
+				  }
+
+				  // daty.val = ( strcmp(datx.array_s[idx].str, datx2.str) ) ? 1 : 0;
+              } else if(datx2.datatype == 8) {
+
+               idx2 = atoi(datx2.array_idx);
+
+                  memset(&TmpStrBox.var.array_name, '\0', sizeof(TmpStrBox.var.array_name));
+                  strcpy(TmpStrBox.var.array_name, datx.array_name);
+				  renban = datx.array_s;
+				  if(renban < 0) {
+                    printf(">2 variabel untaian tidak ditemukan\n");
+				  } else {
+                    TmpStrBox.str.stackid = renban;
+                    TmpStrBox.str.idx = idx;
+
+					strarryPos = string_findData(TmpStrBox.str);
+					if(strarryPos < 0) {
+  					  printf(">2 nilai untaian kata tidak ditemukan\n");
+					} else {
+                      TmpStrBox.str = string_getElement(strarryPos);
+					}
+
+				  }
+
+
+                  memset(&TmpStrBox2.var.array_name, '\0', sizeof(TmpStrBox2.var.array_name));
+                  strcpy(TmpStrBox2.var.array_name, datx2.array_name);
+				  renban = datx2.array_s;
+				  if(renban < 0) {
+                    printf(">3 variabel untaian tidak ditemukan\n");
+				  } else {
+                    TmpStrBox2.str.stackid = renban;
+                    TmpStrBox2.str.idx = idx2;
+
+					strarryPos = string_findData(TmpStrBox2.str);
+					if(strarryPos < 0) {
+  					  printf(">3 nilai untaian kata tidak ditemukan\n");
+					} else {
+                      TmpStrBox2.str = string_getElement(strarryPos);
+
+					  daty.val = ( !strcmp(TmpStrBox.str.mystring, TmpStrBox2.str.mystring) ) ? 1 : 0;
+
+					}
+
+				  }
+
+				// daty.val = ( strcmp(datx.array_s[idx].str, datx2.array_s[idx2].str) ) ? 1 : 0;
+
+              }
+            }
+	    break;
+	    /* '<=' */
+	  case '=':
+            if(datx.datatype == 0) {
+              daty.val = ( datx.val <= MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+            } else  if(datx.datatype == 1) {
+              daty.val = ( datx.floatdata <= MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+            }
+
+	    break;
+	  default:
+	    Error("setelah '<', ada simbol lain selain '>' atau '=' ");
+	  }
+      }
+      else{
+	//ungetlex();
+        par = MVCgetlex(mvc_lex, mvc_pg);
+        mvc_lex = par.mvc_lex;
+        mvc_pg  =par.mvc_pg;
+
+        if(datx.datatype == 0) {
+          daty.val = ( datx.val < MVC_AddSub(mvc_lex, mvc_pg).val ) ? 1 : 0;
+        } else  if(datx.datatype == 1) {
+          daty.val = ( datx.floatdata < MVC_AddSub(mvc_lex, mvc_pg).floatdata ) ? 1 : 0;
+        }
+
+
+      }
+      break;
+      
+    default:
+      Error("Salah tata kalimat");
+    }
+
+  daty.mvc_lex = mvc_lex;
+  daty.mvc_pg  = mvc_pg;
+
+  return daty;
+}
+
+
+
+MVCPARSING MVC_AddSub(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  /* datatype¡§0->int, 1->float, 2->File, 3->String */
+
+  MVCPARSING datx = MVC_MultiDiv(mvc_lex, mvc_pg);
+  MVCPARSING datx2;
+  int idx, idx2;
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  memset(&datx2, '\0', sizeof(datx2));
+
+  // printf("MVC_AddSub datatype : %d\n" , datx.datatype); 
+
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_AddSub: Program berhenti diluar perkiraan");
+  
+  while( mvc_lex.type == TYPE_MVC_SYM && 
+	 ( mvc_lex.detail.symbol == '+' ||
+	   mvc_lex.detail.symbol == '-' ) ){
+
+    switch( mvc_lex.detail.symbol )
+      {
+      case '+':
+        if(datx.datatype == 0) {
+          datx2 = MVC_MultiDiv(mvc_lex, mvc_pg);
+          if(datx2.datatype == 0) {
+            datx.val = datx.val + datx2.val;
+            datx.datatype = 0;
+          } else if(datx2.datatype == 1) {
+            datx.floatdata = datx.val + datx2.floatdata;
+            datx.datatype = 1;
+          } else {
+            Error("salah dalam penjumlahan");
+          }
+	} else if(datx.datatype == 1) {
+          datx2 = MVC_MultiDiv(mvc_lex, mvc_pg);
+          if(datx2.datatype == 0) {
+            datx.floatdata = datx.floatdata + datx2.val;
+          } else if(datx2.datatype == 1) {
+            datx.floatdata = datx.floatdata + datx2.floatdata;
+          } else {
+            Error("salah dalam penjumlahan");
+          }
+          datx.datatype = 1;
+          /* printf("f (a+b) : %f\n" , datx.floatdata); */
+	} else {
+          Error("salah dalam penjumlahan");
+        }
+	break;
+	
+      case '-':
+        if(datx.datatype == 0) {
+          datx2 = MVC_MultiDiv(mvc_lex, mvc_pg);
+          if(datx2.datatype == 0) {
+            datx.val = datx.val - datx2.val;
+            datx.datatype = 0;
+          } else if(datx2.datatype == 1) {
+            datx.floatdata = datx.val - datx2.floatdata;
+            datx.datatype = 1;
+          } else {
+            Error("salah dalam pengurangan");
+          }
+        } else if(datx.datatype == 1) {
+          datx2 = MVC_MultiDiv(mvc_lex, mvc_pg);
+          if(datx2.datatype == 0) {
+            datx.floatdata = datx.floatdata - datx2.val;
+          } else if(datx2.datatype == 1) {
+            datx.floatdata = datx.floatdata - datx2.floatdata;
+          } else {
+            Error("salah dalam pengurangan");
+          }
+          datx.datatype = 1;
+        } else {
+          Error("salah dalam pengurangan");
+        }
+	break;
+      }
+
+    //getlex();
+    par = MVCgetlex(mvc_lex, mvc_pg);
+    mvc_lex = par.mvc_lex;
+    mvc_pg  =par.mvc_pg;
+
+  }
+
+  //ungetlex();
+  par = MVCungetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+
+  datx.mvc_lex = mvc_lex;
+  datx.mvc_pg  = mvc_pg;
+
+  return datx;
+}
+
+
+
+MVCPARSING MVC_MultiDiv(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  /* datatype¡§0->int, 1->float, 2->File, 3->String */
+
+  MVCPARSING datx = MVC_Factor(mvc_lex, mvc_pg);
+  MVCPARSING daty = datx;
+
+  int idx, idx2;
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  // printf("MVC_MultiDiv datatype  : %d\n" , datx.datatype);
+  // printf("MVC_MultiDiv ident : %s\n" , datx.str);
+  
+  //getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  if( mvc_lex.type == _MVC_EOF )
+    Error("MVC_MultiDiv: Program berhenti diluar perkiraan");
+
+  while( mvc_lex.type == TYPE_MVC_SYM && 
+	 ( mvc_lex.detail.symbol == '*' ||
+	   mvc_lex.detail.symbol == '/' ||
+	   mvc_lex.detail.symbol == '^' ||
+	   mvc_lex.detail.symbol == '%' ) ){
+    
+    switch( mvc_lex.detail.symbol )
+      {
+      case '*':
+	datx = MVC_Factor(mvc_lex, mvc_pg);
+
+        if(daty.datatype == 0 && datx.datatype == 0) {
+	  daty.val = daty.val * datx.val;
+          daty.datatype = 0;
+        } else if(daty.datatype == 1 && datx.datatype == 0) {
+	  daty.floatdata = daty.floatdata * datx.val;
+          daty.datatype = 1;
+        } else if(daty.datatype == 0 && datx.datatype == 1) {
+	  daty.floatdata = daty.val * datx.floatdata;
+          daty.datatype = 1;
+        } else if(daty.datatype == 1 && datx.datatype == 1) {
+	  daty.floatdata = daty.floatdata * datx.floatdata;
+          daty.datatype = 1;
+
+        } else {
+	  Error("Salah dalam perkalian");
+        }
+
+
+	break;
+	
+      case '/':
+	datx = MVC_Factor(mvc_lex, mvc_pg);
+
+        if(daty.datatype == 0 && datx.datatype == 0) {
+	  if( datx.val == 0 )
+	    Error("Dibagi dengan Nol");
+	  daty.floatdata = (float)daty.val / (float)datx.val;
+        } else if(daty.datatype == 1 && datx.datatype == 0) {
+	  if( datx.val == 0 )
+	    Error("Dibagi dengan Nol");
+	  daty.floatdata = daty.floatdata / (float)datx.val;
+        } else if(daty.datatype == 0 && datx.datatype == 1) {
+	  if( datx.floatdata == 0.0 )
+	    Error("Dibagi dengan Nol");
+	  daty.floatdata = (float)daty.val / datx.floatdata;
+        } else if(daty.datatype == 1 && datx.datatype == 1) {
+	  if( datx.floatdata == 0.0 )
+	    Error("Dibagi dengan Nol");
+	  daty.floatdata = daty.floatdata / datx.floatdata;
+
+        } else {
+	  Error("Salah dalam pembagian");
+        }
+
+        //printf("y: %d\n" , daty.val);
+        //printf("x: %d\n" , datx.val);
+        // printf("f (y/x) : %f\n" , daty.floatdata);
+
+        daty.val = datx.val; /* pos */
+
+        daty.datatype = 1;
+
+	break;
+	
+      case '^':
+	datx = MVC_Factor(mvc_lex, mvc_pg);
+
+        if(daty.datatype == 0 && datx.datatype == 0) {
+	  daty.val = (int) pow ( daty.val , datx.val );
+          daty.datatype = 0;
+        } else if(daty.datatype == 1 && datx.datatype == 0) {
+	  daty.floatdata = pow ( daty.floatdata , (float)datx.val );
+          daty.val = datx.val; /* pos */
+          daty.datatype = 1;
+        } else if(daty.datatype == 0 && datx.datatype == 1) {
+	  daty.floatdata = pow ( (float)daty.val , datx.floatdata );
+          daty.val = datx.val; /* pos */
+          daty.datatype = 1;
+        } else if(daty.datatype == 1 && datx.datatype == 1) {
+	  daty.floatdata = pow ( daty.floatdata , datx.floatdata );
+          daty.val = datx.val; /* pos */
+          daty.datatype = 1;
+
+        } else {
+	  Error("Salah dalam pemangkatan");
+        }
+
+        //printf("y: %d\n" , daty.val);
+        //printf("x: %d\n" , datx.val);
+        //printf("f (y^x) : %f\n" , daty.floatdata);
+
+	break;
+
+
+      case '%':
+	datx = MVC_Factor(mvc_lex, mvc_pg);
+
+        if(daty.datatype == 0 && datx.datatype == 0) {
+	  if( datx.val == 0 )
+	    Error("Dibagi dengan Nol untuk modulus");
+	  daty.val = daty.val % datx.val;
+        } else if(daty.datatype == 1 && datx.datatype == 0) {
+	  if( datx.val == 0 )
+	    Error("Dibagi dengan Nol untuk modulus");
+	  daty.val = abs(daty.floatdata) % datx.val;
+        } else if(daty.datatype == 0 && datx.datatype == 1) {
+	  if( datx.floatdata == 0.0 )
+	    Error("Dibagi dengan Nol untuk modulus");
+	  daty.val = daty.val % abs(datx.floatdata);
+        } else if(daty.datatype == 1 && datx.datatype == 1) {
+	  if( datx.floatdata == 0.0 )
+	    Error("Dibagi dengan Nol untuk modulus");
+	  daty.val = abs(daty.floatdata) % abs(datx.floatdata);
+
+        } else {
+	  if( datx.val == 0 )
+	    Error("Dibagi dengan Nol untuk modulus");
+	  daty.val = daty.val % datx.val;
+        }
+
+        //printf("y: %d\n" , daty.val);
+        //printf("x: %d\n" , datx.val);
+        // printf("f (y/x) : %f\n" , daty.floatdata);
+
+        daty.datatype = 0;
+
+	break;
+      }
+
+    //getlex();
+    par = MVCgetlex(mvc_lex, mvc_pg);
+    mvc_lex = par.mvc_lex;
+    mvc_pg  =par.mvc_pg;
+  }
+
+  //ungetlex();
+  par = MVCungetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  daty.mvc_lex = mvc_lex;
+  daty.mvc_pg  = mvc_pg;
+
+  return daty;
+}
+
+
+
+
+MVCPARSING MVC_Factor(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
+{
+  MVCPARSING datx;
+  
+  char   tmp_ident[MAX_STRING_LEN];
+
+  char   logMsg[MAX_STRING_LEN];
+  char   tmpMsg[MAX_STRING_LEN];
+
+  char   **mysplit=NULL;
+
+  float tmp   = 0.0;
+  int   point = 0;
+  int   n     = 0;
+
+  int  i=0, j=0;
+
+  char get_param[MAX_STRING_LEN],
+       orig_param[MAX_STRING_LEN],
+       param_source[MAX_STRING_LEN * 2];
+
+  VAL_LABEL valdat, tmpdat;
+  int    idx = 0;
+
+  // var list for class params
+  struct  node_list tmpnode;
+  char    class_tmpvar[MAX_STRING_LEN];
+
+  MVCPARSING par;
+
+  memset(&par, '\0', sizeof(par));
+
+  //printf("Enter Factor\n");
+
+  memset(&datx, '\0', sizeof(datx));
+
+  memset(&logMsg, '\0', sizeof(logMsg));
+  memset(&tmpMsg, '\0', sizeof(tmpMsg));
+
+  memset(&tmp_ident, '\0', sizeof(tmp_ident));
+
+  memset(&get_param, '\0', sizeof(get_param));
+  memset(&orig_param, '\0', sizeof(orig_param));
+  memset(&param_source, '\0', sizeof(param_source));
+
+  memset(&valdat, '\0', sizeof(valdat));
+  memset(&tmpdat, '\0', sizeof(tmpdat));
+  valdat.val     = 0;
+
+  memset(&tmpnode, '\0', sizeof(tmpnode));
+  memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+
+
+  getlex();
+  par = MVCgetlex(mvc_lex, mvc_pg);
+  mvc_lex = par.mvc_lex;
+  mvc_pg  =par.mvc_pg;
+
+  strcpy(tmp_ident, mvc_lex.detail.string);
+  
+  // printf("Enter Factor\n");
+  // printf("lex type : %d\n", mvc_lex.type); 
+  
+
+  switch( mvc_lex.type )
+    {
+    case TYPE_IDENT:
+
+        valdat = ValLabel(tmp_ident, 0, valdat, VAL_FLAG_SEARCH_R);
+
+        datx.datatype  = valdat.datatype;
+        datx.val       = valdat.val;
+        datx.floatdata = valdat.floatdata;
+        strcpy(datx.str , valdat.str);
+        strcpy(datx.array_str,  valdat.array_str);
+        strcpy(datx.array_name, valdat.array_name);
+        strcpy(datx.array_idx,  valdat.array_idx);
+
+        /* printf("Factor IDENT datatype %d\n", datx.datatype);
+        printf("Factor IDENT float %f\n", datx.floatdata);
+        printf("Factor IDENT val %d\n", datx.val);
+        printf("Factor IDENT str %s\n", datx.str);  */
+
+        memset(&valdat, '\0', sizeof(valdat));
+
+      break;
+      
+    case TYPE_MVC_NUM:
+      /* printf("Factor NUM\n"); */
+
+      if(mvc_lex.detail.num != '\0')
+        datx.val = mvc_lex.detail.num;
+      else
+        datx.val = 0;
+
+       /*printf("Factor NUM val %d\n", datx.val);
+         printf("Factor NUM str %s\n", datx.str); */
+
+      break;
+
+    case TYPE_MVC_DBL:
+      // printf("Factor DBL\n");
+
+      if(mvc_lex.detail.dblnum != '\0')
+        datx.floatdata = mvc_lex.detail.dblnum;
+      else
+        datx.floatdata = 0.0;
+
+      datx.datatype = 1;
+
+      // printf("Factor DBL val %f\n", datx.floatdata);
+
+      break;
+
+    case TYPE_MVC_STR:
+      // printf("Factor STR\n");
+      if(mvc_lex.detail.num != '\0')
+        datx.val = mvc_lex.detail.num;
+      else
+        datx.val = 0;
+
+      /* printf("var string pos : %d\n", mvc_lex.detail.num);
+         printf("var string : %s\n", mvc_lex.detail.string);  */
+	  if(mvc_lex.detail.string != '\0' && strlen(mvc_lex.detail.string) > 0) {
+        strcpy(datx.str , mvc_lex.detail.string);
+	  } else {
+        strcpy(datx.str , "");
+	  }
+
+      break;
+
+    case TYPE_MVC_ARRAY:
+      /* printf("Factor ARRAY\n"); */
+
+      break;
+
+      
+    case TYPE_MVC_SYM:
+
+      /* ******************* minus number ********************  */
+      if( mvc_lex.detail.symbol == '-' )  {
+        /* printf("minus number\n");                            */
+
+        //getlex();
+        par = MVCgetlex(mvc_lex, mvc_pg);
+        mvc_lex = par.mvc_lex;
+        mvc_pg  =par.mvc_pg;
+
+
+        if(mvc_lex.type == TYPE_MVC_NUM) {
+
+          mvc_lex.detail.num = 0 - mvc_lex.detail.num;
+
+          datx.val      = mvc_lex.detail.num;
+          datx.datatype = 0;
+
+        } else if(mvc_lex.type == TYPE_MVC_DBL) {
+
+          mvc_lex.detail.dblnum =  0.0 - mvc_lex.detail.dblnum;
+
+          datx.floatdata = mvc_lex.detail.dblnum;
+          datx.datatype  = 1;
+
+        } else {
+          Error("Salah bentuk bilangan negatif");
+        }
+
+      } 
+
+      break;
+      
+    default:
+      Error("Label/Variabel: Salah tata kalimat");
+    }
+
+     /*
+     printf("  Factor type %d\n", datx.datatype);
+     /*
+     printf("  Factor val %d\n", datx.val);
+     printf("  Factor str %s\n", datx.str); 
+     */
+
+  datx.mvc_lex = mvc_lex;
+  datx.mvc_pg  = mvc_pg;
+
+  return datx;
+}
+
+
+

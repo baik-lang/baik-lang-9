@@ -1,0 +1,134 @@
+BAIK versi 9.4 (Kujang Pamungkas) Press Release
+----------------------------------------------------------
+
+Japan, 11 Feb 2017
+
+----------------------------------------------------------
+----------------------------------------------------------
+
+Pada Hari ini, Haris Hasanudin meluncurkan bahasa pemrograman komputer dalam bahasa
+Indonesia yang diberi nama BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.4.
+BAIK versi 9.4 dirilis dalam bentuk open source yang boleh dipakai untuk tujuan
+pendidikan, hobi maupun komersil.
+
+BAIK versi 9.4 merupakan minor upgrade dari Baik versi 9.3.
+
+Upgrade Contents:
+- Fixing compiling on IGOS Linux
+
+__________________________________________________________
+
+Fitur-fitur BAIK 9.3 adalah sebagai berikut:
+- perbaikan fungsi MariaDB/Mysql
+- perbaikan fungsi Array String
+
+Fitur-fitur BAIK 9.2 adalah sebagai berikut:
+- Perbaikan fungsi IoT di Linux/Unix:
+
+(*) Membaca Sensor dengan I2C interface (lokal)
+    Format :  <VAR> = baca_i2c <device>
+              <VAR> : variabel
+              <device> : nama device dari interface i2c
+    Contoh : val = baca_i2c "/dev/i2c-1"
+
+(*) Membaca Lux Sensor (lokal)
+    Format : <VAR> = baca_cahaya
+             <VAR> : variabel
+    Contoh : temp = baca_cahaya
+             tulis "cahaya = ", temp, " Lux\n"
+
+(*) Membaca DGI IoT Machine (via web)
+    Format : <VAR> = akses_iot <url>
+             <VAR> : variabel
+             <url> : alamat URL dari IoT Machine
+    Contoh1 : url = "http://10.10.10.10/baca_cahaya.ina
+              temp = akses_iot url
+              tulis temp, " \n"
+    Contoh2 : url = "http://10.10.10.10/baca_suhu.ina
+              temp = akses_iot url
+              tulis temp, " \n"
+    Contoh3 : url = "http://10.10.10.10/saklar1_on.ina
+              temp = akses_iot url
+              tulis temp, " \n"
+    Contoh4 : url = "http://10.10.10.10/saklar1_off.ina
+              temp = akses_iot url
+              tulis temp, " \n"
+
+- Perbaikan pada fungsi : tulis, surat, akses_iot
+
+Fitur-fitur BAIK 9.1 adalah sebagai berikut:
+- Penambahan fungsi IoT:
+  (*) Membaca Sensor dengan I2C interface
+  (*) Membaca Sensor dengan 1-wire interface
+  Telah dites dengan Raspberry A+/B+ dan Beaglebone Black
+- optimisasi untuk Web Aplikasi di Windows (Linux tidak perlu optimisasi)
+  Integrasi di BALI MAria : BAIK + Lighttpd + MariaDB
+
+Fitur-fitur BAIK 9.0 adalah sebagai berikut:
+- migrasi backend GUI dari GTK2 ke GTK3
+- mendukung fungsi MVC untuk memudahkan pemrograman web
+
+
+BAIK versi 9.2 bisa didownload dari web site Source Forge:
+
+   http://sourceforge.net/projects/baik
+
+
+Untuk bergabung dalam forum komunitas Facebook, silahkan lihat grup BAIK di:
+   http://www.facebook.com/groups/baik.bahasa.komputer/
+   Nama Grup: BAIK Scripting Language
+
+Fan Page:
+http://www.facebook.com/pages/BAIK-Scripting-Language-Fan-Page/321680054530076
+
+
+# ########################################
+# Untuk Membeli DGI IoT Machine, Kontak : 
+# Email: dgi.marketing@digiorchid.com
+# ########################################
+
+
+Selamat mencoba BAIK versi 9.2 !
+
+
+Pencipta bahasa BAIK,
+Haris Hasanudin,MSc.
+
+
+// ======================================================================================
+// Lisensi untuk BAIK versi 9.2 adalah sebagai berikut :
+// ======================================================================================
+// 0. Desain Program dan Kode Sumber BAIK versi 9 memiliki hak cipta dan bersifat rahasia.
+//    - BAIK Software Design is confidential and copyrighted. 
+// 1. Program dan Kode Sumber BAIK versi 9 disediakan seadanya dan tanpa kewenangan
+//    atas segala kesalahan/kerugian yang ditimbulkan akibat penggunaannya.
+//    - Software is provided "AS IS" and "NO WARRANTY".  
+// 2. Anda dibenarkan untuk mengkopi/mendistribusikan kembali Program dan atau Kode Sumber
+//    BAIK versi 8 jika tanpa perubahan apapun.
+//    - You can redistribute/copy software without modification.
+// 3. Anda dibenarkan memodifikasi Program dan atau Kode Sumber BAIK versi 9 jika ada
+//    ijin tertulis dari pencipta BAIK.
+//    - You can modify or add feature(s) to this software with agreement from Author.
+// 4. Segala persengketaan yang berkenaan dengan persetujuan lisensi ini akan diadili
+//    dengan hukum yang ada di Jepang atau Indonesia menurut kehendak pencipta BAIK.
+//    - Any action related to this Agreement will be governed by Indonesia/Japan laws.  
+// 5. Semua software BAIK mengikuti aturan hukum ekspor di Jepang atau Indonesia
+//    - All Software are subject to Indonesia/Japan export control laws.
+// 6. Anda tidak dibenarkan untuk menjual atau menjadi broker penjualan software BAIK.
+//    - You are not allowed to sell or resell this software.
+// 7. Anda dibenarkan untuk menggunakan software BAIK untuk kepentingan pribadi, pendidikan
+//    maupun komersial.
+//    - You may use this software for personal, educational or commercial use.
+// 8. Anda dibenarkan untuk menggunakan kode-kode dalam bahasa BAIK yang anda ciptakan
+//    untuk kepentingan pribadi, pendidikan maupun komersial.
+//    - You may use all codes that you created by BAIK language for personal, educational
+//    or commercial use. 
+// 9. Anda tidak dibenarkan untuk mengaku sebagai pemilik hak cipta software BAIK
+//    - You are not allowed to claim the copyright of this software.
+// 10. Persetujuan lisensi ini mungkin akan diubah pada masa yang akan datang dengan
+//    pemberitahuan oleh pencipta BAIK.
+//    -This Agreement may be changed in the future by Author announcement.
+// ======================================================================================
+
+
+

@@ -1,0 +1,19 @@
+# ###################################
+# tes SSL - AES128ECB
+# ###################################
+
+tulis "Tes SSL AES128ECB dengan BAIK\n"
+
+kalimat = "Hello Haris Hasanudin"
+sandi   = "this's my secret"
+
+rhs  = enkripsi_aes128ecb kalimat, sandi
+asal = dekripsi_aes128ecb rhs, sandi
+
+tulis "kalimat: ", kalimat, "\n"
+tulis "aes128ecb : ", rhs, "\n"
+tulis "asal : ", asal, "\n"
+
+tamat
+
+

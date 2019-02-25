@@ -1,0 +1,27 @@
+Tulis "------------------------------\n"
+Tulis "test regular ekspression\n"
+
+A = "Ini mail dari saudari Masako di Tokyo, Jepang"
+
+B = "Tokyo"
+
+C = "Osaka"
+
+z = ekspresi A, B
+
+tulis "A: ", A, " \n"
+tulis "B : ", B, " \n"
+
+tulis "hasil matching : ", z, " \n"
+
+kalau z == 1 maka
+ tulis "Match OK, ganti Tokyo dengan Osaka \n"
+ A = "Ini mail dari saudari Masako di "
+ tulis "A: ", A, C, ", Jepang \n"
+lainnya
+ tulis "No Match\n"
+stopkalau
+
+End
+
+

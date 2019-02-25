@@ -1,0 +1,65 @@
+# ################################################
+# tes BAIK7 - TREE - Teks Ranting Terpilih
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TREE-01"
+luas_layar  lyr1, 200, 300
+logo_layar  lyr1, "baik_logo.png"
+
+# gtk_tree_store_new
+tree = ranting_pohon
+
+iter   = simpul_ranting
+parent = simpul_ranting
+
+iter   = isi_simpul tree, "baik_muka01.png", "Induk"
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child1-1", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child1-2", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child1-3", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child1-4", parent
+
+iter   = isi_simpul tree, "baik_muka02.png", "Induk2"
+parent = iter
+iter   = isi_simpul tree, "baik_muka02.png", "child2-1", parent
+
+# gtk_tree_view_new_with_model
+tree1 = model_ranting tree
+
+cell_txt = simpul_teks
+cell_gmb = simpul_gambar
+kolom = kolom_ranting "Nama Titel", cell_gmb,  cell_txt
+
+tambah_ranting  tree1, kolom
+hias_layar lyr1, tree1
+
+# aksi tambahan untuk Ranting/Tree hanya berlaku
+# untuk aksi klik mouse tombol kanan
+
+aksi_fungsi tree1, &aksi1(tree1)
+
+tutup_program lyr1
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# #############################################
+
+Fungsi aksi1(tree1) {
+  kt  = teks_ranting tree1
+
+  tulis "ranting diklik kanan...\n"
+
+  jika kt <> "" maka
+    tulis " simpul terpilih : ", kt, "\n"
+  akhirjika
+
+}
+

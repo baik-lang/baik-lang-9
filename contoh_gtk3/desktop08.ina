@@ -1,0 +1,37 @@
+# ################################################
+# tes program Desktop dengan BAIK9 - TOMBOL_COBLOS
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Contoh TOMBOL_COBLOS dgn BAIK9 - GTK3"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "pelajaran"
+set_warnahuruf lbl1, "coklat tua"
+set_warnadasar lbl1, "hijau"
+hias_alas alas1, lbl1, 10, 15, 80, 20
+
+coblos1 = tombol_coblos "ilmu komputer"
+hias_alas alas1, coblos1, 100, 15, 150, 15
+
+grup = grup_tombol coblos1
+coblos2 = tombol_coblos grup, "biologi"
+hias_alas alas1, coblos2, 100, 35, 150, 15
+
+grup = grup_tombol coblos2
+coblos3 = tombol_coblos grup, "bahasa indonesia"
+hias_alas alas1, coblos3, 100, 55, 150, 15
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

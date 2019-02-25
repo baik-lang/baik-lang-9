@@ -1,0 +1,39 @@
+#!/usr/bin/baik
+
+namadb = "/opt/baik-gpio/alarm.db"
+sql = "select * from jadwal_alarm"
+
+loop = 1
+
+selagi (loop == 1) lakukan
+  #tulis "loop " , loop, "\n"
+
+  kon = sqlite_koneksi namadb
+  hasil = sqlite_hasil kon, sql
+
+  num = sqlite_total hasil
+  #tulis "jumlah data : ", num, "\n"
+
+  untuk (i=0; i<num; i=i+1) ulang
+    baris = sqlite_isidata hasil, i
+    kolomnum = panjang baris
+    #tulis "jumlah kolom : ", kolomnum, "\n"
+
+    sw_name  = baris[0]
+    sw_port  = baris[1]
+    dev_name = baris[2]
+    dev_type = baris[3]
+    dev_stat = saklar_status sw_port
+
+    #tulis    sw_name, ",", sw_port, ",", dev_name, ",", dev_type, ",", dev_stat, "\n"
+    tulislog sw_name, ",", sw_port, ",", dev_name, ",", dev_type, ",", dev_stat
+
+  lagi
+
+  tutup kon
+
+  tunggu 600
+
+baliklagi
+
+tamat

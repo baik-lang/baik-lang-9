@@ -1,0 +1,84 @@
+# #########################################################
+# Pendefinisian Objek untuk menggambar
+# #########################################################
+DefinisiBenda SebuahGambar [
+  param1
+  param2
+  param3
+  param4
+
+  fungsi SebuahGambar() {
+    tulis "DALAM BENDA: test membuat file gambar\n"
+  }
+
+  fungsi tesBuatHurufGambar(x,y,namafile) {
+    img = Gambar
+    img = BuatGambar x,y
+
+    # warna dasar
+    warna1 = WarnaGambar img,125,130,0
+    #warna garis
+    warna2 = WarnaGambar img,0,255,255
+
+    #Format Garis : gambar,x1,y1,x2,y2,warna
+    GambarGaris     img,10,10,50,10,warna2
+    GambarGaris     img,50,10,50,30,warna2
+    GambarGaris     img,50,30,40,30,warna2
+    GambarGaris     img,40,30,40,35,warna2
+    GambarGaris     img,40,35,60,38,warna2
+    GambarGaris     img,60,38,60,60,warna2
+    GambarGaris     img,60,60,10,60,warna2
+    GambarGaris     img,15,15,15,58,warna2
+
+    warna3 = WarnaGambar img,0,0,255
+    warna4 = WarnaGambar img,222,50,10
+
+    warna6 = WarnaGambar img,222,222,10
+    GambarLingkaran  img,120,45,40,40,0,360,warna6
+
+    GambarLingkaranIsi img,170,45,40,40,0,360,warna4
+
+    x = LebarGambar   img
+    y = PanjangGambar img
+    tulis "x=", x, "\n"
+    tulis "y=", y, "\n"
+
+    pesan0 = "Program berorientasi Benda"
+    pesan1 = "BAIK - Bahasa Komputer"
+    len = panjang pesan1
+
+    huruf = HurufBesar
+    lbr   = LebarHuruf huruf
+
+    posx = x/2 - (len * lbr / 2)
+    posx = absolut posx
+    posy = 100
+
+    tulis "posx=", posx, "\n"
+    tulis "posy=", posy, "\n"
+
+    GambarHuruf img, huruf, 5, 80, pesan0, warna3
+    GambarHuruf img, huruf, posx, posy, pesan1, warna6
+
+    SimpanGambarPng img, namafile
+    HapusGambar     img
+
+    tulis "DALAM BENDA: selesai\n"
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes Gambar Huruf dalam Pemrograman berorientasi BENDA\n"
+
+Benda obj
+obj = BendaBaru SebuahGambar
+
+obj->awalan()
+obj->tesBuatHurufGambar(230,130,"benda_gambar2.png")
+
+TAMAT
+
+

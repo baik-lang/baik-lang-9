@@ -1,0 +1,72 @@
+# ################################
+# tes GUI program dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Layar, Masukan dan Pilihan dgn BAIK v5"
+luas_layar  lyr1, 370, 250
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nama :"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 80, 18
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "merah anggrek"
+hias_alas alas1, msk1, 100, 15, 200, 18
+
+lbl2 = label "makanan :"
+set_warnadasar lbl2, "hijau zamrud"
+set_warnahuruf lbl2, "merah"
+hias_alas alas1, lbl2, 10, 35, 80, 18
+
+pil1 = pilihan
+set_pilihan pil1, " "
+set_pilihan pil1, "mangga indramayu"
+set_pilihan pil1, "pisang raja"
+set_pilihan pil1, "jambu bol"
+set_pilihan pil1, "belimbing keris"
+hias_alas alas1, pil1, 100, 35, 200, 18
+
+lbl3 = label "pelajaran :"
+set_warnadasar lbl3, "violet"
+set_warnahuruf lbl3, "putih gandum"
+hias_alas alas1, lbl3, 10, 55, 80, 18
+
+coblos1 = tombol_coblos "NULL", "ilmu komputer"
+hias_alas alas1, coblos1, 100, 35, 150, 15
+
+grup = grup_tombol coblos1
+coblos2 = tombol_coblos grup, "matematika"
+hias_alas alas1, coblos2, 100, 55, 150, 15
+
+grup = grup_tombol coblos2
+coblos3 = tombol_coblos grup, "fisika"
+hias_alas alas1, coblos3, 100, 75, 150, 15
+
+grup = grup_tombol coblos3
+coblos4 = tombol_coblos grup, "bahasa"
+hias_alas alas1, coblos4, 100, 95, 150, 15
+
+btn3 = tombol "Masuk"
+set_warnadasar btn3, "hijau zamrud"
+hias_alas alas1, btn3, 260, 190, 80, 35
+
+#aksi_tutup_layar btn3, lyr1
+#aksi_tutup_layar lyr1, lyr1
+
+aksi_tutup_program btn3
+aksi_tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT

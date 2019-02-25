@@ -1,0 +1,27 @@
+# ###############################################################
+# tes Pewaktu dengan BAIK6
+# Detak Waktu TANPA LAYAR
+# ###############################################################
+global count
+
+tulis "Tes Pewaktu tanpa menggunakan Layar\n"
+pakai_pewaktu
+detak_waktu 400, a, &pewaktu()
+mulai_pewaktu
+
+tamat
+
+# ###############################################################
+# Timer
+# ###############################################################
+Fungsi pewaktu() {
+  tulis "detak waktu ", count, "\n"
+
+  count++
+  kalau count > 10 maka
+    tamat
+  akhirkalau
+
+}
+
+

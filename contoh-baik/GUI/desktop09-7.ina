@@ -1,0 +1,32 @@
+# ################################
+# tes BAIK5 - TABEL
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TABEL Program dgn BAIK v5"
+luas_layar  lyr1, 400, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+tbl1 = tabel "angka|teks|gambar|teks|teks|teks|teks"
+tabel_atribut tbl1,"no","nama","foto","alamat","pekerjaan","nomor induk","golongan darah"
+tabel_data    tbl1,0,"haris","baik_muka01.png","tokyo-jepang","IT Manager","nip0001","X"
+tabel_data    tbl1,1,"masako","baik_muka02.png","tokyo-jepang","spesialis IT 1","nip0002","Y"
+tabel_data    tbl1,2,"takumi","baik_logo.png","tokyo-jepang","spesialis IT 2","nip0003","X"
+tabel_data    tbl1,3,"tomoki","baik_logo.png","tokyo-jepang","spesialis IT 3","nip0004","X"
+
+hias_layar lyr2, tbl1
+
+tampil_layar lyr1
+tampil_layar lyr2
+kibar_layar
+
+TAMAT
+

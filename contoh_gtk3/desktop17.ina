@@ -1,0 +1,36 @@
+# #######################################
+# tes program Desktop dengan BAIK9 - AKSI
+# #######################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Desktop dgn BAIK9"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+tombol01 = tombol "Dialog Huruf"
+hias_alas alas1, tombol01, 90, 50, 120, 30
+
+# aksi pada elemen desktop #
+# ==========================
+aksi_tutup_program lyr1
+
+aksi_fungsi tombol01, &aksi1()
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ######################################
+Fungsi aksi1() {
+  huruf1 = Dialog_Huruf
+  tulis "ambil huruf: ", huruf1, "\n"
+}
+# ######################################
+
+

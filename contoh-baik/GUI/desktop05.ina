@@ -1,0 +1,26 @@
+# ##########################################
+# tes program Desktop dengan BAIK5 - PERINCI
+# ##########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "PERINCI dgn BAIK v5"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+exp1 = perinci "PENJELASAN RINCI"
+hias_alas alas1, exp1, 10, 15, 200, 36
+lbl3 = label "ini contoh penggunaan perinci"
+hias_layar exp1, lbl3
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

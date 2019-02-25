@@ -1,0 +1,33 @@
+# Oleh Haris Hasanudin 2010/04/23
+
+TULIS "Belajar PostgreSql dengan BAIK \n"
+
+### parameter untuk database
+alamatdb  = "127.0.0.1"
+pemakai   = "hariscom"
+katasandi = "hariscom"
+namadb    = "hhbaikdb"
+nomerport =  5432
+
+tulis "alamatdb : ", alamatdb ,"\n"
+tulis "pemakai  : ", pemakai ,"\n"
+tulis "namadb   : ", namadb ,"\n"
+
+tulis "-----------------------------------------\n"
+
+### kalimat sql untuk operasi database
+sql = "select * from tbl_barang"
+tulis "sql: ",sql,"\n"
+
+### koneksi ke database
+kon = pgsql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+
+hasil = pgsql_hasil kon, sql
+
+num = pgsql_total hasil
+tulis "jumlah data=", num ,"\n"
+
+### menutup koneksi database
+tutup kon
+
+tamat

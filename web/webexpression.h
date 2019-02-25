@@ -732,8 +732,9 @@ MVCPARSING MVC_Factor(MVC_LEX_T mvc_lex, MVC_S_ADDR mvc_pg)
             !strcmp(tmp_ident, "Mysql_IsiData") ) {
 
             //printf("MVC_IDENT : MYSQL_DATA function\n"); 
+            #ifdef USE_MYSQL
             datx = funcMVC_MYSQL_ISIDATA(mvc_lex, mvc_pg);
-
+            #endif
             //printf("get datx datatype : %d\n", datx.datatype);
             //printf("get datx array_max : %d\n", datx.array_max);            
 

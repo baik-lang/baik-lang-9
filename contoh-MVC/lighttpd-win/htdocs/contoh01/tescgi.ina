@@ -1,0 +1,9 @@
+#!C:/bali64/baik/baik9
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2015-2016
+
+tulis "Content-type: text/html\n\n"
+
+tulis "<html> Helo CGI dengan bahasa BAIK </html>"
+
+tamat

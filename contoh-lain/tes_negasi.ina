@@ -1,0 +1,20 @@
+# #####################################
+
+tulis "Tes Operasi Negasi - Bukan \n"
+
+A = 1
+B = bukan A
+C = 0
+
+tulis "A=",A,"\n"
+
+
+jika B == C maka
+  tulis "B jadi Nol\n"
+lainnya
+  tulis "B = ", B, "\n"
+akhirjika
+
+tamat
+
+# #####################################

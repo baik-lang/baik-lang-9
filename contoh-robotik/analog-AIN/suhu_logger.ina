@@ -1,0 +1,28 @@
+# ################################################
+# Contoh pengambil nilai sensor suhu
+# Dites dengan Beaglebone / Beagleboard
+# Menggunakan sensor suhu : LM35
+# 
+# Copyright : Haris Hasanudin 2015
+# ################################################
+
+
+#!/usr/bin/baik
+
+loop = 1
+
+selagi (loop == 1) lakukan
+  #tulis "loop " , loop, "\n"
+
+    ain_port = "AIN2"
+    dev_stat = ain_status ain_port
+    suhu     = dev_stat * 1.8 / 4096 * 100
+
+    #tulis   ain_port, ",", dev_stat, ",", suhu, "\n"
+    tulislog ain_port, ",", dev_stat, ",", suhu
+
+  tunggu 60
+
+baliklagi
+
+tamat

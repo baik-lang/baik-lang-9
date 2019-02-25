@@ -1,0 +1,19 @@
+# ###################################
+# tes SSL - 3DES
+# ###################################
+
+tulis "Tes SSL 3DES dengan BAIK\n"
+
+kalimat = "Hello Haris Hasanudin"
+sandi   = "this's my secret"
+
+rhs  = enkripsi_3des kalimat, sandi
+asal = dekripsi_3des rhs, sandi
+
+tulis "kalimat: ", kalimat, "\n"
+tulis "3des : ", rhs, "\n"
+tulis "asal : ", asal, "\n"
+
+tamat
+
+

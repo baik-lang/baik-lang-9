@@ -1,0 +1,61 @@
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2007/12
+
+Tulis "Belajar Logika Indonesia dengan Larik \n"
+
+num = 5.0
+
+tulis "num: ", num , "\n"
+
+KALAU num == 5.0 MAKA
+  TULIS num , " sama dgn Lima\n"
+LAINNYA
+  TULIS num , " nggak sama dengan Lima\n"
+STOPKALAU
+
+
+untaian a[5]
+a[0] = 6.5
+
+tulis "a[0]: ", a[0] , "\n"
+
+KALAU a[0] == 6.5 MAKA
+  TULIS a[0] , " sama dgn Enam koma Lima\n"
+LAINNYA
+  TULIS a[0] , " nggak sama dengan Enam koma Lima\n"
+STOPKALAU
+
+b = 2
+c = 3.5
+d = b - c
+
+tulis "d=",d,"\n"
+
+e = a[0] + b
+tulis "e= ", e , "\n"
+
+f = b + num
+tulis "f= ", f , "\n"
+
+nama = "haris"
+
+tulis "nama: ", nama , "\n"
+
+KALAU nama == "haris" MAKA
+  TULIS nama , " sama dgn nama saya\n"
+LAINNYA
+  TULIS nama , " nggak sama dengan nama saya\n"
+STOPKALAU
+
+untaian n[5]
+n[0] = "hasan"
+
+tulis "nama: ", n[0] , "\n"
+
+Kalau n[0] == nama Maka
+  Tulis n[0] , " sama dgn nama saya\n"
+Lainnya
+  Tulis n[0] , " nggak sama dengan nama saya\n"
+Stopkalau
+
+END

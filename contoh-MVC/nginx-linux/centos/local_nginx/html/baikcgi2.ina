@@ -1,0 +1,38 @@
+#!/usr/local/bin/baik
+
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2014/08/27
+
+POST_CGI
+
+tulis "Content-type: text/html\n\n"
+tulis "<html><body>"
+
+i = 0
+j = 1
+
+tulis "Hasil Masukan <BR><BR>"
+
+a = post_nama i
+tulis "a=" , a, "<br>\n"
+
+b = post_nilai 0
+tulis "b=" , b, "<br>\n"
+
+c = post_nama j
+tulis "c=" , c, "<br>\n"
+
+d = post_nilai 1
+tulis "d=" , d, "<br>\n"
+
+e = post_nama 2
+tulis "e=" , e, "<br>\n"
+
+f = post_nilai 2
+tulis "f=" , f, "<br>\n"
+
+
+tulis "</body>\n</html>\n";
+
+
+

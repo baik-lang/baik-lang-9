@@ -1,0 +1,20 @@
+Tulis "Tes split kalimat dgn perintah PISAH dan dimasukkan ke array/untaian \n"
+
+B = "aa\nbbb\nccccc\nd\nee"
+
+tulis "kalimat = ", "aa\\nbbb\\nccccc\\nd\\nee\n"
+tulis "Dipisah dengan tanda \\n \n\n"
+
+q[] = pisah B , "\n"
+
+l = panjang q
+tulis "array length = ", l, "\n"
+
+untuk(i=0;i<l;i=i+1) ulang
+  tulis "q[",i,"] = ", q[i], "\n"
+lagi
+
+
+
+TAMAT
+

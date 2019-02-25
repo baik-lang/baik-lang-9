@@ -1,0 +1,102 @@
+# ################################
+# tes TABEL dengan BAIK9
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TABEL Program dgn BAIK9"
+luas_layar  lyr1, 600, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnBaru   = isi_menu "Tulis Sel"
+mnHapus  = isi_menu "Hapus Sel"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnHapus
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+
+mn02       = menu
+
+mnMenu2    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnLencana
+akhir_menu    papan, mnMenu2
+
+# ==========================
+
+susun_menu alas1, papan
+
+tutup_program lyr1
+tutup_program mnKeluar
+
+# ==========================
+
+jt_nama = "Bahasa BAIK"
+jt_versi = "versi 9"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Bahasa Komputer berejaan Indonesia"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "baik_logo.png"
+aksi_jatidiri  mnLencana, jt_nama, jt_versi, jt_penulis, jt_komentar, jt_www, jt_logo
+
+# ==========================
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+untaian num[5]
+num[0] = 1
+num[1] = 2
+num[2] = 3
+num[3] = 4
+num[4] = 5
+
+tulis "buat tabel ...\n"
+
+tbl1 = tabel "angka|teks|gambar|teks|teks|teks|teks"
+tabel_atribut tbl1,"no","nama","foto","alamat","pekerjaan","nomor induk","golongan darah"
+tabel_data    tbl1,num[0],"haris","baik_muka01.png","tokyo-jepang","IT Director","nip0001","X"
+tabel_data    tbl1,num[1],"masako","baik_muka02.png","tokyo-jepang","spesialis IT 1","nip0002","Y"
+tabel_data    tbl1,num[2],"takumi","baik_logo.png","tokyo-jepang","spesialis IT 2","nip0003","X"
+tabel_data    tbl1,num[3],"tomoki","baik_logo.png","tokyo-jepang","spesialis IT 3","nip0004","X"
+
+hias_layar lyr2, tbl1
+
+aksi_fungsi mnBaru, &aksi2(tbl1)
+aksi_fungsi mnHapus, &aksi1(tbl1)
+
+tampil_layar lyr1
+tampil_layar lyr2
+kibar_layar
+
+TAMAT
+
+
+# ##########################
+Fungsi aksi1(tabel1) {
+  tulis "aksi hapus sel\n"
+  hapus_seltabel tbl1
+}
+
+
+Fungsi aksi2(tabel1) {
+  tblku = tabel1
+  tulis "aksi tulis sel\n"
+  tulis_tabel tblku
+
+}

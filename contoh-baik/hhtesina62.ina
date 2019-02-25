@@ -1,0 +1,24 @@
+# ################################
+# tes GUI MENU dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Layar Rambu dgn BAIK v5"
+luas_layar  lyr1, 400, 200
+logo_layar  lyr1, "baik_logo.png"
+
+rambu_info  "Ini Info", "tes info rambu1", "baik_logo.png"
+rambu_info  "Ini Info", "tes info rambu2"
+rambu_salah "Ini Salah", "tes salah rambu1"
+rambu_salah "Ini Salah", "tes salah rambu2", "baik_logo.png"
+rambu_awas  "Ini Peringatan", "tes peringatan rambu1"
+rambu_awas  "Ini Peringatan", "tes peringatan rambu2", "baik_logo.png"
+
+aksi_tutup_layar lyr1
+tampil_layar lyr1
+kibar_layar
+
+TAMAT

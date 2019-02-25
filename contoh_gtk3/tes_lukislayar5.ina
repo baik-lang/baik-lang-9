@@ -1,0 +1,78 @@
+# ################################
+# tes GUI program dengan BAIK9
+# aksi untuk melukis di layar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Ekspos Manipulasi Gambar dgn BAIK9"
+luas_layar  lyr1, 350, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+lyrkanvas = kanvas
+hias_layar lyr2, lyrkanvas
+
+
+aksi_ekspos lyr1, &lakukan1(lyrkanvas)
+
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(lyrkanvas1) {
+  PI = 4.1314
+  sudut = -20
+  theta  = sudut*(PI/180)
+
+  # buat latar alas pada bidang dengan warna latar R, G, B
+  ltr = latar_layar  lyrkanvas1, 0.8, 0.5, 0.0
+
+  warna_pena ltr, 0.0, 1.0, 0.0
+  atribut_teks ltr, 14, "Sans", "tebal"
+  lukis_teks ltr, 10, 20, "Geser, Perkecil, dan Putar Gambar"
+
+  # buat bidang gambar dari PNG
+  pnl2 = bidang_ambilpng "BaikLogoNEW.png"
+
+  geser_latar ltr, 100,100
+  skala_latar ltr, 0.5, 0.5
+  putar_latar ltr, theta
+
+  set_asalbidang ltr, pnl2, 1, 1
+  lukis_pena ltr
+
+  # hapus memori latar
+  hapus_latar  ltr
+
+  hapus_bidang  pnl2
+
+}
+
+

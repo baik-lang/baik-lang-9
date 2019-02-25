@@ -1,0 +1,45 @@
+# ################################
+# tes GUI program dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Rubah Warna dgn BAIK v5"
+luas_layar  lyr1, 420, 250
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "Bahasa BAIK oleh Haris H"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 180, 30
+
+
+btn1 = tombol "Rubah Warna"
+set_tips btn1, "tekan tombol ini"
+hias_alas alas1, btn1, 220, 15, 80, 30
+
+aksi_fungsi btn1, &aksi1(lbl1)
+aksi_tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(label1) {
+  kata2 = teks_label label1
+  tulis "label => ", kata2, "\n"
+
+  warna1 = Dialog_Warna
+
+  tulis "ambil warna: ", warna1, "\n"
+
+  set_warnahuruf lbl1, warna1
+
+}

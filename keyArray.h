@@ -1,8 +1,10 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
+
+// Last Update : Feb 13, 2016
 
 #include "keyArrayDummy.h"
 
@@ -19,6 +21,10 @@ void keyArray (char array_str[MAX_STRING_LEN])
 
   long idx=0, idx2=0;                           // array index
   int plusplus=0;
+
+  long   array_i=0;
+  long   array_d=0;
+  long   array_s=0;
 
   long   tmpint=0;
   double tmpdbl=0.0;
@@ -44,7 +50,7 @@ void keyArray (char array_str[MAX_STRING_LEN])
   else
     renban = 0;
 
-  if(renban > 999) {
+  if(renban > 9999) {
     renban = 0;
   }
   //printf("keyArray renban %d \n", renban);
@@ -133,7 +139,7 @@ void keyArray (char array_str[MAX_STRING_LEN])
 
     } // end  if(strlen(array_str) > 0) {
 
-    // printf("prepare ARRAY (NOT Dummy) name: %s idx %s\n", valdat.array_name, valdat.array_idx);
+	// printf("prepare ARRAY (NOT Dummy) name: %s idx %d <BR>\n", DoArrayName, DoArrayIdx);
 
     // //////////////////////
     // get symbol for equal or minmin/plusplus
@@ -362,6 +368,11 @@ void keyArray (char array_str[MAX_STRING_LEN])
 
           /* Read Real Array , to get Idx val */
           valdat = ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R );
+		  array_i = valdat.array_i;
+		  array_d = valdat.array_d;
+		  array_s = valdat.array_s;
+
+		  // printf("=<><>= ARRY get STACKID %d <BR>\n", valdat.array_s);
 
           #ifdef WIN32
            #ifndef S_SPLINT_S
@@ -376,8 +387,8 @@ void keyArray (char array_str[MAX_STRING_LEN])
 
           // ltoa(idx, valdat.array_idx, 10);
           // printf("evaluate array : %s\n", valdat.array_name);
-	  // printf("evaluate type : %d\n", valdat.datatype);
-	  // printf("evaluate scope : %d\n", valdat.scope);
+	      // printf("evaluate type : %d\n", valdat.datatype);
+	      // printf("evaluate scope : %d\n", valdat.scope);
 
           /* == Get variable value == */
 	      if(lex.type == TYPE_DBL) {
@@ -445,7 +456,7 @@ void keyArray (char array_str[MAX_STRING_LEN])
                 // ltoa(idx2, valdat2.array_idx, 10);
               } else {
                 ungetlex();
-		valdat2 = expression();
+		        valdat2 = expression();
 
                 #ifdef WIN32
                  #ifndef S_SPLINT_S
@@ -504,23 +515,27 @@ void keyArray (char array_str[MAX_STRING_LEN])
            }
 
           } else if(lex.type == TYPE_IDENT) {
-	    // //////////////////////////////////////////
-	    // TYPE_IDENT
-	    // //////////////////////////////////////////
-            // printf("get input type IDENT : %s\n", lex.detail.ident); 
-
+	        // //////////////////////////////////////////
+	        // TYPE_IDENT
+	        // //////////////////////////////////////////
+             //printf("...ARY get input type IDENT : %s <BR>\n", lex.detail.ident); 
+ 
              // get real value
              valdat = ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R );
+			 //printf("saving valdat.array_name: %s <BR> \n", valdat.array_name);
+			 //printf("== ARRY get STACKID %d <BR>\n", valdat.array_s);
 
-              #ifdef WIN32
+			 //strcpy(valdat.array_name, DoArrayName);
+
+             #ifdef WIN32
                #ifndef S_SPLINT_S
                sprintf_s(valdat.array_idx, sizeof(valdat.array_idx),"%li", idx);
                #else
                snprintf(valdat.array_idx, sizeof(valdat.array_idx),"%li", idx);
                #endif
-              #else
+             #else
               snprintf(valdat.array_idx, sizeof(valdat.array_idx),"%li", idx);
-              #endif
+             #endif
 
              // ltoa(idx, valdat.array_idx, 10);
 
@@ -540,7 +555,7 @@ void keyArray (char array_str[MAX_STRING_LEN])
                valdat.datatype = 7;
 			   save_dbl_array(valdat, idx, tmpdat.floatdata);
              } else if(tmpdat.datatype == 6) {
-		// printf("get int Array for int Array, renban: %d \n", valdat.array_i);
+		        // printf("get int Array for int Array, renban: %d \n", valdat.array_i);
 
                 valdat = ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R );
 
@@ -563,7 +578,7 @@ void keyArray (char array_str[MAX_STRING_LEN])
                 valdat.datatype = 6;
 
              } else if(tmpdat.datatype == 7) {
-	    // printf("get dbl Array for dbl Array, renban: %d \n", valdat.array_d);
+	            // printf("get dbl Array for dbl Array, renban: %d \n", valdat.array_d);
 
                 valdat = ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R );
 
@@ -580,14 +595,18 @@ void keyArray (char array_str[MAX_STRING_LEN])
                 // ltoa(idx, valdat.array_idx, 10);
                 idx2 = atol(tmpdat.array_idx);
 
-		tmpdbl = get_dbl_array(tmpdat, idx2);
+		        tmpdbl = get_dbl_array(tmpdat, idx2);
 
                 save_dbl_array(valdat, idx, tmpdbl);
                 valdat.datatype = 7;
              } else if(tmpdat.datatype == 3) {
-               /* printf("string: %s\n", tmpdat.str); */
-               valdat.datatype = 8;
+			   //printf("ARR %s [ %d ] : %s <BR>\n", valdat.array_name, idx, tmpdat.str);
+
+			   valdat.datatype = 8;
                save_str_array(valdat, idx, tmpdat.str);
+
+			   /* Write Array Value to Node memory tree */
+			   ValLabel(valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_W);
 
              } else if(tmpdat.datatype == 8) {
                // printf("IDENT : string arry"); 
@@ -672,16 +691,18 @@ void keyArray (char array_str[MAX_STRING_LEN])
 
 		  } // end if (lex.type == TYPE_SYM
 
-           /*
-           printf("store arr datatype %d\n", valdat.datatype);
-           
-           printf("store arr ALL : %s\n", valdat.array_str);
-           printf("store arr name : %s\n", valdat.array_name);
-           printf("store arr idx : %s\n", valdat.array_idx);
-           printf("store arr max : %d\n", valdat.array_max);
 
-           printf("store arr int : %d\n", valdat.array_i[idx]);
-           */
+		  valdat.array_i = array_i;
+		  valdat.array_d = array_d;
+		  valdat.array_s = array_s;
+           
+           //printf("Store arr datatype %d <BR>\n", valdat.datatype);
+           //printf("store arr ALL : %s\n", valdat.array_str);
+           //printf("Store arr name : %s <BR>\n", valdat.array_name);
+           //printf("store arr idx : %s\n", valdat.array_idx);
+           //printf("store arr max : %d\n", valdat.array_max);
+		   //printf("Store arr valdat.array_s : %d <BR>\n", valdat.array_s);
+           
 
           /* Write Array Value to Node memory tree */
 	      ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_W );

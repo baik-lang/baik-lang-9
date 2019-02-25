@@ -1,0 +1,96 @@
+# ###########################################
+# tes GUI program dengan BAIK5 - LAYAR_GULUNG
+# ###########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Layar Gulung dgn BAIK v5"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnBaru   = isi_menu "Tulis TeKs"
+mnHapus  = isi_menu "Hapus Teks"
+mnSalin  = isi_menu "Salin Teks Papanklip"
+mnPotong  = isi_menu "Potong Teks Papanklip"
+mnUnduh  = isi_menu "Unduh Teks Papanklip"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnHapus
+ tambah_menu  mn01, mnSalin
+ tambah_menu  mn01, mnPotong
+ tambah_menu  mn01, mnUnduh
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+teks1 = kertas
+set_kertas teks1, "haris tes layar gulung"
+hias_layar_gulung lyr2, teks1
+
+tampil_layar lyr1
+tampil_layar lyr2
+
+kl = papanklip
+
+aksi_fungsi mnBaru, &aksi1(teks1)
+aksi_fungsi mnHapus, &aksi2(teks1)
+aksi_fungsi mnSalin, &aksi3(teks1, kl)
+aksi_fungsi mnPotong, &aksi4(teks1, kl)
+aksi_fungsi mnUnduh, &aksi5(teks1, kl)
+
+tutup_program mnKeluar
+tutup_program lyr1
+
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(kertas1) {
+  kt  = teks_terpilih kertas1
+  pos = posisi_teks kertas1
+
+  tulis "teks terpilih => ", kt, "\n"
+  tulis "teks posisi => ", pos, "\n"
+
+}
+
+Fungsi aksi2(kertas1) {
+  hapus_teks_terpilih kertas1
+}
+
+Fungsi aksi3(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  salin_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi4(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  potong_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi5(kertas1, klip1) {
+  krt = kertas1
+  klip = klip1
+  unduh_teks_papanklip krt, klip
+}

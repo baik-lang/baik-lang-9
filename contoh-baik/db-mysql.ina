@@ -1,0 +1,53 @@
+# Oleh Haris Hasanudin 2010/01/24
+
+TULIS "Belajar Mysql dengan BAIK \n"
+
+### parameter untuk database
+alamatdb  = "localhost"
+pemakai   = "hariscom"
+katasandi = "hariscom"
+namadb    = "hhbaikdb"
+nomerport =  3306
+
+tulis "alamatdb : ", alamatdb ,"\n"
+tulis "pemakai  : ", pemakai ,"\n"
+tulis "namadb   : ", namadb ,"\n"
+
+tulis "-----------------------------------------\n"
+
+### kalimat sql untuk operasi database
+sql = "select * from tbl_personel"
+
+### koneksi ke database
+kon = mysql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+hasil = mysql_hasil kon, sql
+
+num = mysql_total hasil
+tulis "jumlah data=", num ,"\n"
+
+### mengambil nama kolom dari suatu Tabel
+kolom = mysql_namakolom hasil
+besarkolom = panjang kolom
+untuk (i=0; i<besarkolom; i=i+1) ulang
+  tulis "kolom ", i ," = ", kolom[i] ,"\n"
+lagi
+
+### mengambil isi data per baris dari suatu Tabel
+untuk (i=0; i<num; i=i+1) ulang
+  tulis "-----------------------------------------\n"
+  baris = mysql_isidata hasil
+  tulis "Ambil data baris ", i, " OK\n"
+
+  kolomnum = panjang baris
+  tulis "jumlah kolom=", kolomnum ,"\n"
+
+  untuk (j=0; j<kolomnum; j=j+1) ulang
+    tulis "baris ", i, " kolom ", j, " = ", baris[j] ,"\n"
+  lagi
+
+lagi
+
+### menutup koneksi database
+tutup kon
+
+tamat

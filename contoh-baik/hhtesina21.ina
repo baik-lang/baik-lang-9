@@ -1,0 +1,30 @@
+# Kode Program Bahasa Basic versi Indonesia
+# Oleh Haris Hasanudin 2007/12
+
+TULIS "Belajar Bahasa Basic versi Indonesia \n"
+
+a = 50
+
+b = AKAR 100.45
+
+
+TULIS "akar 100.45 = " , b , " \n"
+
+b = AKAR a
+
+TULIS "akar " , a , " = " , b , " \n"
+
+
+c = absolut 2.345
+
+TULIS "abs 2.345 = " , c , " \n"
+
+d = absolut b
+
+TULIS "abs " , b , " = " , d , " \n"
+
+e = cosinus 60.2234
+
+TULIS "cos 60.2234 = " , e , " \n"
+
+END

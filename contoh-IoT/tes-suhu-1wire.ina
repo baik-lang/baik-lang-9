@@ -1,0 +1,57 @@
+#!/usr/bin/baik
+
+# ########################################
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# ########################################
+
+tulis "read w1-sensor on raspberry...\n"
+
+sensor_id = ""
+arsip1 = arsip "/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves","b"
+
+selagi (baris = baca_arsip arsip1) lakukan
+  # tulis "data : ", baris
+  q = "28-"
+  r = ekspresi baris, q
+  jika (r == 1) maka
+    sensor_id = baris
+    sensor_id = potong_buntut sensor_id
+  akhirjika
+baliklagi
+tutup arsip1
+
+tulis "sensor_id : " , sensor_id , "\n"
+
+target = gabung "/sys/bus/w1/devices/", sensor_id
+target = gabung target, "/w1_slave"
+
+tulis "target : " , target , "\n"
+
+arsip2 = arsip target , "b"
+selagi (baris2 = baca_arsip arsip2) lakukan
+  # tulis "data : ", baris2
+  q = "t="
+  r = ekspresi baris2, q
+  jika (r == 1) maka
+    suhu_id = baris2
+    suhu_id = potong_buntut suhu_id
+  akhirjika
+baliklagi
+tutup arsip2
+
+tulis "suhu_id : " , suhu_id , "\n"
+
+arg[] = pisah suhu_id , " "
+target_arg = arg[9]
+tot[] = pisah target_arg , "="
+suhu = tot[1]
+suhu = ke_angka suhu
+suhu = suhu / 1000
+
+# 2 degree for computer heat
+suhu = suhu - 2
+
+tulis "suhu = " , suhu , "\n"
+
+tamat

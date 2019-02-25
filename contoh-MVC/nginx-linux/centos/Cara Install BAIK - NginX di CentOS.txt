@@ -1,0 +1,166 @@
+# ######################################
+# Cara Install NginX dan BAIK 9.0
+# ######################################
+
+# ######################################
+# Download - Search di Internet
+# ######################################
+nginx.tar.gz
+libfcgi-master.zip
+spawn-fcgi-1.6.4.tar.gz
+
+# ######################################
+# Install Engine-X
+# ######################################
+su
+cd /opt/mypackage
+
+gunzip nginx.tar.gz
+tar xvf nginx.tar
+
+cd nginx
+
+yum install zlib-devel
+yum install openssl-devel
+
+./configure --without-http_rewrite_module
+./make
+./make install
+
+
+cd /usr/local/nginx
+ls
+
+/usr/local/nginx/sbin/nginx
+
+ps -ef | grep nginx
+
+/usr/local/nginx/sbin/nginx -s stop
+
+
+# ######################################
+# Install libfcgi
+# ######################################
+cd /opt/mypackage
+
+unzip libfcgi-master.zip
+cd libfcgi-master
+
+./configure
+make
+make intall
+
+ls /usr/local/lib
+
+# ######################################
+# Install fcgiwrap
+# ######################################
+cd /opt/mypackage
+
+export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:.
+
+unzip fcgiwrap-master.zip
+cd fcgiwrap-master
+
+autoreconf -i
+./configure
+make
+make install
+
+ls -l /usr/local/sbin/
+
+# ######################################
+# Install spawn-fcgi
+# ######################################
+cd /opt/mypackage
+
+gunzip spawn-fcgi-1.6.4.tar.gz
+tar xvf spawn-fcgi-1.6.4.tar
+
+cd spawn-fcgi-1.6.4
+
+./configure
+make
+make install
+
+ls -l /usr/local/bin/
+
+
+# ######################################
+# Run Daemon spawn-fcgi
+# ######################################
+
+groupadd httpd
+
+useradd httpd -g httpd
+
+vi /etc/init.d/fcgiwrap
+
+/etc/init.d/fcgiwrap start
+
+/etc/init.d/fcgiwrap stop
+
+
+# ###################################### 
+
+
+# ######################################
+# Edit Nginx Conf for BAIK
+# ######################################
+vi /usr/local/nginx/conf/nginx.conf
+
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+---
+        location ~ \.ina$ {
+            root           html;
+            fastcgi_pass    unix:/var/run/httpd/fcgiwrap.sock;
+            fastcgi_index  index.ina;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+            allow          all;
+        }
+---
+
+# ######################################
+# Restart Nginx
+# ######################################
+
+/usr/local/nginx/sbin/nginx -s stop
+/usr/local/nginx/sbin/nginx
+
+# ######################################
+# Check BAIK
+# ######################################
+
+/usr/local/bin/baik -v
+
+
+
+# ######################################
+# Make BAIK page
+# ######################################
+vi /usr/local/nginx/html/tes.ina
+
+#!/usr/local/bin/baik
+
+tulis "Content-type: text/html\n\n";
+tulis "<html>\n<body>\n";
+tulis "<div style=\"width: 100%; font-size: 40px; font-weight: bold; text-align: center;\">\n";
+tulis "BAIK - NGINX FastCGI Test Page";
+tulis "\n</div>\n";
+
+tulis "</body>\n</html>\n";
+
+
+# ######################################
+# Access via Browser
+# ######################################
+http://localhost/tes.ina
+

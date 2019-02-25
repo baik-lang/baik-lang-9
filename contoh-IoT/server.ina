@@ -1,0 +1,26 @@
+# #####################################
+# Program Test Server BAIK
+# 2008-01-06
+# #####################################
+Tulis "----------------------\n"
+Tulis "Test perintah SOKET\n"
+
+S = soket
+
+S = ikat_soket S, "8080"
+
+S = trima_soket S
+
+A = baca_soket S
+
+B = tulis_soket S, "ini program server baik\n"
+
+tutup S
+
+Tulis "GET A = " , A 
+
+kalau B > 0 maka
+ Tulis "kirim soket server OK\n "
+stopkalau
+
+END

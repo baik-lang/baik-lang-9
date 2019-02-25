@@ -4,11 +4,137 @@
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
-//char *getLingkup(const char *param);
 void getLingkup(const char *param, char retVal[MAX_STRING_LEN]);
 
 void setLingkup(const char *param, char nilai[MAX_STRING_LEN]);
+
 int getFromConf(char *filename, char symbol[MAX_STRING_LEN], char result[MAX_STRING_LEN*2]);
+
+
+VAL_LABEL funcSetLingkup()
+{
+	VAL_LABEL datx;
+	char   dat_a[MAX_STRING_LEN];
+	char   dat_b[MAX_STRING_LEN];
+	char   val[MAX_STRING_LEN * 2];
+
+	int  n = 0;
+
+	VAL_LABEL valdat;
+
+	// var list for class params
+	char    class_tmpvar[MAX_STRING_LEN];
+
+	memset(&datx, '\0', sizeof(datx));
+	memset(&dat_a, '\0', sizeof(dat_a));
+	memset(&dat_b, '\0', sizeof(dat_b));
+
+	memset(&val, '\0', sizeof(val));
+
+	memset(&valdat, '\0', sizeof(valdat));
+
+	memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+
+	n = 0;
+	do {
+		getlex();
+		/* printf("%d %s\n",n, lex.detail.string); */
+
+		if (lex.type == TYPE_NUM) {
+			Error("SET_LINGKUP: masukan data salah");
+		}
+		else if (lex.type == TYPE_STR) {
+			if (n == 0)
+              #ifdef WIN32
+                #ifndef S_SPLINT_S
+				sprintf_s(dat_a, sizeof(dat_a), "%s", lex.detail.string);
+                #else
+				snprintf(dat_a, sizeof(dat_a), "%s", lex.detail.string);
+                #endif
+              #else
+				snprintf(dat_a, sizeof(dat_a), "%s", lex.detail.string);
+              #endif
+
+			if (n == 1)
+              #ifdef WIN32
+                #ifndef S_SPLINT_S
+				sprintf_s(dat_b, sizeof(dat_b), "%s", lex.detail.string);
+                #else
+				snprintf(dat_b, sizeof(dat_b), "%s", lex.detail.string);
+                #endif
+              #else
+				snprintf(dat_b, sizeof(dat_b), "%s", lex.detail.string);
+              #endif
+
+		}
+		else {
+			datx = ValLabel(lex.detail.ident, sub_deep, datx, VAL_FLAG_SEARCH_R);
+			if (strlen(datx.str) > 0) {
+				if (n == 0)
+                  #ifdef WIN32
+                    #ifndef S_SPLINT_S
+					sprintf_s(dat_a, sizeof(dat_a), "%s", datx.str);
+                    #else
+					snprintf(dat_a, sizeof(dat_a), "%s", datx.str);
+                    #endif
+                  #else
+					snprintf(dat_a, sizeof(dat_a), "%s", datx.str);
+                  #endif
+
+				if (n == 1)
+                  #ifdef WIN32
+                    #ifndef S_SPLINT_S
+					sprintf_s(dat_b, sizeof(dat_b), "%s", datx.str);
+                    #else
+					snprintf(dat_b, sizeof(dat_b), "%s", datx.str);
+                    #endif
+                  #else
+					snprintf(dat_b, sizeof(dat_b), "%s", datx.str);
+                  #endif
+			}
+		}
+
+		n++;
+
+		getlex();
+
+	} while (lex.type == TYPE_SYM && lex.detail.symbol == ',');
+
+	ungetlex();
+
+	if (n != 2) {
+		Error("SET_LINGKUP: masukan data salah");
+	}
+	else {
+		//printf("a: %s\n", dat_a);
+		//printf("b: %s\n", dat_b); 
+
+		setLingkup(dat_a, dat_b);
+
+		datx.val = 0;
+		datx.datatype = 0;
+	}
+
+
+	if (valdat.filename != NULL)
+		free(valdat.filename);
+	if (valdat.folder != NULL)
+		free(valdat.folder);
+	if (valdat.filedata != NULL)
+		free(valdat.filedata);
+	if (valdat.long_str != NULL)
+		free(valdat.long_str);
+
+	if (valdat.left != NULL)
+		free(valdat.left);
+	if (valdat.right != NULL)
+		free(valdat.right);
+	if (valdat.pnext != NULL)
+		free(valdat.pnext);
+
+	return datx;
+}
+
 
 VAL_LABEL funcLingkup ()
 {
@@ -358,7 +484,7 @@ void setLingkup(const char *param, char nilai[MAX_STRING_LEN]) {
   strcat(setnilai, "=");
   strcat(setnilai, nilai);
 
-  printf("setnilai : %s\n", setnilai);
+  // printf("setnilai : %s\n", setnilai);
 
   #ifndef S_SPLINT_S
   putenv(setnilai);

@@ -1,0 +1,197 @@
+# program utama
+&menu()
+# fungsi
+Fungsi menu(){
+perintah "cls"
+tulis "\t\t\t#################################\n"
+tulis "\t\t\t#\t\t\t\t#\n"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t# GERBANG LOGIKA #\t#\n"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t\t\t\t#\n"
+tulis "\t\t\t#################################\n"
+tulis "\t\t\t#\t   MENU PILIHAN  \t#\n"
+tulis "\t\t\t#################################\n"
+data = "AND,OR,NOT,NAND,NOR,XOR,XNOR,Keluar"
+a[] = pisah data , ","
+y = panjang a
+untuk (i=0;i<y;i=i+1) ulang
+  tulis "\t\t\t#\t ",i,".  ",a[i],"  \t\t#\n"
+lagi
+tulis "\t\t\t#################################\n"
+tulis "\t\t\t  MASUKAN PILIHAN : "
+masuk pil
+kalau pil == 0 maka
+  &and()
+  &kembali()
+lainnya kalau pil == 1 maka
+  &or()
+  &kembali()
+lainnya kalau pil == 2 maka
+  &negasi()
+  &kembali()
+lainnya kalau pil == 3 maka
+  &nand()
+  &kembali()
+lainnya kalau pil == 4 maka
+  &nor()
+  &kembali()
+lainnya kalau pil == 5 maka
+  &xor()
+  &kembali()
+lainnya kalau pil == 6 maka
+  &xnor()
+  &kembali()
+lainnya kalau pil == 7 maka
+  tamat
+lainnya 
+  tulis "\n\t\t\t\tTidak ada pilihan"
+  tunggu 5
+  &menu()
+akhirkalau
+}
+
+Fungsi kembali(){
+tulis "\n"
+tulis "\t\t\t#################################\n"
+datas = "Menu,Keluar"
+b[] = pisah datas , ","
+x = panjang b
+untuk (j=0;j<x;j=j+1) ulang
+  tulis "\t\t\t#\t ",j,".  ",b[j],"  \t\t#\n"
+lagi
+tulis "\t\t\t#################################\n"
+tulis "\t\t\t  MASUKAN PILIHAN : "
+masuk pil2
+kalau pil2 == 0 maka
+ &menu()
+lainnya kalau pil2 == 1 maka
+ tamat
+lainnya
+ tulis "\n\t\t\t\tTidak ada pilihan\n"
+ tunggu 5
+ &kembali()
+akhirkalau
+}
+
+Fungsi and(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#      AND       #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau (bin1==1 dan bin2==1) maka
+  tulis "Hasil dari ",bin1," AND ",bin2," adalah 1\n"
+lainnya
+  tulis "Hasil dari ",bin1," AND ",bin2," adalah 0\n"
+akhirkalau
+}
+
+Fungsi or(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#       OR       #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau (bin1==1 atau bin2==1) maka
+  tulis "Hasil dari ",bin1," OR ",bin2," adalah 1\n"
+lainnya
+  tulis "Hasil dari ",bin1," OR ",bin2," adalah 0\n"
+akhirkalau
+}
+
+Fungsi negasi(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#      NOT       #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER (0 atau 1) : "
+masuk bin1
+tulis "\n"
+kalau (bin1==0) maka
+  biner1 = bukan bin1
+  tulis "Hasil negasi dari ",bin1," adalah ",biner1,"\n"
+lainnya kalau (bin1==1) maka
+  biner2 = bukan bin1
+  tulis "Hasil negasi dari ",bin1," adalah ",biner2,"\n"
+akhirkalau
+}
+
+Fungsi nand(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#      NAND      #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau (bukan(bin1==1 dan bin2==1)) maka
+  tulis "Hasil adalah 1\n"
+lainnya
+  tulis "Hasil adalah 0\n"
+akhirkalau
+}
+
+Fungsi nor(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#       NOR      #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau (bukan (bin1==1 atau bin2==1)) maka
+  tulis "Hasil adalah 1\n"
+lainnya
+  tulis "Hasil adalah 0\n"
+akhirkalau
+}
+
+Fungsi xor(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#       XOR      #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau ((bin1<>1 dan bin2<>1) atau (bin1<>0 dan bin2<>0)) maka
+#kalau (bukan((bin1==0 atau bin2==0) dan (bin1==1 atau bin2==1))) maka
+  tulis "Hasil adalah 0\n"
+lainnya
+  tulis "Hasil adalah 1\n"
+akhirkalau
+}
+
+Fungsi xnor(){
+#fix
+perintah "clear"
+tulis "\t\t\t#\t##################\t#\n"
+tulis "\t\t\t#\t#      XNOR      #\t#\n"
+tulis "\t\t\t#\t##################\t#\n\n"
+tulis "MASUKAN BILANGAN BINER PERTAMA (0 atau 1) : "
+masuk bin1
+tulis "\nMASUKAN BILANGAN BINER KEDUA (0 atau 1) : "
+masuk bin2
+kalau (bukan((bin1==1 dan bin2==1) atau (bin1==0 dan bin2==0))) maka
+  tulis "Hasil adalah 0\n"
+lainnya
+  tulis "Hasil adalah 1\n"
+akhirkalau
+}
+tamat

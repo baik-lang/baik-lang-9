@@ -1,0 +1,25 @@
+# #####################################
+# Program Test Client BAIK
+# 2008-01-06
+# #####################################
+Tulis "----------------------\n"
+Tulis "Test perintah KONEK_SOKET\n"
+
+S = soket
+
+A = konek_soket S, "localhost", "8080"
+
+B = tulis_soket S, "ini dari program client baik\n"
+
+C = baca_soket S
+
+
+tutup S
+
+Tulis "GET C = " , C 
+
+kalau B > 0 maka
+ Tulis "kirim soket client OK\n "
+stopkalau
+
+END

@@ -1,0 +1,76 @@
+# ################################
+# PDF dengan BAIK6
+# ################################
+
+tulis "tes buat PDF dengan BAIK\n"
+
+A = PDF
+font = "Helvetica"
+size = 24
+
+hal = pdf_halaman A
+h = pdf_tinggi hal
+w = pdf_lebar  hal
+pdf_sethuruf hal, font, size
+
+x = w - 400;
+y = h - 50;
+teks = "Tes PDF dengan BAIK6"
+
+tulis "x=",x,",y=",y,", teks: ",teks,"\n"
+
+pdf_awalteks hal
+pdf_teks hal, x, y, teks
+pdf_akhirteks hal
+
+x1=50
+y1=50
+x2=200
+y2=200
+pdf_garis hal, x1, y1, x2, y2
+
+y3 = 650
+y4 = 600
+y5 = 550
+pdf_warnagaris hal, "merah"
+pdf_tebalgaris hal, 10
+pdf_garis hal, x1, y3, x2, y3
+
+pdf_warnagaris hal, "hijau"
+pdf_tebalgaris hal, 5
+pdf_garis hal, x1, y4, 250, y4
+
+pdf_warnagaris hal, "biru"
+pdf_tebalgaris hal, 2
+pdf_garis hal, x1, y5, 300, y5
+
+pdf_warnagaris hal, "merah"
+# kotak : x,  y,   width, high
+pdf_kotak hal, 50, 450, 500, 10
+pdf_kotak hal, 50, 480, 50, 50
+
+pdf_awalteks hal
+pdf_sethuruf hal, font, 9
+pdf_warnahuruf hal, "merah"
+pdf_teks hal, 50, 700, "BAIK - Bahasa Anak Indonesia untuk Komputer"
+pdf_warnahuruf hal, "biru"
+pdf_jarakhuruf hal, 1.5
+pdf_teks hal, 50, 690, "BAIK - Bahasa Anak Indonesia untuk Komputer"
+pdf_warnahuruf hal, "hijau"
+pdf_jarakkata hal, 10
+pdf_teks hal, 50, 680, "BAIK - Bahasa Anak Indonesia untuk Komputer"
+pdf_akhirteks hal
+
+gmb1 = pdf_ambilpng A, "BaikLogo3.png"
+pdf_png hal, gmb1, 360, 580
+
+#gmb2 = pdf_ambiljpg A, "BaikLogo2.jpg"
+#pdf_jpg hal, gmb2, 160, 350
+
+pdf_simpanpdf A, "tespdf0.pdf"
+
+pdf_hapus A
+
+TAMAT
+
+

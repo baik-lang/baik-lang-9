@@ -4,7 +4,10 @@
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
-// 2014-08-27
+// 2015-08-08
+// 2 digits after coma for float type
+
+// Last Update : Feb 13, 2016
 
 extern void writeLog(char msg[MAX_STRING_LEN]);
 
@@ -22,7 +25,7 @@ void keyTulis ()
   // var list for class params
   struct  node_list tmpnode;
   char    class_tmpvar[MAX_STRING_LEN];
-
+  
   memset(&tmpdat, '\0', sizeof(tmpdat));
   memset(&valdat, '\0', sizeof(valdat));
   memset(&valdat2, '\0', sizeof(valdat2));
@@ -87,10 +90,11 @@ void keyTulis ()
                       Error("Untaian salah masukan");
                 }
 
-		// get real value of array
-		// printf("search array: %s\n", valdat.array_name);
+		        // get real value of array
+				// printf("+++ search array: %s <BR>\n", valdat.array_name);
+
                 if(currentClass != NULL && strlen(currentClass) > 0) {
-		  memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+		          memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
                   #ifdef WIN32
                    #ifndef S_SPLINT_S
                    sprintf_s(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, valdat.array_name);
@@ -105,8 +109,13 @@ void keyTulis ()
 				} else {
                   valdat2 = ValLabel( valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R );
 				}
+
                 // ltoa(idx, valdat2.array_idx, 10);
-		sprintf(valdat2.array_idx, "%li", idx);
+		        sprintf(valdat2.array_idx, "%li", idx);
+				sprintf(valdat2.array_name, "%s", valdat.array_name);
+
+				//printf("+++ array STACKID before search %d <BR>\n , ", valdat.array_s);
+				//printf("+++ array STACKID after search %d <BR>\n ", valdat2.array_s);
 
 		//printf("idx %d\n", idx);
 		//printf("max kapasitas %d\n", valdat2.array_max);
@@ -134,11 +143,11 @@ void keyTulis ()
 
                   #ifndef S_SPLINT_S
 
-		  if(get_dbl_array(valdat2, idx) == '\r') {
+		          if(get_dbl_array(valdat2, idx) == '\r') {
                     printf("nil");
-		  } else {
-                    printf("%f", get_dbl_array(valdat2, idx) );
-		  }
+		          } else {
+                    printf("%.2f", get_dbl_array(valdat2, idx) );
+		          }
 
                   #endif
 
@@ -147,11 +156,15 @@ void keyTulis ()
                   if(valdat2.array_s == '\0')
                     Error("ukuran Untaian belum terdefinisi: kata");
 
-		  if(!get_str_array(valdat2, idx, (char *)&tmp_str)) {
+				  //printf("### Tulis Str Array: %s [ %d ] , valdat.array_s : %d <BR> \n", valdat2.array_name, idx, valdat2.array_s);
+
+				  memset(&tmp_str, '\0', sizeof(tmp_str));
+
+		          if(!get_str_array(valdat2, idx, (char *)&tmp_str)) {
                     printf("nil %s", tmp_str);
-		  } else {
+		          } else {
                     printf("%s", tmp_str );
-		  }
+		          }
 
                 } else if (valdat2.datatype == 10) {
                   if(valdat2.long_str != NULL) {
@@ -172,7 +185,7 @@ void keyTulis ()
 	      break;
 
 	    case TYPE_DBL:
-	      printf( "%f", lex.detail.dblnum );
+	      printf( "%.2f", lex.detail.dblnum );
 	      break;
 
 	    case TYPE_OBJECT:
@@ -289,7 +302,7 @@ void keyTulis ()
 			 // -----------------------------------------------------------
 
               } else if(valdat.datatype == 1) {
-                printf("%f" , valdat.floatdata );
+                printf("%.2f" , valdat.floatdata );
               } else if(valdat.datatype == 0) {
                 printf("%li" , valdat.val );
               } else if(valdat.datatype == 10) {
@@ -324,7 +337,7 @@ void keyTulis ()
 
 	}while( lex.type == TYPE_SYM && lex.detail.symbol == ',' );
 
-	fflush( stdout );
+//fflush( stdout );
 
 	ungetlex();
 

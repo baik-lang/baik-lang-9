@@ -1,0 +1,21 @@
+# Kode Program Bahasa Basic versi Indonesia
+# Oleh Haris Hasanudin 2007/12
+
+TULIS "Belajar Bahasa Basic versi Indonesia \n"
+
+x = 11
+y = 22
+
+z = &Jumlah(11.5,2.7)
+
+tulis "z=",z,"\n"
+
+END
+
+
+sub Jumlah(a,b )
+{
+  c = a + b
+  balik c
+}
+

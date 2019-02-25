@@ -1,0 +1,17 @@
+
+sub handle(myparams) {
+
+  mystr = "OK"
+
+  tulis "Delete Data <BR>"
+  tulis "------------------------------<BR>\n"
+
+  tulis "Silahkan berkreasi sendiri <BR>\n"
+
+  tulis "------------------------------<BR>\n"
+
+
+  balik mystr
+
+}
+

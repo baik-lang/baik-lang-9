@@ -1,0 +1,15 @@
+Tulis "Tes Untaian \n"
+
+untaian q[5]
+
+l = panjang q
+
+untuk(i=0;i<l;i=i+1) ulang
+  nilai = i * 10
+  tulis "q[",i,"] = ", nilai, "\n"
+lagi
+
+tulis "array length = ", l, "\n"
+
+TAMAT
+

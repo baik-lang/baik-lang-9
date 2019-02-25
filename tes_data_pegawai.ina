@@ -1,0 +1,68 @@
+# ################################################
+# Membuat Object
+# ################################################
+DefinisiBenda DataPersonel [
+  # parameter dalam cakupan Global
+  # untuk parameter hanya dalam objek, gunakan LOKAL
+
+  nama         = ""
+  no_identitas = ""
+  tanggal      = "dd/mm/yyyy"
+  LOKAL jam_masuk  = "08:00"
+  LOKAL jam_keluar = "16:00"
+  LOKAL jam_lembur = 0
+
+  fungsi DataPersonel(nm, no) {
+    nama         = nm
+    no_identitas = no
+    tulis " ", nama," telah diregistrasi\n"
+  }
+  fungsi setJamMasuk(jam1) {
+    jam_masuk = jam1
+  }
+  fungsi lihatJamMasuk() {
+    balik jam_masuk
+  }
+  fungsi setJamKeluar(jam2) {
+    jam_keluar = jam2
+  }
+  fungsi lihatJamKeluar() {
+    balik jam_keluar
+  }
+]
+
+# ################################################
+# Program Utama
+# ################################################
+Tulis "Tes Simple Object Oriented Program dengan BAIK\n\n"
+
+Benda pegawai1
+Benda pegawai2
+Benda pegawai3
+
+nama1 = "nama1"
+nama2 = "nama2"
+
+Tulis "Pemasukan data absen personel\n"
+pegawai1 = BendaBaru DataPersonel
+pegawai1->awalan(nama1,"NIP000001")
+pegawai1->tanggal = "01/02/2009"
+pegawai1->setJamMasuk("10:00")
+Tulis "Hasil pemasukan data ", nama1, " setelah registrasi\n"
+Tulis "nama: ", pegawai1->nama, " , NIP: ", pegawai1->no_identitas, "\n"
+Tulis "tanggal: ", pegawai1->tanggal, "\n"
+Tulis "------------------------------\n"
+
+pegawai2 = BendaBaru DataPersonel
+pegawai2->awalan(nama2,"NIP000002")
+pegawai2->tanggal = "01/02/2009"
+pegawai2->setJamKeluar("18:00")
+Tulis "Hasil pemasukan data ", nama2, " setelah registrasi\n"
+Tulis "nama: ", pegawai2->nama, " , NIP: ", pegawai2->no_identitas, "\n"
+Tulis "tanggal: ", pegawai2->tanggal, "\n"
+Tulis "------------------------------\n"
+
+Tulis "Pemasukan data absen selesai\n"
+
+TAMAT
+# ################################################

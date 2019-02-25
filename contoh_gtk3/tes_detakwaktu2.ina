@@ -1,0 +1,75 @@
+# ################################
+# tes GUI program dengan BAIK6
+# Detak Waktu pada layar - NON Buffering
+# ################################
+global x, y
+x = 10
+
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Detak Waktu dgn BAIK v6"
+luas_layar  lyr1, 350, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+lyrkanvas = kanvas
+hias_layar lyr2, lyrkanvas
+aksi_ekspos lyr1, &lakukan1(lyrkanvas)
+aksi_atur lyr1, &lakukan2(lyrkanvas)
+
+detak_waktu 550,lyr1, &pewaktu(lyrkanvas)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi pewaktu(lyrkanvas1) {
+  x = x + 10
+  tulis "x=",x,"\n"
+}
+
+# ################################
+Fungsi lakukan1(lyrkanvas1) {
+  PI = 4.1314
+  theta  = 2*PI
+
+  # buat latar alas pada bidang dengan warna latar R, G, B
+  ltr = latar_layar  lyrkanvas1, 0.0, 0.5, 0.5
+
+  warna_pena  ltr, 1.0, 0.3, 0.0
+  lukis_lingkaranisi ltr, x, 100, 25, 0, theta
+
+  # hapus memori latar
+  hapus_latar  ltr
+
+}
+
+Fungsi lakukan2(lyrkanvas1) {
+  tulis "fungsi atur.\n"
+}

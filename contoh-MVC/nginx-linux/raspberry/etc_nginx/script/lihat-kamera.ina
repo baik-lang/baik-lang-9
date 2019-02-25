@@ -1,0 +1,10 @@
+#!/usr/bin/baik
+
+tulis "Content-type: text/html\n\n"
+tulis "<html>"
+tulis "<center><h2>CCTV dengan BAIK</h2></center>"
+
+tulis "<img src='http://localhost:8080/?action=stream/?' />"
+
+tulis "</html>"
+end

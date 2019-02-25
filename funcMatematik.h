@@ -4,7 +4,70 @@
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
-// memleak fixed 2015/06/17
+
+VAL_LABEL funcCHOP ()
+{
+  VAL_LABEL datx;
+
+  char   tmpMsg[MAX_STRING_LEN * 2];
+  VAL_LABEL valdat, tmpdat;
+
+  // var list for class params
+  struct  node_list tmpnode;
+  char    class_tmpvar[MAX_STRING_LEN];
+
+  memset(&datx, '\0', sizeof(datx));
+  memset(&valdat, '\0', sizeof(valdat));
+  memset(&tmpdat, '\0', sizeof(tmpdat));
+
+  memset(&tmpMsg, '\0', sizeof(tmpMsg));
+
+  memset(&tmpnode, '\0', sizeof(tmpnode));
+  memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+
+  memset(tmpMsg, '\0', sizeof(tmpMsg));
+
+         /* get referenced string */
+         getlex();
+
+         /* printf("lex type : %d\n", lex.type);  */
+
+         if(lex.type == TYPE_IDENT) {
+
+           if(currentClass != NULL && strlen(currentClass) > 0) {
+
+             #ifdef WIN32
+              #ifndef S_SPLINT_S
+              sprintf_s(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+              #else
+              snprintf(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+              #endif
+             #else
+             snprintf(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+             #endif
+
+
+             //printf("construct class var: %s\n", class_tmpvar);
+             datx = ValLabel( class_tmpvar, class_sub_deep, datx, VAL_FLAG_SEARCH_R );
+           } else {
+             datx = ValLabel( lex.detail.ident, sub_deep, datx, VAL_FLAG_SEARCH_R );
+           }
+
+
+           if(datx.datatype == 3) {
+             chop(datx.str);
+             datx.datatype = 3;
+           } else {
+             Error("CHOP: masukan data salah");
+           }
+         } else {
+             Error("CHOP: masukan data salah");         
+         }
+
+
+  return datx;
+}
+
 
 VAL_LABEL funcAkar ()
 {

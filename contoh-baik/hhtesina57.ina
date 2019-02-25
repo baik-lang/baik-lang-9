@@ -1,0 +1,42 @@
+# #########################################################
+# Program Utama
+# #########################################################
+
+KODE "hhtesina57-2.ina"
+
+Tulis "Penggunaan Kode Luar untuk pendefinisian BENDA\n"
+
+x = "Ini dari Main Program"
+
+tulis "===============================================\n"
+tulis "Benda obj \n"
+tulis "obj = BendaBaru MyBenda \n"
+tulis "===============================================\n"
+
+Benda obj
+obj = BendaBaru MyBenda
+
+obj->awalan(x)
+tulis "---panggil fungsi objek OK\n"
+
+obj->param3 = 6.5
+
+obj->testProc()
+tulis "---panggil fungsi2 objek OK\n"
+
+obj->testJumlah(21,78)
+
+num = 60
+obj->testSin(num)
+obj->testCos(60)
+num = 60.123
+obj->testAbs(num)
+num = 5
+obj->testFak(num)
+
+tulis "---panggil fungsi3 objek OK\n"
+
+Tulis "Program Selesai OK\n"
+TAMAT
+
+

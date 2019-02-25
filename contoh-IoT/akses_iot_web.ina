@@ -1,0 +1,20 @@
+# #####################################
+# Program To Access DGO IoT via Web
+# 2015-07-02
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# #####################################
+
+Tulis "----------------------\n"
+
+Tulis "Test perintah AKSES_IOT \n"
+
+www = "http://192.168.123.111/baca_cahaya.ina"
+
+A = akses_iot www
+
+Tulis "MATCH : ", A, "\n"
+
+tamat
+
+

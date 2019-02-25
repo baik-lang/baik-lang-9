@@ -1,0 +1,31 @@
+# ######################################
+# tes GUI MENU dengan BAIK5 - MENU_POPUP
+# ######################################
+
+KODE_LUAR "popup2.ina"
+
+pakai_layar
+
+tulis "Klik kanan mouse.\n"
+
+lyr1 = layar
+ titel_layar lyr1, "MENU Popup dgn BAIK"
+ luas_layar  lyr1, 250, 200
+ logo_layar  lyr1, "baik_logo.png"
+
+tutup_program lyr1
+
+tulis "OK\n"
+
+popup1 = &buat_menu(lyr1)
+tampil_layar popup1
+aksi_tekan_penunjuk lyr1, &aksi1(popup1)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+
+

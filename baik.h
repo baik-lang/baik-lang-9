@@ -1,9 +1,10 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
+// Last 2016/2/11
 
 // -----------------------------------------------------
 // Stack for Lang Word
@@ -29,7 +30,12 @@ double strtodbl(char *c);
 
 STR_ARRY TmpStrBox;
 STR_ARRY TmpStrBox2;
-int strarryPos=0;
+int      strarryPos=0;
+
+STR_ARRY mysql_TmpStrBox;
+int      mysql_strarryPos = 0;
+
+int      mysql_renban = 0;
 
 // -----------------------------------------------------
 // Stack for Array Int
@@ -193,299 +199,303 @@ void chop(char* input)
 
 long createRenban(int mynum)
 {
-  time_t present_tm;
-  struct tm *my_time=NULL;
-  char *now_time=NULL;
+	time_t present_tm;
+	struct tm *my_time = NULL;
+	char *now_time = NULL;
 
-  int yy, mm, dd, hh, min, sec;
-  char year[8], month[4], day[4], hour[4], minut[4], secon[16];
-  char num[4];
+	int yy, mm, dd, hh, min, sec;
+	char year[8], month[4], day[4], hour[4], minut[4], secon[16];
+	char num[4];
 
-  char mytime[22]; // yyyymmddhhmmss+renban
-  char filename[11];
-  char filename2[11];
+	char mytime[22]; // yyyymmddhhmmss+renban
+	char filename[11];
+	char filename2[11];
 
-  long myrenban=0;
+	long myrenban = 0;
 
-  // printf("inside createRenban...%d\n", mynum);
+	//printf("inside createRenban... %d <BR>\n", mynum);
 
-  memset(&year, '\0', sizeof(year));
-  memset(&month, '\0', sizeof(month));
-  memset(&day, '\0', sizeof(day));
-  memset(&hour, '\0', sizeof(hour));
-  memset(&minut, '\0', sizeof(minut));
-  memset(&secon, '\0', sizeof(secon));
-  memset(&num, '\0', sizeof(num));
+	memset(&year, '\0', sizeof(year));
+	memset(&month, '\0', sizeof(month));
+	memset(&day, '\0', sizeof(day));
+	memset(&hour, '\0', sizeof(hour));
+	memset(&minut, '\0', sizeof(minut));
+	memset(&secon, '\0', sizeof(secon));
+	memset(&num, '\0', sizeof(num));
 
-  memset(&filename, '\0', sizeof(filename));
-  memset(&filename2, '\0', sizeof(filename2));
+	memset(&filename, '\0', sizeof(filename));
+	memset(&filename2, '\0', sizeof(filename2));
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(num, sizeof(num),"%d", mynum);
-    #else
-    snprintf(num, sizeof(num),"%d", mynum);
-    #endif
-  #else
-  snprintf(num, sizeof(num),"%d", mynum);
-  #endif
+	//printf("inside createRenban...stp2 %d <BR>\n", mynum);
 
-  if(strlen(num) < 2) {
-    #ifdef WIN32
-      #ifndef S_SPLINT_S
-      sprintf_s(num, sizeof(num),"0%d", mynum);
-      #else
-      snprintf(num, sizeof(num),"0%d", mynum);
-      #endif
-    #else
-    snprintf(num, sizeof(num),"0%d", mynum);
-    #endif
-  } else {
-    #ifdef WIN32
-      #ifndef S_SPLINT_S
-      sprintf_s(num, sizeof(num),"%d", mynum);
-      #else
-      snprintf(num, sizeof(num),"%d", mynum);
-      #endif
-    #else
-    snprintf(num, sizeof(num),"%d", mynum);
-    #endif
-  }
+#ifdef WIN32
+	_snprintf(num, sizeof(num), "%d", mynum);
+#else
+	snprintf(num, sizeof(num), "%d", mynum);
+#endif
 
-  mynum = 0;
-  //  printf("inside renban num: %s\n", num);
+	//printf("inside createRenban...stp3 %d <BR>\n", mynum);
 
-  time(&present_tm);
-  my_time = localtime(&present_tm);
-  now_time = asctime(my_time);
+	if (strlen(num) < 2) {
+#ifdef WIN32
+		_snprintf(num, sizeof(num), "0%d", mynum);
+#else
+		snprintf(num, sizeof(num), "0%d", mynum);
+#endif
+	}
+	else {
+#ifdef WIN32
+		_snprintf(num, sizeof(num), "%d", mynum);
+#else
+		snprintf(num, sizeof(num), "%d", mynum);
+#endif
+	}
 
-  yy = my_time->tm_year + 1900;
-  mm = my_time->tm_mon + 1;
-  dd = my_time->tm_mday;
+	mynum = 0;
+	//printf("inside createRenban...stp4 %d <BR>\n", mynum);
 
-  hh  = my_time->tm_hour;
-  min = my_time->tm_min;
-  sec = my_time->tm_sec;
+	time(&present_tm);
+	my_time = localtime(&present_tm);
+	now_time = asctime(my_time);
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(year, sizeof(year),"%d", yy);
-    #else
-    snprintf(year, sizeof(year),"%d", yy);
-    #endif
-  #else
-  snprintf(year, sizeof(year),"%d", yy);
-  #endif
+	yy = my_time->tm_year + 1900;
+	mm = my_time->tm_mon + 1;
+	dd = my_time->tm_mday;
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(month, sizeof(month),"%d", mm);
-    #else
-    snprintf(month, sizeof(month),"%d", mm);
-    #endif
-  #else
-  snprintf(month, sizeof(month),"%d", mm);
-  #endif
+	hh = my_time->tm_hour;
+	min = my_time->tm_min;
+	sec = my_time->tm_sec;
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(day, sizeof(day),"%d", dd);
-    #else
-    snprintf(day, sizeof(day),"%d", dd);
-    #endif
-  #else
-  snprintf(day, sizeof(day),"%d", dd);
-  #endif
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(year, sizeof(year), "%d", yy);
+#else
+	snprintf(year, sizeof(year), "%d", yy);
+#endif
+#else
+	snprintf(year, sizeof(year), "%d", yy);
+#endif
+
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(month, sizeof(month), "%d", mm);
+#else
+	snprintf(month, sizeof(month), "%d", mm);
+#endif
+#else
+	snprintf(month, sizeof(month), "%d", mm);
+#endif
+
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(day, sizeof(day), "%d", dd);
+#else
+	snprintf(day, sizeof(day), "%d", dd);
+#endif
+#else
+	snprintf(day, sizeof(day), "%d", dd);
+#endif
 
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(hour, sizeof(hour),"%d", hh);
-    #else
-    snprintf(hour, sizeof(hour),"%d", hh);
-    #endif
-  #else
-  snprintf(hour, sizeof(hour),"%d", hh);
-  #endif
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(hour, sizeof(hour), "%d", hh);
+#else
+	snprintf(hour, sizeof(hour), "%d", hh);
+#endif
+#else
+	snprintf(hour, sizeof(hour), "%d", hh);
+#endif
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(minut, sizeof(minut),"%d", min);
-    #else
-    snprintf(minut, sizeof(minut),"%d", min);
-    #endif
-  #else
-  snprintf(minut, sizeof(minut),"%d", min);
-  #endif
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(minut, sizeof(minut), "%d", min);
+#else
+	snprintf(minut, sizeof(minut), "%d", min);
+#endif
+#else
+	snprintf(minut, sizeof(minut), "%d", min);
+#endif
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(secon, sizeof(secon),"%d", sec);
-    #else
-    snprintf(secon, sizeof(secon),"%d", sec);
-    #endif
-  #else
-  snprintf(secon, sizeof(secon),"%d", sec);
-  #endif
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(secon, sizeof(secon), "%d", sec);
+#else
+	snprintf(secon, sizeof(secon), "%d", sec);
+#endif
+#else
+	snprintf(secon, sizeof(secon), "%d", sec);
+#endif
 
-  memset(&mytime, '\0', sizeof(mytime));
-  strcpy(mytime, year);
+	memset(&mytime, '\0', sizeof(mytime));
+	strcpy(mytime, year);
 
-  if( strlen(month) < 2) {
-     if( strlen(day) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename, sizeof(filename),"%s0%s0%s", year, month, day);
-         #else
-         snprintf(filename, sizeof(filename),"%s0%s0%s", year, month, day);
-         #endif
-       #else
-       snprintf(filename, sizeof(filename),"%s0%s0%s", year, month, day);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename, sizeof(filename),"%s0%s%s", year, month, day);
-         #else
-         snprintf(filename, sizeof(filename),"%s0%s%s", year, month, day);
-         #endif
-       #else
-       snprintf(filename, sizeof(filename),"%s0%s%s", year, month, day);
-       #endif
-     }
-  } else {
-     if( strlen(day) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename, sizeof(filename),"%s%s0%s", year, month, day);
-         #else
-         snprintf(filename, sizeof(filename),"%s%s0%s", year, month, day);
-         #endif
-       #else
-       snprintf(filename, sizeof(filename),"%s%s0%s", year, month, day);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename, sizeof(filename),"%s%s%s", year, month, day);
-         #else
-         snprintf(filename, sizeof(filename),"%s%s%s", year, month, day);
-         #endif
-       #else
-       snprintf(filename, sizeof(filename),"%s%s%s", year, month, day);
-       #endif
-     }
-  }
+	if (strlen(month) < 2) {
+		if (strlen(day) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			_snprintf(filename, sizeof(filename), "%s0%s0%s", year, month, day);
+#else
+			snprintf(filename, sizeof(filename), "%s0%s0%s", year, month, day);
+#endif
+#else
+			snprintf(filename, sizeof(filename), "%s0%s0%s", year, month, day);
+#endif
+		}
+		else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			_snprintf(filename, sizeof(filename), "%s0%s%s", year, month, day);
+#else
+			snprintf(filename, sizeof(filename), "%s0%s%s", year, month, day);
+#endif
+#else
+			snprintf(filename, sizeof(filename), "%s0%s%s", year, month, day);
+#endif
+		}
+	}
+	else {
+		if (strlen(day) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			_snprintf(filename, sizeof(filename), "%s%s0%s", year, month, day);
+#else
+			snprintf(filename, sizeof(filename), "%s%s0%s", year, month, day);
+#endif
+#else
+			snprintf(filename, sizeof(filename), "%s%s0%s", year, month, day);
+#endif
+		}
+		else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			_snprintf(filename, sizeof(filename), "%s%s%s", year, month, day);
+#else
+			snprintf(filename, sizeof(filename), "%s%s%s", year, month, day);
+#endif
+#else
+			snprintf(filename, sizeof(filename), "%s%s%s", year, month, day);
+#endif
+		}
+	}
 
-  if( strlen(hour) < 2) {
-   if( strlen(minut) < 2) {
-     if( strlen(secon) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"0%s0%s0%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"0%s0%s0%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"0%s0%s0%s", hour, minut, secon);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"0%s0%s%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"0%s0%s%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"0%s0%s%s", hour, minut, secon);
-       #endif
-     }
-   } else {
-     if( strlen(day) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"0%s%s0%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"0%s%s0%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"0%s%s0%s", hour, minut, secon);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"0%s%s%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"0%s%s%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"0%s%s%s", hour, minut, secon);
-       #endif
-     }
-   }
-  } else {
-   if( strlen(minut) < 2) {
-     if( strlen(secon) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"%s0%s0%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"%s0%s0%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"%s0%s0%s", hour, minut, secon);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"%s0%s%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"%s0%s%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"%s0%s%s", hour, minut, secon);
-       #endif
-     }
-   } else {
-     if( strlen(day) < 2) {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"%s%s0%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"%s%s0%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"%s%s0%s", hour, minut, secon);
-       #endif
-     } else {
-       #ifdef WIN32
-         #ifndef S_SPLINT_S
-         sprintf_s(filename2, sizeof(filename2),"%s%s%s", hour, minut, secon);
-         #else
-         snprintf(filename2, sizeof(filename2),"%s%s%s", hour, minut, secon);
-         #endif
-       #else
-       snprintf(filename2, sizeof(filename2),"%s%s%s", hour, minut, secon);
-       #endif
-     }
-   }
-  }
+	if (strlen(hour) < 2) {
+		if (strlen(minut) < 2) {
+			if (strlen(secon) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "0%s0%s0%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "0%s0%s0%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "0%s0%s0%s", hour, minut, secon);
+#endif
+			}
+			else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "0%s0%s%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "0%s0%s%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "0%s0%s%s", hour, minut, secon);
+#endif
+			}
+		}
+		else {
+			if (strlen(day) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "0%s%s0%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "0%s%s0%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "0%s%s0%s", hour, minut, secon);
+#endif
+			}
+			else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "0%s%s%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "0%s%s%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "0%s%s%s", hour, minut, secon);
+#endif
+			}
+		}
+	}
+	else {
+		if (strlen(minut) < 2) {
+			if (strlen(secon) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "%s0%s0%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "%s0%s0%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "%s0%s0%s", hour, minut, secon);
+#endif
+			}
+			else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "%s0%s%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "%s0%s%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "%s0%s%s", hour, minut, secon);
+#endif
+			}
+		}
+		else {
+			if (strlen(day) < 2) {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "%s%s0%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "%s%s0%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "%s%s0%s", hour, minut, secon);
+#endif
+			}
+			else {
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				_snprintf(filename2, sizeof(filename2), "%s%s%s", hour, minut, secon);
+#else
+				snprintf(filename2, sizeof(filename2), "%s%s%s", hour, minut, secon);
+#endif
+#else
+				snprintf(filename2, sizeof(filename2), "%s%s%s", hour, minut, secon);
+#endif
+			}
+		}
+	}
 
-  #ifdef WIN32
-    #ifndef S_SPLINT_S
-    sprintf_s(mytime, sizeof(mytime),"%s%s", filename2, num);
-    #else
-    snprintf(mytime, sizeof(mytime),"%s%s", filename2, num);
-    #endif
-  #else
-  snprintf(mytime, sizeof(mytime),"%s%s", filename2, num);
-  #endif
-  // printf("renban %s\n", mytime);
+#ifdef WIN32
+#ifndef S_SPLINT_S
+	_snprintf(mytime, sizeof(mytime), "%s%s", filename2, num);
+#else
+	snprintf(mytime, sizeof(mytime), "%s%s", filename2, num);
+#endif
+#else
+	snprintf(mytime, sizeof(mytime), "%s%s", filename2, num);
+#endif
 
-  myrenban = atol(mytime);
-  //printf("myrenban %d\n", myrenban);
+	//printf("inside renban %s <BR>\n", mytime);
 
-  return myrenban;
+	myrenban = atol(mytime);
+	//printf("myrenban %d\n", myrenban);
+
+	return myrenban;
 }
 
 
@@ -685,7 +695,7 @@ char* createTime()
        #endif
      }
    } else {
-     if( strlen(day) < 2) {
+     if( strlen(secon) < 2) {
        #ifdef WIN32
          #ifndef S_SPLINT_S
          sprintf_s(filename2, sizeof(filename2),"0%s:%s:0%s", hour, minut, secon);
@@ -731,7 +741,7 @@ char* createTime()
        #endif
      }
    } else {
-     if( strlen(day) < 2) {
+     if( strlen(secon) < 2) {
        #ifdef WIN32
          #ifndef S_SPLINT_S
          sprintf_s(filename2, sizeof(filename2),"%s:%s:0%s", hour, minut, secon);
@@ -951,7 +961,7 @@ char* createTime2()
        #endif
      }
    } else {
-     if( strlen(day) < 2) {
+     if( strlen(secon) < 2) {
        #ifdef WIN32
          #ifndef S_SPLINT_S
          sprintf_s(filename2, sizeof(filename2),"0%s:%s:0%s", hour, minut, secon);
@@ -997,7 +1007,7 @@ char* createTime2()
        #endif
      }
    } else {
-     if( strlen(day) < 2) {
+     if( strlen(secon) < 2) {
        #ifdef WIN32
          #ifndef S_SPLINT_S
          sprintf_s(filename2, sizeof(filename2),"%s:%s:0%s", hour, minut, secon);

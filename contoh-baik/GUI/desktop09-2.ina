@@ -1,0 +1,26 @@
+# ###################################
+# tes GUI dengan BAIK5 - PAPAN_STATUS
+# ###################################
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "PAPAN_STATUS"
+luas_layar  lyr1, 250, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+papan1 = papan_status
+susun_papan_status alas1, papan1
+
+set_status papan1, "status layar BAIK OK"
+
+aksi_tutup_program lyr1
+tampil_layar lyr1
+
+kibar_layar
+
+TAMAT
+
+
+# ################################

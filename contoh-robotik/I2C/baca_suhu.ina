@@ -1,0 +1,16 @@
+#!/usr/bin/baik
+
+# #######################################
+# Contoh membaca data sensor dengan I2C
+# Sensor : MCP9808
+# Dites pada Raspberry A+/B+
+# #######################################
+
+tulis "Content-type: text/html\n\n"
+tulis "<html>"
+
+temp = baca_i2c "/dev/i2c-1"
+tulis "temperature = ", temp, " Celcius\n"
+
+tulis "</html>"
+tamat

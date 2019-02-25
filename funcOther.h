@@ -7,6 +7,22 @@
 int power_stat(char *myport);
 int analog_stat(char *myport);
 
+#ifdef USE_I2C
+#include <linux/i2c-dev.h> // I2C
+#include <fcntl.h>
+#include <sys/ioctl.h>
+
+float i2c_stat(char *i2cFileName);
+#endif
+
+#ifdef USE_LUX
+#include <stdio.h>
+#include <string.h>
+#include "iot/TSL2561.h"
+
+int lux_stat(void);
+#endif
+
 VAL_LABEL funcSaklarStatus() {
    VAL_LABEL datx;
    VAL_LABEL valdat, tmpdat;   
@@ -85,7 +101,6 @@ VAL_LABEL funcAnalogPortStatus() {
 
    } else if(lex.type == TYPE_IDENT) {
       /* read data */
-      // printf("get panjang array ident\n");
 
       if(currentClass != NULL && strlen(currentClass) > 0) {
 
@@ -105,8 +120,6 @@ VAL_LABEL funcAnalogPortStatus() {
              tmpdat = ValLabel( lex.detail.ident, sub_deep, valdat, VAL_FLAG_SEARCH_R );
       }
 
-      // printf("read panjang array ident, type : \n", tmpdat.datatype);
-
       if(tmpdat.datatype == 3) {
          datx.val = analog_stat(tmpdat.str);
          datx.datatype = 0;
@@ -116,6 +129,76 @@ VAL_LABEL funcAnalogPortStatus() {
    
    return datx;
 }
+
+
+#ifdef USE_I2C
+VAL_LABEL funcI2CStatus() {
+   VAL_LABEL datx;
+   VAL_LABEL valdat, tmpdat;   
+   char      class_tmpvar[MAX_STRING_LEN];
+ 
+   memset(&datx, '\0', sizeof(datx));   
+   memset(&valdat, '\0', sizeof(valdat));
+   memset(&tmpdat, '\0', sizeof(tmpdat));
+
+   memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+
+   // printf("I2C port inside...\n");
+
+   getlex();
+
+   if(lex.type == TYPE_STR) {
+     datx.floatdata = i2c_stat(lex.detail.string);
+     datx.datatype = 1;
+
+   } else if(lex.type == TYPE_IDENT) {
+      /* read data */
+
+      if(currentClass != NULL && strlen(currentClass) > 0) {
+
+             #ifdef WIN32
+              #ifndef S_SPLINT_S
+              sprintf_s(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+              #else
+              snprintf(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+              #endif
+             #else
+             snprintf(class_tmpvar, sizeof(class_tmpvar),"%s->%s", currentClass, lex.detail.ident);
+             #endif
+
+             //printf("construct class var: %s\n", class_tmpvar);
+             tmpdat = ValLabel( class_tmpvar, sub_deep, valdat, VAL_FLAG_SEARCH_R );
+      } else {
+             tmpdat = ValLabel( lex.detail.ident, sub_deep, valdat, VAL_FLAG_SEARCH_R );
+      }
+
+      if(tmpdat.datatype == 3) {
+         datx.floatdata = i2c_stat(tmpdat.str);
+         datx.datatype = 1;
+      }   
+
+   }
+   
+   return datx;
+}
+#endif
+
+
+#ifdef USE_LUX
+VAL_LABEL funcLUXStatus() {
+   VAL_LABEL datx;
+ 
+   memset(&datx, '\0', sizeof(datx));   
+
+   //printf("I2C LUX inside...\n");
+
+   datx.val = lux_stat();
+   datx.datatype = 0;
+   
+   return datx;
+}
+#endif
+
 
 VAL_LABEL funcOther() {
   VAL_LABEL datx;
@@ -305,10 +388,81 @@ VAL_LABEL funcOther() {
 }
 
 
+#ifdef USE_I2C
+float i2c_stat(char *i2cFileName) {
 
+    const unsigned char i2cAddress = 0x18;
+    const __u8 regaddr = 0x05;
+    int i2c_fd;
+            
+    if((i2c_fd = open(i2cFileName,O_RDWR)) < 0){
+       fprintf(stderr,"Faild to open i2c port\n");
+       return 1;
+    }
 
+    if (ioctl(i2c_fd, I2C_SLAVE,i2cAddress) < 0) {
+       fprintf(stderr,"Unable to get bus access to talk to slave\n");
+       return 1;
+    }
+    
+    __s32 res = i2c_smbus_read_word_data(i2c_fd,regaddr);
+    if(res < 0){
+      fprintf(stderr,"Error i2c_smbus_read_word_data()\n");
+      return 1;
+    }
 
-int power_stat(char *myport) {
+    float temp=0.0;
+    {
+      __u16 t = res << 8 | res >> 8;  //byte swap
+      temp = t & 0x0FFF;              //mask
+      temp /= 16;
+      if(t & 0x1000){                 //sign or unsigned
+        temp -= 256;
+      }
+    }
+    return temp;
+ 
+ }
+ #endif
+
+#ifdef USE_LUX
+int lux_stat() {
+   int rc=0;
+   uint16_t broadband=0, ir=0;
+   uint32_t lux=0;  
+   int temp=0;
+
+   TSL2561 light1 = TSL2561_INIT(1, TSL2561_ADDR_FLOAT);
+    
+   // initialize the sensor
+   rc = TSL2561_OPEN(&light1);
+
+   if(rc != 0) {
+     fprintf(stderr, "Error initializing TSL2561 sensor (%s). Check your i2c bus (es. i2cdetect)\n", strerror(light1.lasterr));
+     // you don't need to TSL2561_CLOSE() if TSL2561_OPEN() failed, but it's safe doing it.
+     TSL2561_CLOSE(&light1);
+     return -1;
+   }
+
+   rc = TSL2561_SETGAIN(&light1, TSL2561_GAIN_1X);
+   
+   rc = TSL2561_SETINTEGRATIONTIME(&light1, TSL2561_INTEGRATIONTIME_101MS);   
+
+   rc = TSL2561_SENSELIGHT(&light1, &broadband, &ir, &lux, 1);
+  
+   TSL2561_CLOSE(&light1);  
+
+   // printf("mylux %i\n" , lux);
+
+   temp = lux;
+  
+   return temp;
+ 
+ }
+ #endif
+
+ 
+ int power_stat(char *myport) {
     FILE *fp=NULL;
 
     // create a variable to store whether we are sending a '1' or a '0'

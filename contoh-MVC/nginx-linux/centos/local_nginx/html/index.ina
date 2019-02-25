@@ -1,0 +1,133 @@
+#!/usr/local/bin/baik
+
+# ######################################################################
+tulis "Content-type: text/html\n\n";
+
+tulis "<!DOCTYPE html>"
+
+kode_luar "kontrol/parameter.ina"
+ret = &setParam()
+
+# ambil data GET dari web request
+buffer = lingkup "QUERY_STRING";
+argumen[] = pisah buffer, "="
+
+urltarget = argumen[1]
+params[]  = pisah urltarget, "/"
+model     = params[0]
+
+l = panjang argumen
+#tulis "panjang data = ", l, "<BR>\n"
+
+untuk(i=0;i<l;i=i+1) ulang
+  # tulis "argumen[",i,"] = ", argumen[i], "<BR>\n"
+lagi
+
+# tulis "model: ", model, "<BR>\n"
+
+mymodel = gabung "./models/", model, ".ina"
+# tulis "mymodel: ", mymodel, "<BR>\n"
+
+# ######################################################################
+
+tulis "<html lang='ja'>\n"
+tulis "  <head>\n"
+tulis "    <meta charset='utf-8'>\n"
+tulis "    <title>Contoh BAIK 9.0</title>\n"
+tulis "    <!-- The below script Makes IE understand the new html5 tags are there and applies our CSS to it -->\n"
+tulis "    <!--[if IE]>\n"
+tulis "    <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>\n"
+tulis "    <![endif]-->\n"
+tulis "    <link rel='stylesheet' href='./style.css' />\n"
+tulis "    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>\n"
+tulis "  </head>\n"
+tulis "  <body>\n"
+tulis "    <header>\n"
+tulis "      <hgroup>\n"
+tulis "        <h1>Contoh BAIK 9.0</h1>\n"
+tulis "        <h2>Bahasa Anak Indonesia untuk Komputer</h2>\n"
+tulis "      </hgroup>\n"
+tulis "      <ul>\n"
+tulis "        <li><a href='index.ina?url=home'>Home</a></li>\n"
+tulis "        <li><a href='#'>Menu 1</a></li>\n"
+tulis "        <li><a href='#'>Menu 2</a></li>\n"
+tulis "        <li><a href='#'>Menu 3</a></li>\n"
+tulis "      </ul>\n"
+tulis "    </header>\n"
+tulis "    <section>\n"
+tulis "      <article>\n"
+
+  kalau (model == "showdb") maka
+
+    kode_luar mymodel
+    # tulis "setelah loading include file ... <BR>"
+    ret = &handle(buffer)
+    # tulis "ret: ", ret, "<BR>\n"
+    myview = gabung "./views/", model, ".ina"
+    # tulis "myview: ", myview, "<BR>\n"
+    rupa_html myview
+
+  lainkalau (model == "inputdb") maka
+
+    kode_luar mymodel
+    # tulis "setelah loading include file ... <BR>"
+    ret = &handle(buffer)
+    # tulis "ret: ", ret, "<BR>\n"
+
+  lainkalau (urltarget == "kontrol/inputdb") maka
+
+    kode_luar "kontrol/inputdb.ina"
+    ret = &handle()
+    #tulis "ret sql : ", ret, "<BR>\n"
+
+  lainnya
+
+    tulis "        <h1>Halaman Ini</h1>\n"
+    tulis "        <h2>BAIK 9.0 untuk Web Programming</h2>\n"
+    tulis "        <p>Halaman ini menjelaskan pemakaian BAIK 9.0 untuk Web Programming</p>\n"
+    tulis "        <p>BAIK 9.0 mendukung MVC (Model-View-Control) Style dengan menggunakan CGI atau FastCGI</p>\n"
+    tulis "      </article>\n"
+    tulis "      <article>"
+    tulis "        <h1>Persiapan</h1>"
+    tulis "        <p>Setup Linux<BR>"
+    tulis "        <small>&nbsp; dianjurkan menggunakan Linux 64 bit.</small>"
+    tulis "        </p>"
+    tulis "        <p>Setup BAIK<BR>"
+    tulis "        <small>&nbsp; dianjurkan diinstall ke /usr/local/bin/baik.</small>"
+    tulis "        </p>"
+    tulis "        <p>Setup Web Server<BR>"
+    tulis "        <small>&nbsp; dianjurkan menggunakan Web Server Nginx atau Apache dengan FastCGI.</small>"
+    tulis "        </p>"
+    tulis "        <p>Setup MVC</p>"
+
+  akhirkalau
+
+tulis "      </article>"
+tulis "    </section>"
+tulis "    <nav>"
+tulis "      <h1>Navigasi</h1>"
+tulis "      <ul>"
+tulis "        <li><a href='index.ina?url=showdb'>MVC Data Show </a></li>"
+tulis "        <li><a href='index.ina?url=inputdb'>MVC Data Input  </a></li>"
+tulis "        <li><a href='#'>MVC Data Edit </a></li>"
+tulis "        <li><a href='#'>MVC Data Delete </a></li>"
+tulis "      </ul>"
+tulis "    </nav>"
+tulis "    <footer>"
+tulis "      <p>Lisensi halaman ini dalam <a href='http://www.situsbaik.com/' target='_blank'>BAIK License</a>"
+tulis "         - Copyright @Haris Hasanudin<BR>"
+tulis "         <small>Ditulis dengan HTML5+CSS+BAIK</small>"
+tulis "      </p>"
+tulis "    </footer>"
+tulis "  </body>"
+tulis "</html>"
+
+tamat
+
+
+
+
+tulis "</body>\n</html>\n";
+
+
+

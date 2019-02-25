@@ -32,6 +32,8 @@ BAIK_ADDR tmp_pg;
 extern char currentClass[MAX_STRING_LEN];   // current Class for Object Oriented
 
 // --------------------------------------
+
+// --------------------------------------
 // Stack for Array String
 #include "stack_str_struct.h"
 

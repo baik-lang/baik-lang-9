@@ -1,0 +1,279 @@
+# LightTPD Configuration file (CORE)
+#
+# Use it as a base for LightTPD 1.0.0 and above.
+# This version is built by dtech(.hu) Software Solutions, http://www.dtech.hu/
+#
+# $Id: lighttpd.conf,v 1.8 2012/02/07 19:30:32 dtech Exp $
+
+############ Options you really have to take care of ####################
+
+## modules to load
+# at least mod_access and mod_accesslog should be loaded
+# all other module should only be loaded if really neccesary
+# - saves some time
+# - saves memory
+server.modules              = (
+                                "mod_access",
+                                "mod_accesslog",
+#                               "mod_alias",
+#                               "mod_auth",
+#                               "mod_cgi",
+#                               "mod_cml",
+#                               "mod_compress",
+#                               "mod_evasive",
+#                               "mod_evhost",
+#                               "mod_expire",
+#                               "mod_extforward",
+#                               "mod_fastcgi",
+#                               "mod_flv_streaming",
+#                               "mod_magnet",
+#                               "mod_mysql_vhost",
+#                               "mod_proxy",
+#                               "mod_redirect",
+#                               "mod_rewrite",
+#                               "mod_rrdtool",
+#                               "mod_scgi",
+#                               "mod_secdownload",
+#                               "mod_setenv",
+#                               "mod_simple_vhost",
+#                               "mod_ssi",
+                                "mod_status",
+#                               "mod_trigger_b4_dl",
+#                               "mod_userdir",
+#                               "mod_usertrack",
+#                               "mod_webdav"
+                               )
+
+#### include important configuration files
+## include path variables
+include "variables.conf"
+## include mimetype mapping file
+include "mimetype.conf"
+## include virtual hosts (optional)
+#include "vhosts.conf"
+
+## a static document-root, for virtual-hosting take look at the
+## server.virtual-* options
+server.document-root        = server_root + "/htdocs"
+
+#directory for file uploads
+server.upload-dirs          = ( temp_dir )
+
+# files to check for if .../ is requested
+index-file.names            = ( "index.php", "index.pl", "index.cgi", "index.cml",
+                                "index.html", "index.htm", "default.htm" )
+
+## set the event-handler (read the performance section in the manual)
+server.event-handler        = "libev"
+
+## deny access the file-extensions
+#
+# ~    is for backupfiles from vi, emacs, joe, ...
+# .inc is often used for code includes which should in general not be part
+#      of the document-root
+url.access-deny             = ( "~", ".inc" )
+
+## disable range request for PDF files
+$HTTP["url"] =~ "\.pdf$" {
+  server.range-requests = "disable"
+}
+
+## static-file module
+# which extensions should not be handle via static-file transfer
+#
+# .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi
+static-file.exclude-extensions = ( ".php", ".pl", ".cgi" )
+
+######### Options that are good to be but not neccesary to be changed #######
+
+## enable ipv6 usage
+#server.use-ipv6            = "enable"
+
+## bind to port (default: 80)
+#server.port                = 80
+
+## bind to localhost (default: all interfaces)
+#server.bind                = "mydomain.org"
+
+
+###### virtual hosts
+##
+##  If you want name-based virtual hosting add the next three settings and load
+##  mod_simple_vhost
+##
+## document-root =
+##   virtual-server-root + virtual-server-default-host + virtual-server-docroot
+## or
+##   virtual-server-root + http-host + virtual-server-docroot
+##
+#simple-vhost.server-root   = server_root
+#simple-vhost.default-host  = "vhost.mydomain.org"
+#simple-vhost.document-root = "/vhosts"
+
+## alias module
+#alias.url                  = ( "/documentation" => "manual" )
+
+## custom error pages
+## Format: <errorfile-prefix><status-code>.html
+## -> ..../status-404.html for 'File not found'
+#server.errorfile-prefix    = "errors/status-"
+
+## error-handler for status 404
+#server.error-handler-404   = "/error-handler.html"
+#server.error-handler-404   = "/error-handler.php"
+
+## virtual directory listings
+dir-listing.activate        = "enable"
+#dir-listing.encoding       = "utf-8"
+#dir-listing.external-css   = server_root + "style/style.css"
+
+## enable debugging
+#debug.log-request-header   = "enable"
+#debug.log-response-header  = "enable"
+#debug.log-request-handling = "enable"
+#debug.log-file-not-found   = "enable"
+
+#### compress module
+#compress.cache-dir         = temp_dir + "/cache/compress"
+#compress.filetype          = ("text/plain", "text/html")
+
+#### proxy module
+## read proxy.txt for more info
+#proxy.server               = ( ".php" =>
+#                               ( "localhost" =>
+#                                 (
+#                                   "host" => "192.168.0.101",
+#                                   "port" => 80
+#                                 )
+#                               )
+#                             )
+
+#### fastcgi module
+## read fastcgi.txt for more info
+## for PHP don't forget to set cgi.fix_pathinfo = 1 in the php.ini
+## ... and PHP_FCGI_MAX_REQUESTS = 0 environment variable in system properties
+#fastcgi.server             = ( ".php" =>
+#                               ( "localhost" =>
+#                                 (
+#                                   "host" => "127.0.0.1",
+#                                   "port" => 9000
+#                                 )
+#                               )
+#                             )
+
+## map multiple extensions to the same fastcgi server
+#fastcgi.map-extensions     = ( ".php3" => ".php",
+#                               ".php4" => ".php" )
+
+#### CGI module
+#cgi.assign                 = ( ".php" => "C:/PHP/php-cgi.exe",
+#                               ".pl"  => "C:/Perl/perl.exe",
+#                               ".cgi" => "C:/Perl/perl.exe" )
+
+#### SSL engine
+#ssl.engine                 = "enable"
+#ssl.pemfile                = cert_dir + "/server.pem"
+
+#### status module
+status.status-url           = "/server-status"
+status.config-url           = "/server-config"
+## fcgi statistics
+#status.statistics-url      = "/server-counters"
+
+#### auth module
+## read authentication.txt for more info
+#auth.backend               = "plain"
+#auth.backend.plain.userfile = conf_dir + "/auth.user"
+#auth.backend.plain.groupfile = conf_dir + "/auth.group"
+
+#auth.backend.ldap.hostname = "localhost"
+#auth.backend.ldap.base-dn  = "dc=my-domain,dc=com"
+#auth.backend.ldap.filter   = "(uid=$)"
+
+#auth.require               = ( "/server-status" =>
+#                               (
+#                                 "method"  => "digest",
+#                                 "realm"   => "Server status",
+#                                 "require" => "user=admin"
+#                               ),
+#                               "/server-config" =>
+#                               (
+#                                 "method"  => "digest",
+#                                 "realm"   => "Server config",
+#                                 "require" => "user=admin"
+#                               )
+#                             )
+
+#### url handling modules (rewrite, redirect, access)
+#url.rewrite                = ( "^/$"             => "/server-status" )
+#url.redirect               = ( "^/wishlist/(.+)" => "http://www.123.org/$1" )
+
+#### both rewrite/redirect support back reference to regex conditional using %n
+#$HTTP["host"] =~ "^www\.(.*)" {
+#  url.redirect             = ( "^/(.*)" => "http://%1/$1" )
+#}
+
+#### evhost module
+# define a pattern for the host url finding
+# %% => % sign
+# %0 => domain name + tld
+# %1 => tld
+# %2 => domain name without tld
+# %3 => subdomain 1 name
+# %4 => subdomain 2 name
+#
+#evhost.path-pattern        = server_root + "/htdocs"
+
+#### expire module
+#expire.url                 = ( "/buggy/" => "access 2 hours", "/asdhas/" => "access plus 1 seconds 2 minutes")
+
+#### ssi
+#ssi.extension              = ( ".shtml" )
+
+#### rrdtool
+#rrdtool.binary             = "C:/RRDtool/rrdtool.exe"
+#rrdtool.db-name            = temp_dir + "/lighttpd.rrd"
+
+#### setenv
+#setenv.add-request-header  = ( "TRAV_ENV" => "mysql://user@host/db" )
+#setenv.add-response-header = ( "X-Secret-Message" => "42" )
+
+## for mod_trigger_b4_dl
+#trigger-before-download.gdbm-filename = "C:/GDBM/testbase/trigger.db"
+#trigger-before-download.memcache-hosts = ( "127.0.0.1:11211" )
+#trigger-before-download.trigger-url = "^/trigger/"
+#trigger-before-download.download-url = "^/download/"
+#trigger-before-download.deny-url = "http://127.0.0.1/index.html"
+#trigger-before-download.trigger-timeout = 10
+
+#### for mod_cml
+## don't forget to add index.cml to server.indexfiles
+#cml.extension              = ".cml"
+#cml.memcache-hosts         = ( "127.0.0.1:11211" )
+
+#### mysql vhost
+## unix sockets don't work under windows environment, but you can use TCP connection instead of socket
+#mysql-vhost.hostname       = "127.0.0.1" # if set overrides socket
+#mysql-vhost.port           = 3306
+#mysql-vhost.user           = "lighttpd"
+#mysql-vhost.pass           = "secret"
+#mysql-vhost.db             = "lighttpd"
+#mysql-vhost.sql            = "SELECT docroot FROM domains WHERE domain='?';"
+
+#### variable usage:
+## variable name without "." is auto prefixed by "var." and becomes "var.bar"
+#bar = 1
+#var.mystring = "foo"
+
+## integer add
+#bar += 1
+## string concat, with integer cast as string, result: "www.foo1.com"
+#server.name = "www." + mystring + var.bar + ".com"
+## array merge
+#index-file.names = (foo + ".php") + index-file.names
+#index-file.names += (foo + ".php")
+
+#### include
+#include server_root + "/conf/external.conf"
+## same as above if you run: "lighttpd -f conf/external.conf"
+#include "external.conf"

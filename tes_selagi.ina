@@ -1,0 +1,9 @@
+a=0
+selagi (a<10) lakukan
+  tulis "step selagi ",a,"\n"
+  a=a+1
+baliklagi
+
+
+
+

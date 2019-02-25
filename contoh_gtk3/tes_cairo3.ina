@@ -1,0 +1,55 @@
+# Tes melukis dgn Baik (Cairo)
+
+tulis "Bentuk Garis dgn BAIK\n"
+
+# buat bidang gambar dengan ukuran X, Y
+pnl = bidang_gambar 300, 200
+
+# buat latar alas pada bidang dengan warna latar R, G, B
+ltr = latar_gambar  pnl, 0.9, 0.5, 0.0
+
+# set warna untuk pena R, G, B
+warna_pena ltr, 0.0, 0.5, 1.0
+
+# tulis teks pada posisi X, Y
+atribut_teks ltr, 14, "Arial", "tebalmiring"
+lukis_teks   ltr, 10, 20, "Bentuk Garis dgn BAIK"
+
+# Garis 1
+warna_pena  ltr, 0.0, 1.0, 1.0
+tebal_garis ltr, 3
+garis_putus ltr, "strip"
+lukis_garis ltr, 10, 50, 275, 50
+
+# Garis 2
+warna_pena  ltr, 0.5, 1.0, 0.1
+tebal_garis ltr, 3
+garis_putus ltr, "titik"
+lukis_garis ltr, 10, 80, 275, 80
+
+# Garis 3 merah
+warna_pena  ltr, 1.0, 0.0, 0.0
+tebal_garis ltr, 3
+garis_putus ltr, "titikstrip"
+lukis_garis ltr, 10, 110, 275, 110
+
+atribut_teks ltr, 12, "Sans", "normal"
+lukis_teks   ltr, 10, 170, "Bentuk Garis Okey"
+
+
+# hapus memori latar
+hapus_latar  ltr
+
+simpan_lukisan pnl, "baiklukisan3.png"
+
+# hapus memori bidang gambar
+hapus_bidang pnl
+
+tulis "selesai\n"
+
+tamat
+
+
+
+
+

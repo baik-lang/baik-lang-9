@@ -102,6 +102,54 @@ VAL_LABEL funcPing ()
   return datx;
 }
 
+// =================
+
+VAL_LABEL funcCEK_IOT ()
+{
+  VAL_LABEL datx;
+  VAL_LABEL tmpdat;
+  char      myurl[MAX_STRING_LEN];
+
+  memset(&datx, '\0', sizeof(datx));
+  memset(&tmpdat, '\0', sizeof(tmpdat));
+  memset(&myurl, '\0', sizeof(myurl));
+
+  // printf("inside funcCEK_WEB\n");
+
+  getlex();
+
+      if(lex.type == TYPE_NUM) {
+        Error("CEK_IOT: masukan data salah");
+      } else if(lex.type == TYPE_STR) {
+        strcpy(myurl, lex.detail.string);
+        #ifdef WINDOWS
+		strcpy(datx.str, win_checkweb(2, myurl));
+        #else
+		strcpy(datx.str, (char *)ux_checkweb(2, myurl));
+        #endif
+		datx.datatype = 3;
+	  } else if (lex.type == TYPE_IDENT) {
+
+		tmpdat = ValLabel(lex.detail.ident, sub_deep, tmpdat, VAL_FLAG_SEARCH_R);
+		if (tmpdat.datatype == 3) {
+			strcpy(myurl, tmpdat.str);
+            #ifdef WINDOWS
+			strcpy(datx.str, win_checkweb(2, myurl));
+            #else
+			// strcpy(datx.str , (char *)ux_checkweb(2, myurl) );
+            #endif
+			datx.datatype = 3;
+		}
+
+	  } else {
+		  Error("CEK_IOT: masukan data salah");
+	  }
+	  
+  return datx;
+}
+
+// =================
+
 VAL_LABEL funcIKAT_SOKET ()
 {
   VAL_LABEL datx;

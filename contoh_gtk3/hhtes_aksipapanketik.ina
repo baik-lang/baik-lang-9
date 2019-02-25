@@ -1,0 +1,51 @@
+# ################################
+# tes GUI program dengan BAIK9
+# aksi-aksi dalam papanketik
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Cek Aksi PapanKetik dgn BAIK9"
+luas_layar  lyr1, 470, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "Tekan papan ketik !"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah"
+hias_alas alas1, lbl1, 10, 15, 180, 20
+
+tutup_program lyr1
+
+aksi_tekan_papanketik lyr1, &lakukan1(lbl1)
+aksi_lepas_papanketik lyr1, &lakukan2()
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(in1) {
+  kata1 = teks_label in1
+  tulis "masukan => ", kata1, "\n"
+
+  a = ketikan_nilai
+  b = ketikan_status
+  c = ketikan_abjad
+
+  tulis "ketikan a=",a," b=",b," huruf=",c,"\n";
+
+}
+
+Fungsi lakukan2() {
+  a = ketikan_nilai
+  b = ketikan_status
+  c = ketikan_abjad
+
+  tulis "lepas ketikan a=",a," b=",b," huruf=",c,"\n";
+}
+

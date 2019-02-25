@@ -1,0 +1,45 @@
+# ################################################
+# tes program Desktop dengan BAIK5 - TANGGALAN
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TANGGALAN dgn BAIK v5"
+luas_layar  lyr1, 320, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "Tanggal Terbit"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "biru muda"
+hias_alas alas1, lbl1, 10, 15, 100, 20
+
+msk1 = masukan
+set_warnahuruf msk1, "biru"
+set_warnadasar msk1, "kuning"
+hias_alas alas1, msk1, 120, 15, 120, 20
+
+
+tombol01 = tombol "TGL"
+hias_alas alas1, tombol01, 240, 15, 40, 20
+
+# aksi pada elemen desktop #
+# ==========================
+aksi_tutup_program lyr1
+aksi_fungsi tombol01, &aksi1(msk1)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(masuk1) {
+  tanggalan masuk1, "baik_logo.png"
+}
+
+
+

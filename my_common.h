@@ -1,5 +1,5 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2010
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia

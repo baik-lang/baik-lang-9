@@ -1,0 +1,68 @@
+#!/usr/local/bin/baik
+
+tulis "Content-type: text/html\n\n";
+tulis "<html>\n<body>\n";
+tulis "<div style=\"width: 100%; font-size: 40px; font-weight: bold; text-align: center;\">\n";
+tulis "<font color='#3333ff'>BAIK - NGINX : DB Test</font>";
+tulis "\n</div>\n";
+
+### parameter untuk database
+alamatdb  = "localhost"
+pemakai   = "haris"
+katasandi = "haris"
+namadb    = "warungdb"
+nomerport =  3306
+
+#tulis "alamatdb : ", alamatdb ,"<BR>\n"
+#tulis "pemakai  : ", pemakai ,"<BR>\n"
+tulis "Namadb   : ", namadb ,"<BR>\n"
+
+tulis "------------------------<BR>\n"
+
+### kalimat sql untuk operasi database
+sql = "select * from tbl_barang"
+
+### koneksi ke database
+kon = mysql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+hasil = mysql_hasil kon, sql
+
+num = mysql_total hasil
+tulis "Jumlah data = ", num ,"<BR><BR>\n"
+
+### mengambil nama kolom dari suatu Tabel
+kolom = mysql_namakolom hasil
+besarkolom = panjang kolom
+
+tulis "<table border='0' cellspacing='1' bgcolor='#3333ff'>"
+tulis "<tr>"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>No</td>\n"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Produk</td>\n"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Merk</td>\n"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Harga</td>\n"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Tgl</td>\n"
+tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Stok</td>\n"
+tulis "</tr>\n\n"
+
+### mengambil isi data per baris dari suatu Tabel
+untuk (i=0; i<num; i=i+1) ulang
+  baris = mysql_isidata hasil
+  kolomnum = panjang baris
+
+  tulis "</tr><tr>"
+  untuk (j=0; j<kolomnum; j=j+1) ulang
+    tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[j], "</font></center></td>\n"
+  lagi
+
+  tulis "</tr>\n"
+lagi
+
+
+tulis "</table>"
+
+### menutup koneksi database
+tutup kon
+
+tulis "</body></html>\n";
+
+
+

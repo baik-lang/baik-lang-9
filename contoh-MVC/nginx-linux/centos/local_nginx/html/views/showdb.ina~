@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Simple BAIK Sakti Framework</title>
+    </head>
+
+    <body>
+
+    <?
+
+    tulis "<table border='0' cellspacing='1' bgcolor='#3333ff'>"
+    tulis "<tr>"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>No</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Produk</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Merk</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Harga</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Tgl</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Stok</th>\n"
+    tulis "</tr>\n\n"
+
+    ### mengambil isi data per baris dari suatu Tabel
+
+    untuk (i=0; i<num; i=i+1) ulang
+      baris = mysql_isidata hasil
+
+      tulis "</tr><tr>"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[0], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[1], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[2], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[3], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[4], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[5], "</font></center></td>\n"
+      tulis "</tr>\n"
+    lagi
+
+    tulis "</table><br>"
+
+    ?>
+
+    tulis "Pengambilan data OK <br>\n"
+
+    </body>
+
+

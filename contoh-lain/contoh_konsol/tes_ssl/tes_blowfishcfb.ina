@@ -1,0 +1,19 @@
+# ###################################
+# tes SSL - blowfish CFB
+# ###################################
+
+tulis "Tes SSL blowfish CFB dengan BAIK\n"
+
+kalimat = "Hello Haris Hasanudin"
+sandi   = "this's my secret"
+
+rhs  = enkripsi_blowfishcfb kalimat, sandi
+asal = dekripsi_blowfishcfb rhs, sandi
+
+tulis "kalimat: ", kalimat, "\n"
+tulis "blowfish CFB : ", rhs, "\n"
+tulis "asal : ", asal, "\n"
+
+tamat
+
+

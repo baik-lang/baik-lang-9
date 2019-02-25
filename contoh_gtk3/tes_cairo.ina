@@ -1,0 +1,69 @@
+# Tes melukis dgn Baik (Cairo)
+
+tulis "tes melukis dgn BAIK\n"
+
+# buat bidang gambar dengan ukuran X, Y
+pnl = bidang_gambar 300, 250
+
+# buat latar alas pada bidang dengan warna latar R, G, B
+ltr = latar_gambar  pnl, 0.9, 0.5, 0.0
+
+# set warna untuk pena R, G, B
+warna_pena ltr, 0.0, 0.3, 1.0
+
+# tulis teks pada posisi X, Y
+atribut_teks ltr, 14, "Arial", "tebal"
+lukis_teks ltr, 10, 18, "Melukis dengan BAIK"
+
+warna_pena  ltr, 0.0, 1.0, 1.0
+lukis_kotak ltr, 10, 50, 75, 75
+warna_pena  ltr, 0.5, 1.0, 0.1
+lukis_kotakisi ltr, 40, 65, 95, 75
+
+warna_pena  ltr, 1.0, 0.0, 1.0
+pindah_pena ltr, 100, 30
+geser_pena  ltr, 100, 110
+geser_pena  ltr, 150, 110
+geser_pena  ltr, 150, 210
+gores_pena  ltr
+
+# garis kuning transparan
+warna_transparan  ltr, 1.0, 1.0, 0.0, 0.5
+tebal_garis ltr, 12
+pucuk_garis ltr, "bundar"
+lukis_garis ltr, 170, 50, 230, 185
+# garis kuning
+warna_pena  ltr, 1.0, 1.0, 0.0
+lukis_garis ltr, 190, 70, 250, 205
+
+# hapus memori latar
+hapus_latar  ltr
+
+simpan_lukisan pnl, "baiklukisan.png"
+
+# hapus memori bidang gambar
+hapus_bidang pnl
+
+tulis "selesai\n"
+
+tamat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

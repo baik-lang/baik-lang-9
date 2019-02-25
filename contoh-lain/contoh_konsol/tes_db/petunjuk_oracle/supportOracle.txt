@@ -1,0 +1,20 @@
+2010-07 Supporting Oracle (32)
+
+- Install Oracle Database di Server
+  versi 7/8/8i/9i/10g/11g
+
+- Install Oracle Client di Client
+
+- Set tnsname.ora
+  -> tentukan nama service untuk Oracle, mis: ORACTL
+
+- pastikan bisa login dari cliet ke server dengan
+  menggunakan sqlplus
+
+- lihat contoh program BAIK:
+  db-oradb.ina
+
+
+
+
+

@@ -1,0 +1,123 @@
+.menu a, 
+.title h1, 
+.con div {  
+         color:blue   
+          }  
+body,  
+.con h2 {  
+ background-color:lightgreen;  
+          }  
+.title h1       {   
+        border-bottom-color:lightblue;   
+        }   
+.sub    {   
+        border-left-color:#74ced1;   
+        }   
+.menu div.jp,   
+.title div,   
+.title p,   
+.con p  { 
+        color:#888888   
+        }   
+.sub    {   
+        color:#555555   
+        }   
+.menu a:hover,   
+.con h2 {   
+        color:brown   
+        }  
+.main,   
+.menu div.jp,   
+.menu a {   
+        background-color:white;   
+        }   
+.menu a:hover  {  
+        background-color:#666666;   
+        }   
+.menu   {   
+        position:absolute;   
+        left:20px;   
+        top:20px   
+        }   
+.main   {   
+        position:absolute;   
+        left:202px;   
+        top:20px;   
+        width:630px;   
+        padding:20px   
+        }  
+ 
+/* MENU */  
+.menu div       {   
+        }   
+.menu div.jp    {   
+        width:152px;   
+        padding:1px 0px 2px 8px;   
+        font-size:9px;   
+        margin-top:1px;   
+        margin-bottom:10px;   
+        }   
+.menu a {   
+        display:block;   
+        width:152px;   
+        padding:3px 0px 0px 8px;   
+        text-decoration:none;   
+        font-family:Arial, Helvetica, sans-serif;   
+        font-size:18px;   
+        font-weight:bold;   
+        }   
+.sub    {   
+        width:152px;   
+        margin-top:30px;   
+        border-left:solid 8px;   
+        padding-left:6px;   
+        line-height:12px;   
+        font-size:9px;   
+        font-weight:bold;   
+        }  
+ 
+/* TITLE */   
+.title h1       {   
+        margin-top:0px;   
+        margin-bottom:8px;   
+        padding-bottom:3px;   
+        border-bottom:solid 2px;   
+        font-family:Arial, Helvetica, sans-serif;   
+        font-size:28px;   
+        }  
+ 
+.title div      {   
+        float:left;   
+        font-size:16px;   
+        font-weight:bold;   
+        }  
+ 
+.title p        {   
+        float:right;   
+        margin-top:0px;   
+        margin-bottom:20px;   
+        font-size:12px;   
+        }  
+ 
+/* CONTENTS */   
+.con    {   
+        margin-bottom:30px;   
+        clear:both   
+        }   
+.con h2 {   
+        padding:3px;   
+        margin-bottom:10px;   
+        font-size:14px;   
+        }   
+.con div {   
+        font-size:16px;   
+        }   
+.con p  {   
+        margin-top:-1.5em;   
+        margin-left:1.5em;   
+        text-align:justify;   
+        text-justify:distribute;   
+        line-height:120%;   
+        font-size:12px;   
+        }  
+ 

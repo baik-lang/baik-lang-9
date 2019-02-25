@@ -1,0 +1,91 @@
+# ################################
+# tes GUI program dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Layar, Masukan, Rubah Masukan dgn BAIK v5"
+luas_layar  lyr1, 420, 250
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nama saya"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 80, 18
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "merah anggrek"
+set_tips msk1, "masukkan nama"
+hias_alas alas1, msk1, 100, 15, 200, 18
+
+lbl2 = label "makanan :"
+set_warnadasar lbl2, "hijau zamrud"
+set_warnahuruf lbl2, "merah"
+hias_alas alas1, lbl2, 10, 35, 80, 18
+
+pil1 = pilihan
+set_pilihan pil1, " "
+set_pilihan pil1, "mangga indramayu"
+set_pilihan pil1, "pisang raja"
+set_pilihan pil1, "jambu bol"
+set_pilihan pil1, "belimbing keris"
+hias_alas alas1, pil1, 100, 35, 200, 18
+
+exp1 = perinci "detail"
+hias_alas alas1, exp1, 10, 55, 200, 36
+lbl3 = label "ini contoh penggunaan perinci"
+hias_layar exp1, lbl3
+
+tls1 = kertas 
+set_kertas tls1,"ini kertas buat nulis apa saja\nbisa lebih dari satu baris"
+set_warnahuruf tls1, "biru laut"
+set_warnadasar tls1, "hijau zaitun"
+hias_alas alas1, tls1, 100, 95, 200, 36
+
+ptr1 = tombol_putar 1,10,1
+hias_alas alas1, ptr1, 100, 135, 200, 18
+
+btn3 = tombol "Masuk"
+set_warnadasar btn3, "hijau zamrud"
+set_tips btn3, "tekan tombol ini"
+hias_alas alas1, btn3, 260, 190, 80, 35
+
+a = "ini dari masukan"
+aksi_fungsi btn3, &lakukan1(a, lbl1, msk1, pil1, tls1, ptr1)
+tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(kata1, label1, in1, pilih1, kertas1, puter1) {
+  tulis kata1, "\n"
+
+  kata2 = teks_label label1
+  tulis "label => ", kata2, "\n"
+
+  set_label label1, "rubah label"
+
+  kata3 = teks_masukan in1
+  tulis "masukan => ", kata3, "\n"
+
+  set_masukan in1, "rubah masukan"
+
+  kata4 = teks_pilihan pilih1
+  tulis "pilihan => ", kata4, "\n"
+
+  kalimat1 = teks_kertas kertas1
+  tulis "teks kertas => ", kalimat1, "\n"
+
+  nilai1 = nilai_tombol_putar puter1
+  tulis "hasil putaran => ", nilai1, "\n"
+
+}

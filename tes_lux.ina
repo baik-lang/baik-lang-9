@@ -1,0 +1,23 @@
+# ##################################
+# Tes Baca Cahaya LUX Dengan BAIK
+# ##################################
+
+tulis "Contoh membaca data sensor Cahaya Lux dari I2C\n"
+
+loop = 1
+
+selagi (loop == 1) lakukan
+
+  tgl = waktu
+
+  temp = baca_cahaya
+
+  tulis tgl, " lux = ", temp, " Lux\n"
+
+  tunggu 10
+
+baliklagi
+
+
+tamat
+

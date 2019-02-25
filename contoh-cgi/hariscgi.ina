@@ -1,0 +1,8 @@
+#!C:/baik
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2008/02
+
+tulis "Content-type: text/plain\n\n"
+tulis "<html> hello CGI dengan bahasa baik </html>"
+
+END

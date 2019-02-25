@@ -1,6 +1,6 @@
 // //////////////////////////////////////////////////////////////////////
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
@@ -124,9 +124,16 @@ extern VAL_LABEL interpretIndexParam(char source[MAX_STRING_LEN], int tmp_pt, in
 
 extern STR_ARRY TmpStrBox;
 extern STR_ARRY TmpStrBox2;
-extern int strarryPos;
+extern int      strarryPos;
 
-extern int renban;
+extern int      renban;
+
+// Feb 11, 2016
+extern STR_ARRY mysql_TmpStrBox;
+extern int      mysql_strarryPos;
+
+extern int      mysql_renban;
+
 extern long createRenban(int mynum);
 // --------------------------------------
 

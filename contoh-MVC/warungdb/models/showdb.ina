@@ -1,0 +1,37 @@
+
+sub handle(myparams) {
+
+  mystr = "OK"
+
+  ### parameter untuk database
+  alamatdb  = "localhost"
+  pemakai   = "haris"
+  katasandi = "haris"
+  namadb    = "warungdb"
+  nomerport =  3306
+
+  tulis "<BR>"
+  tulis "---------------------------------------------<BR>\n"
+
+  tulis "Tampilan Data - NamaDb   : ", namadb ,"<BR>\n"
+
+  tulis "---------------------------------------------<BR>\n"
+
+  ### kalimat sql untuk operasi database
+  sql = "select * from tbl_barang"
+
+  ### koneksi ke database
+  kon = mysql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+  hasil = mysql_hasil kon, sql
+
+  num = mysql_total hasil
+  tulis "Jumlah data = ", num ,"<BR><BR>\n"
+
+  ### mengambil nama kolom dari suatu Tabel
+  kolom = mysql_namakolom hasil
+  besarkolom = panjang kolom
+
+  balik mystr
+
+}
+

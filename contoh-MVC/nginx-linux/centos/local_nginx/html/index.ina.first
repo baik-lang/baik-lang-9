@@ -1,0 +1,72 @@
+#!/usr/local/bin/baik
+
+tulis "Content-type: text/html\n\n";
+
+# inisialisasi
+# ####################################
+# Hati-hati dgn variable GLOBAL
+global kon    # untuk koneksi database
+global num    # untuk total data dr database
+global hasil  # untuk data dr database
+
+buffer = ""
+model  = ""
+# ####################################
+
+# ambil data GET dari web request
+buffer = lingkup "QUERY_STRING"; 
+argumen[] = pisah buffer, "="
+
+urltarget = argumen[1]
+params[]  = pisah urltarget, "/"
+model     = params[0]
+
+tulis "<html>\n<body>\n";
+tulis "<div style=\"width: 100%; font-size: 20px; font-weight: bold; text-align: center;\">\n";
+tulis "BAIK 9 Web Programming<BR>"
+tulis "SAKTI - Struktur, Alur, Kontrol Tampilan Internet";
+tulis "\n</div><BR>\n";
+
+tulis "Implementasi BAIK 9 dengan MVC : Model - View - Control untuk Web Programming <BR>\n"
+tulis "<BR>"
+tulis "Kode Halaman Web<BR>"
+tulis "&nbsp;&nbsp; <*> Model : tempat kode khusus model/struktur tiap tampilan html<BR>"
+tulis "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /model/showdb.ina<BR>"
+tulis "&nbsp;&nbsp; <*> View : tempat kode khusus tampilan html<BR>"
+tulis "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /view/showdb.ina<BR>"
+tulis "&nbsp;&nbsp; <*> Control : tempat kode khusus logika/alur kerja<BR>"
+tulis "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /index.ina<BR>"
+
+# ####################################
+
+l = panjang argumen
+#tulis "panjang data = ", l, "<BR>\n"
+
+untuk(i=0;i<l;i=i+1) ulang
+  # tulis "argumen[",i,"] = ", argumen[i], "<BR>\n"
+lagi
+
+# tulis "model: ", model, "<BR>\n"
+
+mymodel = gabung "./models/", model, ".ina"
+# tulis "mymodel: ", mymodel, "<BR>\n"
+
+kode_luar mymodel
+# tulis "setelah loading include file ... <BR>"
+
+ret = &handle(buffer)
+# tulis "ret: ", ret, "<BR>\n"
+
+myview = gabung "./views/", model, ".ina"
+# tulis "myview: ", myview, "<BR>\n"
+
+rupa_html myview
+
+# Selesai ############################
+tutup kon
+tulis "</html>\n";
+
+# Harus ada tanda tamat 
+tamat
+
+

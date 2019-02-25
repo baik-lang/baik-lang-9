@@ -1,6 +1,6 @@
 // ////////////////////////////////////////////////////
 // List Manipulation in C
-// Copyright(c) Haris Hasanudin 2005 2010
+// Copyright(c) Haris Hasanudin 2005 2016
 //
 // Untuk Bahasa Komputer Versi Bahasa Indonesia
 //
@@ -20,7 +20,7 @@ struct string_list{
     long     stackid;           // id to connect with stackStr_list
 
     int      idx;              // arry contents : pos of array
-    char     mystring[300];    // arry contents : string array ['name1','name2','name3', ...]
+    char     mystring[512];    // arry contents : string array ['name1','name2','name3', ...]
 
     struct string_list *pnext;  
 };

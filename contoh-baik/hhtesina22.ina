@@ -1,0 +1,42 @@
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2008/01
+
+TULIS "Tes apakah_angka \n"
+
+a = "5"
+b = "a"
+c = "55"
+d = "bb"
+
+untaian h[10]
+h[0] = "9"
+h[1] = "1001"
+
+p = angka_kah 1
+q = angka_kah "1"
+r = angka_kah "a"
+s = angka_kah "55"
+t = angka_kah "aa"
+u = angka_kah a
+v = angka_kah b
+w = angka_kah c
+x = angka_kah d
+y = angka_kah h[0]
+z = angka_kah h[1]
+
+
+
+tulis "p=" , p ,"\n"
+tulis "q=" , q , " \n"
+tulis "r=" , r ,"\n"
+tulis "s=" , s , " \n"
+tulis "t=" , t , " \n"
+tulis "u=" , u , " \n"
+tulis "v=" , v , " \n"
+tulis "w=" , w , " \n"
+tulis "x=" , x , " \n"
+tulis "y=" , y , " \n"
+tulis "z=" , z , " \n"
+
+
+END

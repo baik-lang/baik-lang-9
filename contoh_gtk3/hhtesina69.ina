@@ -1,0 +1,48 @@
+# ################################
+# tes GUI program dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Rubah Huruf dgn BAIK v5"
+luas_layar  lyr1, 420, 250
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "Bahasa BAIK oleh Haris H"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+# set_jenishuruf lbl1, "Arial italic 10"
+hias_alas alas1, lbl1, 10, 15, 180, 30
+
+
+btn1 = tombol "Rubah Huruf"
+set_tips btn1, "tekan tombol ini"
+hias_alas alas1, btn1, 220, 15, 80, 30
+
+aksi_fungsi btn1, &aksi1(lbl1)
+tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(label1) {
+  kata2 = teks_label label1
+  tulis "label => ", kata2, "\n"
+
+  huruf1 = Dialog_Huruf
+
+  tulis "ambil huruf: ", huruf1, "\n"
+
+  kalau huruf1 <> "" maka
+   set_jenishuruf lbl1, huruf1
+  akhirkalau
+
+}

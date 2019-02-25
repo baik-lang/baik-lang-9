@@ -1,0 +1,12 @@
+# Kode Program Bahasa Basic versi Indonesia
+# Oleh Haris Hasanudin 2008/02
+
+A = waktu
+
+tulis "waktu = ",A,"\n"
+
+B = hari
+
+tulis "hari = ",B,"\n"
+
+TAMAT

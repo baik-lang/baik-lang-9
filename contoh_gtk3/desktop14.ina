@@ -1,0 +1,53 @@
+# ################################################
+# tes program Desktop dengan BAIK9 - LABEL-MASUKAN
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Desktop dgn BAIK9"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+
+
+kertas1 = kertas 
+
+set_kertas kertas1, "ini area KERTAS buat menulis apa saja\n
+bisa lebih dari satu baris\n
+BAIK Bahasa Komputer Indonesia\n"
+
+set_warnahuruf kertas1, "biru laut"
+set_warnadasar kertas1, "hijau zaitun"
+hias_alas alas1, kertas1, 10, 10, 250, 85
+
+ptr1 = tombol_putar 1,10,1
+hias_alas alas1, ptr1, 110, 115, 100, 20
+
+tombol01 = tombol "OKE"
+hias_alas alas1, tombol01, 110, 150, 80, 30
+
+# aksi pada elemen desktop #
+# ==========================
+aksi_tutup_program lyr1
+aksi_fungsi tombol01, &aksi1(kertas1, ptr1)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(teks1, putar1) {
+  kalimat1 = teks_kertas teks1
+  tulis "teks kertas => ", kalimat1, "\n"
+
+  nilai1 = nilai_tombol_putar putar1
+  tulis "hasil putaran => ", nilai1, "\n"
+}
+
+
+

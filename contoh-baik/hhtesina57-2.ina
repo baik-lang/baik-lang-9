@@ -1,0 +1,68 @@
+# #########################################################
+# Pendefinisian BENDA
+# Tes Penggunaan Kode Luar
+# #########################################################
+
+DefinisiBenda MyBenda [
+  param1
+  param2 = "Pesan Objek : Ini Dalam MyBenda"
+  param3=2.3
+  param4
+  param5 = param2
+  lokal param6 = "nama saya haris"
+  param7
+
+
+  fungsi MyBenda(y) {
+    tulis "DALAM OBJECT init : ",y,"\n"
+    tulislog "DALAM OBJECT init : ", y
+  }
+
+  fungsi testProc() {
+    tulis "DALAM OBJECT: param3 : ", param3,"\n"
+    tulislog "DALAM OBJECT: param3 : ", param3 
+  }
+
+  fungsi testJumlah(a,b) {
+    tulis "DALAM OBJECT: test Jumlah\n"
+    c = a + b
+    tulis "DALAM OBJECT: c = a + b = ", c,"\n"
+  }
+
+  fungsi testSin(z) {
+    param4 = sin z
+    tulis "DALAM OBJECT: param4 = sin z : ", param4,"\n"
+  }
+  fungsi testCos(z) {
+    param4 = cos z
+    tulis "DALAM OBJECT: param4 = cos z : ", param4,"\n"
+  }
+  fungsi testAbs(z) {
+    param4 = abs z
+    tulis "DALAM OBJECT: param4 = abs z : ", param4,"\n"
+  }
+  fungsi testFak(z) {
+    param4 = faktorial z
+    tulis "DALAM OBJECT: param4 = faktorial z : ", param4,"\n"
+  }
+
+  fungsi testProc3(z) {
+    param5 = gabung z , " putih"
+    tulis "DALAM OBJECT: param5 = z gabung putih = ", param5,"\n"
+    tulislog "DALAM OBJECT: param5 = z + putih = ", param5
+  }
+
+
+
+
+
+  fungsi testProc4(z) {
+    param5 = sambung z , " padam"
+    tulis "DALAM OBJECT: param5 = z sambung padam = ", param5,"\n"
+    tulislog "DALAM OBJECT: param5 = z + putih = ", param5
+  }
+
+
+]
+
+AKHIR_KODE_LUAR

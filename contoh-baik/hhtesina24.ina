@@ -1,0 +1,20 @@
+
+p = 1
+q = 23.56
+
+untaian a[10]
+a[0] = 10
+
+tulis "p=" , p ,"\n"
+tulis "q=" , q , " \n"
+tulis "a[0]=" , a[0] , " \n"
+
+hapus p
+hapus q
+hapus a[0]
+
+tulis "cleared p=" , p ,"\n"
+tulis "cleared q=" , q , " \n"
+tulis "cleared a[0]=" , a[0] , " \n"
+
+END

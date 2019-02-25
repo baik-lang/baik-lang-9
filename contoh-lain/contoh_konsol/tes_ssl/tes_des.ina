@@ -1,0 +1,19 @@
+# ###################################
+# tes SSL - DES
+# ###################################
+
+tulis "Tes SSL DES dengan BAIK\n"
+
+kalimat = "Hello Haris Hasanudin"
+sandi   = "this's my secret"
+
+rhs  = enkripsi_des kalimat, sandi
+asal = dekripsi_des rhs, sandi
+
+tulis "kalimat: ", kalimat, "\n"
+tulis "des : ", rhs, "\n"
+tulis "asal : ", asal, "\n"
+
+tamat
+
+

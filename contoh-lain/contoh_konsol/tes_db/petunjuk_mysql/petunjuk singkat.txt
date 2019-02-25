@@ -1,0 +1,24 @@
+Petunjuk singkat memakai Mysql :
+===============================
+      oleh Haris 2010
+
+
+- Download Mysql versi 4/5 keatas
+- Install Mysql
+
+- login ke MySql dengan account root.
+  See : mysql account.txt
+- >\. makedb.sql
+- >\. makeuser.sql
+- logout MySql
+  >exit
+- login ke MySql dengan account haris.
+  See : mysql account.txt
+- change active db
+  >use warungdb;
+- make table
+  >\. maketbl1.sql
+...
+...
+
+

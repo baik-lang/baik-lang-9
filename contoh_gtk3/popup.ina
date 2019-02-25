@@ -1,0 +1,56 @@
+# ######################################
+# tes GUI MENU dengan BAIK5 - MENU_POPUP
+# ######################################
+pakai_layar
+
+lyr1 = layar
+ titel_layar lyr1, "MENU Popup dgn BAIK v5"
+ luas_layar  lyr1, 250, 200
+ logo_layar  lyr1, "baik_logo.png"
+
+tutup_program lyr1
+
+tulis "OK1\n"
+
+popup1 = &buat_menu(lyr1)
+tampil_layar popup1
+aksi_tekan_penunjuk lyr1, &aksi1(popup1)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+Fungsi buat_menu(lyr_induk) {
+# -------------------------
+  mn_popup = menu
+  tambah_akselerasi lyr_induk
+
+  mnPopUtama = isi_menu "Popup Utama"
+  set_sensitif mnPopUtama, 0
+
+  tambah_menu mn_popup, mnPopUtama
+
+  mnPemisah = menu_pemisah
+  mnBaru    = isi_menu "Info Baru"
+  mnAwas    = isi_menu "Peringatan Baru"
+
+  tambah_menu  mn_popup, mnPemisah
+  tambah_menu  mn_popup, mnBaru
+  tambah_menu  mn_popup, mnAwas
+
+  aksi_rambu_info  mnBaru, "Ini Rambu Info", "tes tampil rambu Info", "baik_logo.png"
+  aksi_rambu_awas  mnAwas, "Ini Peringatan", "tes tampil rambu Peringatan", "baik_logo.png"
+
+  balik mn_popup
+}
+
+Fungsi aksi1(mn) {
+  a = tombol_penunjuk
+
+  kalau a == "kanan" maka
+    tampil_popup mn
+  akhirkalau
+}
+

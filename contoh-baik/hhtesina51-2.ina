@@ -1,0 +1,88 @@
+# #########################################################
+# Pendefinisian Objek
+# Tidak Harus sebelum program utama !
+# #########################################################
+DefinisiBenda MyBenda [
+  param1
+  param2 = "Pesan Objek : Ini Dalam MyBenda"
+  param3=2.3
+  param4
+  param5 = param2
+  lokal param6 = "nama saya haris"
+  param7
+
+  a=0
+  a1=3
+  a2=3
+  a10 = 10
+
+  fungsi MyBenda(y) {
+    tulis "DALAM OBJECT init : ",y,"\n"
+
+    tulis "a1=",a1,"\n"
+    tulis "a2=",a2,"\n"
+
+    kalau a1 < a2 maka
+      tulis "a1 < a2 \n"
+    lainnya
+      tulis "a1 >= a2 \n"
+    akhirkalau
+
+  }
+
+  fungsi testSelagi(z) {
+    tulis "Test perintah SELAGI dalam Benda\n"
+    tulis "a1 = ",a1,"\n"
+    a1 = a1 + 1
+    tulis "last a1 = a1+1 = ",a1,"\n"
+
+    selagi ( a1 < a10 ) lakukan
+     a1 = a1 + 1
+     tulis "a1 selagi : ", a1, " \n"
+    baliklagi
+    tulis "Test perintah SELAGI selesai\n"
+
+  }
+
+  fungsi testUntuk(z) {
+    tulis "Test perintah UNTUK dalam Benda\n"
+
+    untuk (a=2; a<=10; a=a+1) ulang
+      tulis "dalam loop Untuk, a=", a, "\n"
+      a1 = a1+1
+      tulis "a1 : ", a1, "\n"
+    lagi
+
+    tulis "test perintah UNTUK OK : ", a, "\n"
+
+  }
+
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes Selagi dan Untuk dalam BENDA\n"
+
+x = "Ini dari Main Program"
+
+tulislog "==============================================="
+
+Benda obj
+obj = BendaBaru MyBenda
+
+obj->awalan(x)
+
+tulis "---main: test selagi\n"
+obj->testSelagi(num)
+tulis "---main: test selagi OK\n"
+
+tulis "---main: test untuk\n"
+obj->testUntuk(num)
+tulis "---main: test untuk OK\n"
+
+
+TAMAT
+
+

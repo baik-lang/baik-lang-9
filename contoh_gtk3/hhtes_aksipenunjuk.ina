@@ -1,0 +1,56 @@
+# ################################
+# tes GUI program dengan BAIK9
+# aksi-aksi dalam kenop penunjuk
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Cek Aksi Penunjuk dgn BAIK9"
+luas_layar  lyr1, 470, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "Tekan mouse penunjuk !"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah"
+hias_alas alas1, lbl1, 10, 15, 180, 20
+
+aksi_tutup_program lyr1
+
+aksi_tekan_penunjuk lyr1, &lakukan1(lbl1)
+aksi_lepas_penunjuk lyr1, &lakukan2()
+aksi_penunjuk_bergerak lyr1, &lakukan3()
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(in1) {
+  kata1 = teks_label in1
+  tulis "masukan => ", kata1, "\n"
+
+  x = penunjuk_x
+  y = penunjuk_y
+
+  tulis "posisi x=",x," y=",y,"\n";
+
+}
+
+Fungsi lakukan2() {
+  x = penunjuk_x
+  y = penunjuk_y
+
+  tulis "lepas posisi x=",x," y=",y,"\n";
+}
+
+Fungsi lakukan3() {
+  x = penunjuk_x
+  y = penunjuk_y
+
+  tulis "lari ke x=",x," y=",y,"\n";
+}

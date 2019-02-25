@@ -1,0 +1,44 @@
+#!C:/baik
+# Kode Bahasa BAIK untuk Menggambar di halaman WEB
+# Oleh Haris Hasanudin 2009/05
+
+lokasi_gambarstyle = "C:/Program Files/Apache Group/Apache/style"
+
+Kertasweb_Awal  "TES MENGGAMBAR DI WEB dengan BAIK"
+
+KANVASWEB_MODEL lokasi_gambarstyle
+KANVASWEB_AWALGAMBAR
+
+KANVASWEB_WARNA "merah"
+KANVASWEB_GARIS 10,10,50,10
+Kanvasweb_Garis 50,10,50,30
+Kanvasweb_Garis 50,30,40,30
+Kanvasweb_Garis 40,30,40,35
+Kanvasweb_Garis 40,35,60,38
+Kanvasweb_Garis 60,38,60,60
+Kanvasweb_Garis 60,60,10,60
+Kanvasweb_Garis 15,15,15,58
+
+KANVASWEB_WARNA "hijau"
+KANVASWEB_LINGKARAN 80,20,50,50
+KANVASWEB_LINGKARANISI 140,20,50,50
+
+KANVASWEB_WARNA "biru"
+KANVASWEB_GARIS 1,80,350,80
+
+Kanvasweb_Warna "ungu"
+KANVASWEB_HURUFBESAR
+KANVASWEB_TULIS "BAIK Bahasa Komputer berejaan Indonesia", 5, 100
+
+KANVASWEB_HURUFSEDANGMIRING
+KANVASWEB_TULIS "Oleh Haris Hasanudin 2005 - 2010", 5, 120
+
+KANVASWEB_AKHIRGAMBAR
+
+Kertasweb_Akhir
+
+END
+
+
+
+

@@ -1,0 +1,39 @@
+# ################################
+# tes GUI MENU dengan BAIK9
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MENU Program dgn BAIK9"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+mn01  = menu
+
+mnFile = isi_menu "File"
+mnNew  = isi_menu "New"
+mnQuit = isi_menu "Quit"
+
+submenu        mnFile, mn01
+ tambah_menu  mn01, mnNew
+ tambah_menu  mn01, mnQuit
+akhir_menu    papan, mnFile
+
+susun_menu alas1, papan
+
+tutup_program lyr1
+tutup_program mnQuit
+
+#aksi_tutup_layar lyr1,lyr1
+#aksi_tutup_layar mnQuit, lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT

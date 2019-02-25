@@ -1,0 +1,42 @@
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2008/01
+
+TULIS "Tes apakah_huruf \n"
+
+a = "5"
+b = "a"
+c = "55"
+d = "bb"
+
+untaian h[10]
+h[0] = "z"
+h[1] = "1001"
+
+p = huruf_kah 1
+q = huruf_kah "1"
+r = huruf_kah "a"
+s = huruf_kah "55"
+t = huruf_kah "aa"
+u = huruf_kah a
+v = huruf_kah b
+w = huruf_kah c
+x = huruf_kah d
+y = huruf_kah h[0]
+z = huruf_kah h[1]
+
+
+
+tulis "p=" , p ,"\n"
+tulis "q=" , q , " \n"
+tulis "r=" , r ,"\n"
+tulis "s=" , s , " \n"
+tulis "t=" , t , " \n"
+tulis "u=" , u , " \n"
+tulis "v=" , v , " \n"
+tulis "w=" , w , " \n"
+tulis "x=" , x , " \n"
+tulis "y=" , y , " \n"
+tulis "z=" , z , " \n"
+
+
+END

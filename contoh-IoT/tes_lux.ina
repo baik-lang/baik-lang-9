@@ -1,0 +1,25 @@
+# #####################################
+# Tes Baca Cahaya LUX Dengan BAIK
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# #####################################
+
+tulis "Contoh membaca data sensor Cahaya Lux dari I2C\n"
+
+loop = 1
+
+selagi (loop == 1) lakukan
+
+  tgl = waktu
+
+  temp = baca_cahaya
+
+  tulis tgl, " lux = ", temp, " Lux\n"
+
+  tunggu 10
+
+baliklagi
+
+
+tamat
+

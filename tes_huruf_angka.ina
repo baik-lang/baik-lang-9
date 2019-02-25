@@ -1,0 +1,59 @@
+# ##################
+
+Tulis "tes ke_angka \n"
+
+p = "247.25253"
+
+a = ke_angka "25"
+tulis "a=" , a , "\n"
+b = a + 1
+tulis "b=" , b , "\n"
+
+c = ke_angka p
+tulis "c=" , c , "\n"
+d = c - 1.1
+tulis "d=" , d , "\n"
+
+untaian q[10]
+q[0] = "345"
+
+e = ke_angka q[0]
+tulis "e=" , e , "\n"
+f = e + 1
+tulis "f=" , f , "\n"
+
+g = sambung "huruf " , q[0]
+tulis "g=" , g , "\n"
+
+Tulis "tes ke_huruf \n"
+
+w = 64
+
+a = ke_huruf 225
+tulis "a=" , a , "\n"
+b = sambung "angka : ", a
+tulis "b = " , b ,"\n"
+
+x = ke_huruf w
+tulis "x=" , x , "\n"
+
+untaian r[10]
+r[0] = 845
+
+e = ke_huruf r[0]
+tulis "e=" , e , "\n"
+
+tulis "cek huruf pertama dari kata haris\n"
+y = huruf_no "haris", 0
+tulis "huruf pertama, y=" , y , "\n"
+
+y = huruf_no "haris", 1
+tulis "huruf ke-2, y=" , y , "\n"
+
+tulis "cek huruf ke-6 dari kata masako\n"
+a = "masako"
+
+y = huruf_no a, 5
+tulis "huruf ke-6, y=" , y , "\n"
+
+END

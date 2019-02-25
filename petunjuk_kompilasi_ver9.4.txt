@@ -1,0 +1,104 @@
+Petunjuk Kompilasi BAIK versi 9.4 (Kujang Pamungkas)
+----------------------------------------------------------------
+
+[1] Di Linux dgn GTK2
+- Pastikan ada gcc di Linux
+- Jalankan compile_lnx_full_gtk2.sh
+
+Untuk Redhat/Fedora/CentOS6 dengan GTK2
+- yum install alsa-lib-devel
+- yum install gtk2-devel
+atau
+- yum install alsa-lib-devel.x86_64
+- yum install gtk2-devel.x86_64
+
+
+[2] Di Linux dgn GTK3
+- Pastikan ada gcc di Linux
+- Jalankan compile_lnx_full_gtk3.sh
+
+Untuk Fedora19/CentOS7 dengan GTK3
+- yum install gtk3-devel
+
+Untuk Ubuntu dgn GTK3
+sudo apt-get install libgtk-3-dev
+
+
+[3] Di Windows
+- Gunakan VisualC++ 2008 ke atas
+- Buat Solution
+- Import semua kode BAIK ke Solution
+- Build Solution
+ 
+ C_OPTION:
+/D"WIN32" /D"WINDOWS"  /D"USE_GTK3"  /D"USE_GD"  /D"USE_SSL" /D"USE_MYSQL" /D"USE_PDF" /D"USE_SQLITE" /D"USE_PGSQL" /D "USE_WEBSTYLE" /D"USE_CGI" 
+
+LINKER_OPTION:
+bgd.lib libmysql.lib sqlite3.lib libpq.lib libeay32.lib ssleay32.lib libhpdf.lib zdll.lib pthreadVC2.lib
+gobject-2.0.lib gtk-win32-3.0.lib gthread-2.0.lib gdk_pixbuf-2.0.lib atk-1.0.lib cairo.lib fontconfig.lib 
+
+COMPILE LANGUAGE: C (/TC)
+
+/Ox /GA /DWIN32 /D"WINDOWS" /MT /nologo /W0 /c /I(all VC and Library headers)
+
+LIBRARY:
+--------
+atk-dev_1.26
+cairo-dev_1.8.6
+gd-2.0.34-win32
+glib-dev_2.20.3
+gtk+-dev_2.16.2
+libharu-2.1.0-vc8
+libpng-dev_1.4.3-1_win32
+mysql4_dev
+ocilib
+openssl-0.9.8k_WIN32
+pango-dev_1.24
+PostgreSql8
+VC-SQLite-dev
+zlib123-dll
+
+
+Selamat mencoba BAIK versi 9.4 (Kujang Pamungkas)
+
+Pencipta bahasa BAIK,
+Haris Hasanudin,BSc. MSc.
+
+
+// ======================================================================================
+// Lisensi untuk BAIK versi 9.4 adalah sebagai berikut :
+// ======================================================================================
+// 0. Desain Program dan Kode Sumber BAIK versi 9 memiliki hak cipta dan bersifat rahasia.
+//    - BAIK Software Design is confidential and copyrighted. 
+// 1. Program dan Kode Sumber BAIK versi 9 disediakan seadanya dan tanpa kewenangan
+//    atas segala kesalahan/kerugian yang ditimbulkan akibat penggunaannya.
+//    - Software is provided "AS IS" and "NO WARRANTY".  
+// 2. Anda dibenarkan untuk mengkopi/mendistribusikan kembali Program dan atau Kode Sumber
+//    BAIK versi 8 jika tanpa perubahan apapun.
+//    - You can redistribute/copy software without modification.
+// 3. Anda dibenarkan memodifikasi Program dan atau Kode Sumber BAIK versi 9 jika ada
+//    ijin tertulis dari pencipta BAIK.
+//    - You can modify or add feature(s) to this software with agreement from Author.
+// 4. Segala persengketaan yang berkenaan dengan persetujuan lisensi ini akan diadili
+//    dengan hukum yang ada di Jepang atau Indonesia menurut kehendak pencipta BAIK.
+//    - Any action related to this Agreement will be governed by Indonesia/Japan laws.  
+// 5. Semua software BAIK mengikuti aturan hukum ekspor di Jepang atau Indonesia
+//    - All Software are subject to Indonesia/Japan export control laws.
+// 6. Anda tidak dibenarkan untuk menjual atau menjadi broker penjualan software BAIK.
+//    - You are not allowed to sell or resell this software.
+// 7. Anda dibenarkan untuk menggunakan software BAIK untuk kepentingan pribadi, pendidikan
+//    maupun komersial.
+//    - You may use this software for personal, educational or commercial use.
+// 8. Anda dibenarkan untuk menggunakan kode-kode dalam bahasa BAIK yang anda ciptakan
+//    untuk kepentingan pribadi, pendidikan maupun komersial.
+//    - You may use all codes that you created by BAIK language for personal, educational
+//    or commercial use. 
+// 9. Anda tidak dibenarkan untuk mengaku sebagai pemilik hak cipta software BAIK
+//    - You are not allowed to claim the copyright of this software.
+// 10. Persetujuan lisensi ini mungkin akan diubah pada masa yang akan datang dengan
+//    pemberitahuan oleh pencipta BAIK.
+//    -This Agreement may be changed in the future by Author announcement.
+// ======================================================================================
+
+
+

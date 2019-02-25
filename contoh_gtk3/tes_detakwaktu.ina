@@ -1,0 +1,53 @@
+# ################################
+# tes GUI program dengan BAIK6
+# Detak Waktu pada layar
+# ################################
+global num
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Detak Waktu dgn BAIK v6"
+luas_layar  lyr1, 350, 300
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+detak_waktu 550,lyr1, &lakukan1()
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1() {
+  num++
+
+  tulis "detak detak...", num, "\n"
+
+  kalau num == 5 maka
+    tulis "stop ...\n"
+    stop_detak
+  akhirkalau
+}
+
+

@@ -1,8 +1,10 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2010
+// Copyright Haris Hasanudin -  2005 - 2015
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
+
+//2015/08/08
 
 int checkFloatBuf( char buf[MAX_STRING_LEN] );
 
@@ -741,6 +743,256 @@ VAL_LABEL funcHURUF_NO ()
     free(tmpnode.pnext);
 
   return datx;
+}
+
+
+// Since Ver 9.2 (2015-08)
+VAL_LABEL funcKE_PECAHAN()
+{
+	VAL_LABEL datx;
+
+
+	char   tmpMsg[MAX_STRING_LEN * 2];
+	VAL_LABEL valdat, tmpdat;
+
+	long    idx = 0;                           // array index
+
+	// var list for class params
+	struct  node_list tmpnode;
+	char    class_tmpvar[MAX_STRING_LEN];
+
+	memset(&datx, '\0', sizeof(datx));
+	memset(&valdat, '\0', sizeof(valdat));
+	memset(&tmpdat, '\0', sizeof(tmpdat));
+
+	memset(&tmpMsg, '\0', sizeof(tmpMsg));
+
+	memset(&tmpnode, '\0', sizeof(tmpnode));
+	memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+
+	memset(tmpMsg, '\0', sizeof(tmpMsg));
+
+	getlex();
+	/* printf("lex detail num : %d\n", lex.detail.num);
+	printf("lex type : %d\n", lex.type); */
+
+	if (lex.type == TYPE_NUM) {
+		datx.floatdata = (float)lex.detail.num;
+		datx.datatype = 1;
+	}
+	else if (lex.type == TYPE_DBL) {
+		Error("KE_ANGKA: salah masukan : pecahan");
+	}
+	else if (lex.type == TYPE_STR) {
+
+		if (strlen(lex.detail.string) > 0) {
+			datx.floatdata = atof(lex.detail.string);
+			datx.datatype = 1;
+		}
+		else
+			datx.val = 0;
+
+	}
+	else if (lex.type == TYPE_ARRAY) {
+		if (strlen(lex.detail.array_str) > 0) {
+			strcpy(valdat.array_str, lex.detail.array_str);
+			getArrayName(lex.detail.array_str, (char *)&valdat.array_name);
+			getArrayIdx(lex.detail.array_str, (char *)&valdat.array_idx);
+
+			if (currentClass != NULL && strlen(currentClass) > 0) {
+
+#ifdef WIN32
+#ifndef S_SPLINT_S
+				sprintf_s(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_name);
+#else
+				snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_name);
+#endif
+#else
+				snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_name);
+#endif
+
+				//printf("construct class var: %s\n", class_tmpvar);
+				memset(&valdat.array_name[0], '\0', sizeof(valdat.array_name));
+				strcpy(valdat.array_name, class_tmpvar);
+
+				if (!isdigit(valdat.array_idx[0])) {
+					memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
+#ifdef WIN32
+#ifndef S_SPLINT_S
+					sprintf_s(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_idx);
+#else
+					snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_idx);
+#endif
+#else
+					snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, valdat.array_idx);
+#endif
+
+					//printf("construct class var: %s\n", class_tmpvar);
+					memset(&valdat.array_idx[0], '\0', sizeof(valdat.array_idx));
+					strcpy(valdat.array_idx, class_tmpvar);
+				}
+			}
+
+			if (isdigit(valdat.array_idx[0])) {
+				/* printf("show digit\n"); */
+				idx = atol(valdat.array_idx);
+			}
+			else {
+				/* printf("show NOT digit\n"); */
+				/* Read index param */
+				tmpdat = ValLabel(valdat.array_idx, sub_deep, tmpdat, VAL_FLAG_SEARCH_R);
+
+				if (tmpdat.datatype == 0)
+					idx = tmpdat.val;
+				else
+					Error("Untaian salah masukan");
+			}
+
+			/* read data */
+			valdat = ValLabel(valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_R);
+
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			sprintf_s(valdat.array_idx, sizeof(valdat.array_idx), "%li", idx);
+#else
+			snprintf(valdat.array_idx, sizeof(valdat.array_idx), "%li", idx);
+#endif
+#else
+			snprintf(valdat.array_idx, sizeof(valdat.array_idx), "%li", idx);
+#endif
+
+			if (idx < 0 || idx > MAX_ARRAY)
+				Error("ukuran Untaian tidak sesuai kapasitas");
+
+			if (valdat.datatype == 8 && valdat.array_s != '\0') {
+				if (valdat.array_s == '\0')
+					Error("ke_angka: ukuran Untaian belum terdefinisi");
+
+				memset(&TmpStrBox.var.array_name, '\0', sizeof(TmpStrBox.var.array_name));
+				strcpy(TmpStrBox.var.array_name, valdat.array_name);
+				renban = stackStr_getID(TmpStrBox.var);
+				if (renban < 0) {
+					printf("variabel untaian tidak ditemukan\n");
+				}
+				else {
+					TmpStrBox.str.stackid = renban;
+					TmpStrBox.str.idx = idx;
+
+					strarryPos = string_findData(TmpStrBox.str);
+					if (strarryPos < 0) {
+						printf("nilai untaian kata tidak ditemukan\n");
+					}
+					else {
+						TmpStrBox.str = string_getElement(strarryPos);
+
+						if (strlen(TmpStrBox.str.mystring) > 0) {
+							datx.floatdata = strtodbl(TmpStrBox.str.mystring);
+							datx.datatype = 1;
+						}
+						else
+							datx.val = 0;
+					}
+
+				}
+
+			}
+			else {
+				datx.val = 0;
+			}
+		}
+
+	}
+	else {
+
+		if (currentClass != NULL && strlen(currentClass) > 0) {
+
+#ifdef WIN32
+#ifndef S_SPLINT_S
+			sprintf_s(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, lex.detail.ident);
+#else
+			snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, lex.detail.ident);
+#endif
+#else
+			snprintf(class_tmpvar, sizeof(class_tmpvar), "%s->%s", currentClass, lex.detail.ident);
+#endif
+
+			//printf("construct class var: %s\n", class_tmpvar);
+			valdat = ValLabel(class_tmpvar, class_sub_deep, valdat, VAL_FLAG_SEARCH_R);
+		}
+		else {
+			valdat = ValLabel(lex.detail.ident, sub_deep, valdat, VAL_FLAG_SEARCH_R);
+		}
+
+		// valdat = ValLabel( lex.detail.ident, sub_deep, valdat, VAL_FLAG_SEARCH_R );
+		/*
+		printf("typ %d\n", valdat.datatype);
+		printf("typ str %s\n", valdat.str);
+		printf("typ val %d\n", valdat.val);
+		*/
+
+		if (valdat.datatype == 0) {
+			datx.floatdata = (float)valdat.val;
+			datx.datatype = 1;
+		} else
+		if (valdat.datatype == 3) {
+			if (strlen(valdat.str) > 0) {
+				datx.floatdata = atof(valdat.str);
+				datx.datatype = 1;
+			}
+			else {
+				datx.val = 0;
+				datx.datatype = 0;
+			}
+
+		}
+		else {
+			datx.val = 0;
+		}
+		/*
+		printf("typ %d\n", datx.datatype);
+		printf("val %d\n", datx.val);
+		*/
+	}
+
+
+	if (valdat.filename != NULL)
+		free(valdat.filename);
+	if (valdat.folder != NULL)
+		free(valdat.folder);
+	if (valdat.filedata != NULL)
+		free(valdat.filedata);
+	if (valdat.long_str != NULL)
+		free(valdat.long_str);
+
+	if (valdat.left != NULL)
+		free(valdat.left);
+	if (valdat.right != NULL)
+		free(valdat.right);
+	if (valdat.pnext != NULL)
+		free(valdat.pnext);
+
+	if (tmpdat.filename != NULL)
+		free(tmpdat.filename);
+	if (tmpdat.folder != NULL)
+		free(tmpdat.folder);
+	if (tmpdat.filedata != NULL)
+		free(tmpdat.filedata);
+	if (tmpdat.long_str != NULL)
+		free(tmpdat.long_str);
+
+	if (tmpdat.left != NULL)
+		free(tmpdat.left);
+	if (tmpdat.right != NULL)
+		free(tmpdat.right);
+	if (tmpdat.pnext != NULL)
+		free(tmpdat.pnext);
+
+	if (tmpnode.nodeType != NULL)
+		free(tmpnode.nodeType);
+	if (tmpnode.pnext != NULL)
+		free(tmpnode.pnext);
+
+	return datx;
 }
 
 

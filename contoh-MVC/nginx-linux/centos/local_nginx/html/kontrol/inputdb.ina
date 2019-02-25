@@ -1,0 +1,76 @@
+#!/usr/local/bin/baik
+
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2014/08/27
+
+sub handle() {
+
+  POST_CGI
+
+  i = 0
+  j = 1
+
+  tulis "Hasil Masukan <BR><BR>"
+
+  dat0 = post_nilai 0
+  tulis "data0=" , dat0, "<br>\n"
+
+  dat1 = post_nilai 1
+  tulis "data1=" , dat1, "<br>\n"
+
+  dat2 = post_nilai 2
+  tulis "data2=" , dat2, "<br>\n"
+
+  dat3 = post_nilai 3
+  tulis "data3=" , dat3, "<br>\n"
+
+  dat4 = post_nilai 4
+  tulis "data4=" , dat4, "<br>\n"
+
+  kalau dat2 == "" maka
+   dat2 = "NULL"
+  akhirkalau
+
+  kalau dat4 == "" maka
+   dat4 = "NULL"
+  akhirkalau
+
+  #tulis "alamatDb : ", alamatdb ,"<BR>\n"
+  #tulis "pemakai  : ", pemakai ,"<BR>\n"
+  #tulis "NamaDb   : ", namadb ,"<BR>\n"
+
+
+  # kalimat sql untuk operasi database
+  sql = "insert into tbl_barang (
+         nama,
+         merek,
+         harga_dasar,
+         tanggal_masuk,
+         jumlah
+         ) values ( "
+  sql =  gabung sql,"'", dat0, "','",
+                dat1, "',",
+                dat2, ",'", 
+                dat3, "',",
+                dat4, ")"
+
+  #tulis "sql : ", sql , "<BR>\n"
+
+  ### koneksi ke database
+  kon = mysql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+  hasil = mysql_hasil kon, sql
+  status = mysql_status hasil
+
+  tulis "<BR>"
+  jika (status == 1) maka
+    tulis "Hasil Pemasukan Data : OK <BR><BR>\n"
+  lainnya
+    tulis "Hasil Pemasukan Data : Salah! <BR><BR>\n"
+  akhirjika
+
+  balik sql
+}
+
+
+
+

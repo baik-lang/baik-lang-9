@@ -1,0 +1,7 @@
+Cara Membuat Web Aplikasi dengan MVC (Model-View-Control)
+
+1. Setup Database
+
+2. Akses Contoh MVC
+http://localhost/contoh02/index.ina?model=main
+

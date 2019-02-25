@@ -1,0 +1,56 @@
+# ################################
+# tes GUI MENU dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+a=5
+b=10
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MENU dengan Aksi Fungsi dalam BAIK"
+luas_layar  lyr1, 400, 200
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+mn01  = menu
+
+mnFile = isi_menu "Menu"
+mnNew  = isi_menu "Tulis Baru", "baik_logo.png"
+mnNew2  = isi_menu "Tulis Lain", "baik_logo2.png"
+mnQuit = isi_menu "Keluar"
+
+submenu        mnFile, mn01
+ tambah_menu  mn01, mnNew
+ tambah_menu  mn01, mnNew2
+ tambah_menu  mn01, mnQuit
+akhir_menu    papan, mnFile
+
+susun_menu alas1, papan
+
+tutup_program lyr1
+aksi_fungsi mnNew, &tesFungsi(a, b)
+aksi_fungsi mnNew2, &tesFungsi2()
+aksi_tutup_program mnQuit
+
+tampil_layar lyr1
+kibar_layar
+
+
+TAMAT
+
+# ################################
+
+Fungsi tesFungsi(par1, par2) {
+  tulis "tulis a=", par1, "\n"
+  tulis "tulis b=", par2, "\n"
+  rambu_info  "Ini Info Fungsi1", "tes info rambu1", "baik_logo.png"
+}
+
+Fungsi tesFungsi2() {
+  tulis "Ini dari Fungsi2\n"
+  rambu_info  "Ini Info Fungsi2", "tes info rambu2", "baik_logo.png"
+}

@@ -1,0 +1,96 @@
+# ################################
+# tes GUI program dengan BAIK5
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Layar dgn BAIK v5"
+luas_layar  lyr1, 300, 250
+logo_layar  lyr1, "baik_logo2.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nama :"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 80, 15
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "merah anggrek"
+hias_alas alas1, msk1, 100, 15, 150, 15
+
+lbl2 = label "alamat :"
+set_warnadasar lbl2, "melon"
+set_warnahuruf lbl2, "salmon"
+hias_alas alas1, lbl2, 10, 35, 80, 15
+
+msk2 = masukan
+set_warnahuruf msk2, "biru"
+set_warnadasar msk2, "kuning"
+hias_alas alas1, msk2, 100, 35, 150, 15
+
+lbl3 = label "Pekerjaan :"
+set_warnadasar lbl3, "biru laut"
+set_warnahuruf lbl3, "hijau zamrud"
+hias_alas alas1, lbl3, 10, 55, 80, 15
+
+msk3 = masukan
+set_warnahuruf msk3, "merah muda"
+set_warnadasar msk3, "hijau"
+hias_alas alas1, msk3, 100, 55, 150, 15
+
+lbl4 = label "instansi :"
+set_warnahuruf lbl4, "merah bata"
+hias_alas alas1, lbl4, 10, 75, 80, 15
+
+msk4 = masukan
+set_warnahuruf msk4, "kuning"
+set_warnadasar msk4, "biru"
+hias_alas alas1, msk4, 100, 75, 150, 15
+
+lbl5 = label "pendidikan :"
+hias_alas alas1, lbl5, 10, 95, 80, 15
+
+msk5 = masukan
+set_warnahuruf msk5, "putih"
+set_warnadasar msk5, "hitam"
+hias_alas alas1, msk5, 100, 95, 150, 15
+
+lbl6 = label "hoby :"
+set_warnadasar lbl6, "coklat tua"
+set_warnahuruf lbl6, "putih salju"
+hias_alas alas1, lbl6, 10, 115, 80, 15
+
+msk6 = masukan
+set_warnahuruf msk6, "coklat"
+set_warnadasar msk6, "merah muda"
+hias_alas alas1, msk6, 100, 115, 150, 15
+
+lbl7 = label "makanan :"
+set_warnadasar lbl7, "hijau zamrud"
+set_warnahuruf lbl7, "merah"
+hias_alas alas1, lbl7, 10, 135, 80, 15
+
+pil1 = pilihan
+set_pilihan pil1, ""
+set_pilihan pil1, "mangga"
+set_pilihan pil1, "pisang"
+set_pilihan pil1, "nangka"
+set_pilihan pil1, "belimbing"
+hias_alas alas1, pil1, 100, 135, 150, 18
+
+
+btn3 = tombol "Masuk"
+set_warnadasar btn3, "merah bata"
+hias_alas alas1, btn3, 100, 200, 80, 35
+
+aksi_tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT

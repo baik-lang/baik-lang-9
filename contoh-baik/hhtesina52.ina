@@ -1,0 +1,74 @@
+# #########################################################
+# Pendefinisian Objek untuk menggambar
+# #########################################################
+DefinisiBenda SebuahGambar [
+  param1
+  param2
+  param3
+  param4
+
+  fungsi SebuahGambar() {
+    tulis "DALAM BENDA: test membuat file gambar\n"
+  }
+
+  fungsi tesBuatGambar(x,y,namafile) {
+    img = Gambar
+    img = BuatGambar x,y
+
+    # warna dasar
+    warna1 = WarnaGambar img,125,130,0
+    #warna garis
+    warna2 = WarnaGambar img,0,255,255
+
+    #Format Garis : gambar,x1,y1,x2,y2,warna
+    GambarGaris     img,10,10,50,10,warna2
+    GambarGaris     img,50,10,50,30,warna2
+    GambarGaris     img,50,30,40,30,warna2
+    GambarGaris     img,40,30,40,35,warna2
+    GambarGaris     img,40,35,60,38,warna2
+    GambarGaris     img,60,38,60,60,warna2
+    GambarGaris     img,60,60,10,60,warna2
+    GambarGaris     img,15,15,15,58,warna2
+
+    warna3 = WarnaGambar img,222,195,100
+    GambarGarisPutus  img,10,75,180,75,warna3
+
+    #Format Kotak : gambar,x1,y1,x2,y2,warna
+    warna4 = WarnaGambar img,222,100,222
+    GambarKotak  img,85,5,95,15,warna4
+
+    warna5 = WarnaGambar img,222,25,222
+    GambarKotakIsi  img,75,20,85,30,warna5
+
+    #Format Lingkaran/Elips : gambar,x,y,r1,r2,rad awal,rad akhir,warna
+    warna6 = WarnaGambar img,222,222,10
+    GambarLingkaran  img,90,85,12,12,0,360,warna6
+
+    warna7 = WarnaGambar img,222,50,10
+    GambarLingkaranIsi  img,60,85,12,12,0,360,warna7
+
+    #Pie/Lingkaran tak penuh
+    GambarLingkaranIsi  img,30,80,18,18,20,120,warna2
+
+    SimpanGambarPng img, namafile
+    HapusGambar     img
+
+    tulis "DALAM BENDA: selesai\n"
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes Gambar dalam Pemrograman berorientasi BENDA\n"
+
+Benda obj
+obj = BendaBaru SebuahGambar
+
+obj->awalan()
+obj->tesBuatGambar(200,100,"benda_gambar.png")
+
+TAMAT
+
+

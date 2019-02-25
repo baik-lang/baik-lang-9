@@ -1,0 +1,12 @@
+#!/usr/local/bin/baik
+
+tulis "Content-type: text/html\n\n";
+tulis "<html>\n<body>\n";
+tulis "<div style=\"width: 100%; font-size: 40px; font-weight: bold; text-align: center;\">\n";
+tulis "BAIK - NGINX FastCGI Test Page";
+tulis "\n</div>\n";
+
+tulis "</body>\n</html>\n";
+
+
+

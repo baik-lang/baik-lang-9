@@ -1,0 +1,30 @@
+# ###########################################
+# tes GUI program dengan BAIK5 - LAYAR_GULUNG
+# ###########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Layar Gulung dgn BAIK v5"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+teks1 = kertas
+set_kertas teks1, "haris tes layar gulung"
+hias_layar_gulung lyr2, teks1
+
+tampil_layar lyr1
+tampil_layar lyr2
+
+aksi_tutup_layar lyr1
+
+kibar_layar
+
+TAMAT
+

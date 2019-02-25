@@ -6,6 +6,11 @@
 
 // Language Function (LF) as described in Int. Paper about BAIK 2009
 
+// LAST 2015-08-08 
+// akses_iot / cek_iot
+// set_lingkup
+// KE_PECAHAN
+
 #include "funcBendaBaru.h"
 #include "funcMatematik.h"
 #include "funcMatUntaian.h"
@@ -257,23 +262,58 @@ VAL_LABEL FactorIdent( char Funcword[MAX_STRING_LEN])
           datx = funcSaklarStatus();
 
 
-	  /* ======================================================== */
-	  /* AIN              ======================================= */
-	  /* ======================================================== */
-	  }
-	  else if (!strcmp(Funcword, "ANALOG_STATUS") ||
+     /* ======================================================== */
+     /* AIN              ======================================= */
+     /* ======================================================== */
+     }
+     else if (!strcmp(Funcword, "ANALOG_STATUS") ||
 		  !strcmp(Funcword, "analog_status") ||
 		  !strcmp(Funcword, "AIN_status") ||
 		  !strcmp(Funcword, "ain_status")) {
 		  datx = funcAnalogPortStatus();
 
 
+     #ifdef USE_I2C
+     /* ======================================================== */
+     /* I2C              ======================================= */
+     /* ======================================================== */
+     }
+     else if (!strcmp(Funcword, "I2C_STATUS") ||
+		  !strcmp(Funcword, "i2c_status") ||
+		  !strcmp(Funcword, "BACA_I2C") ||
+		  !strcmp(Funcword, "baca_i2c")) {
+		  
+		  // printf("func baca_i2c ...\n");
+		  datx = funcI2CStatus();
+
+     }
+     else if (!strcmp(Funcword, "LUX_STATUS") ||
+		  !strcmp(Funcword, "lux_status") ||
+		  !strcmp(Funcword, "BACA_CAHAYA") ||		  
+		  !strcmp(Funcword, "baca_cahaya") ||		  
+		  !strcmp(Funcword, "BACA_I2C_LUX") ||
+		  !strcmp(Funcword, "baca_i2c_lux")) {
+		  
+		  // printf("func baca_lux ...\n");
+		  datx = funcLUXStatus();
+
+     #endif
+
+
+      /* ======================================================== */
+      /* CHOP             ======================================= */
+      /* ======================================================== */
+      } else if( !strcmp(Funcword, "CHOP")   ||
+		  !strcmp(Funcword, "chop")  ||
+		  !strcmp(Funcword, "potong_buntut") ) {
+          datx = funcCHOP();
+          
       /* ======================================================== */
       /* AKAR             ======================================= */
       /* ======================================================== */
       } else if( !strcmp(Funcword, "AKAR")   ||
 		  !strcmp(Funcword, "akar") ) {
-          datx = funcAkar();
+          datx = funcAkar();          
 
 
       /* ======================================================== */
@@ -394,6 +434,15 @@ VAL_LABEL FactorIdent( char Funcword[MAX_STRING_LEN])
                  !strcmp(Funcword, "ke_angka") ) { 
          /* printf("HURUF function\n"); */
 		 datx = funcKE_ANGKA();
+
+     /* ======================================================== */
+	 /* KE_PECAHAN           =================================== */
+	 /* ======================================================== */
+	  }
+	  else if (!strcmp(Funcword, "KE_PECAHAN") ||
+		  !strcmp(Funcword, "ke_pecahan")) {
+		  /* printf("KE_PECAHAN function\n"); */
+		  datx = funcKE_PECAHAN();
 
       /* ======================================================== */
       /* KE_HURUF             =================================== */
@@ -542,6 +591,16 @@ VAL_LABEL FactorIdent( char Funcword[MAX_STRING_LEN])
 		 datx = funcKONEK_SOKET();
 #endif
 
+	 /* ======================================================== */
+	 /* AKSES_IOT               ================================= */
+	 /* ======================================================== */
+	  }
+	  else if (!strcmp(Funcword, "AKSES_IOT") ||
+		  !strcmp(Funcword, "CEK_IOT") ||
+		  !strcmp(Funcword, "cek_iot") ||
+		  !strcmp(Funcword, "akses_iot")) {
+		  datx = funcCEK_IOT();
+
       /* ======================================================== */
       /* LINGKUP              =================================== */
       /* ======================================================== */
@@ -549,6 +608,15 @@ VAL_LABEL FactorIdent( char Funcword[MAX_STRING_LEN])
                  !strcmp(Funcword, "lingkup") ) { 
          /* printf("LINGKUP function\n"); */
 		 datx = funcLingkup();
+
+	 /* ======================================================== */
+	 /* SET_LINGKUP              =================================== */
+	 /* ======================================================== */
+	  }
+	  else if (!strcmp(Funcword, "SET_LINGKUP") ||
+		  !strcmp(Funcword, "set_lingkup")) {
+		  /* printf("LINGKUP function\n"); */
+		  datx = funcLingkup();
 
       /* ======================================================== */
       /* KONFIGURASI            ================================ */

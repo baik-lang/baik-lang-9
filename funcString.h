@@ -4,7 +4,7 @@
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
 
-// 2010/12/08
+// 2015/08/08
 
 VAL_LABEL funcSambung ()
 {
@@ -322,12 +322,12 @@ VAL_LABEL funcGabung ()
 
              #ifdef WIN32
               #ifndef S_SPLINT_S
-              sprintf_s(dat_a, sizeof(dat_a),"%f", lex.detail.dblnum);
+              sprintf_s(dat_a, sizeof(dat_a),"%.2f", lex.detail.dblnum);
               #else
-              snprintf(dat_a, sizeof(dat_a),"%f", lex.detail.dblnum);
+              snprintf(dat_a, sizeof(dat_a),"%.2f", lex.detail.dblnum);
               #endif
              #else
-             snprintf(dat_a, sizeof(dat_a),"%f", lex.detail.dblnum);
+             snprintf(dat_a, sizeof(dat_a),"%.2f", lex.detail.dblnum);
              #endif
 
              strcat(tmp_str, dat_a);
@@ -442,12 +442,12 @@ VAL_LABEL funcGabung ()
 
                 #ifdef WIN32
                  #ifndef S_SPLINT_S
-                 sprintf_s(dat_a, sizeof(dat_a),"%f", get_dbl_array(valdat, idx));
+                 sprintf_s(dat_a, sizeof(dat_a),"%.2f", get_dbl_array(valdat, idx));
                  #else
-                 snprintf(dat_a, sizeof(dat_a),"%f", get_dbl_array(valdat, idx));
+                 snprintf(dat_a, sizeof(dat_a),"%.2f", get_dbl_array(valdat, idx));
                  #endif
                 #else
-                snprintf(dat_a, sizeof(dat_a),"%f", get_dbl_array(valdat, idx));
+                snprintf(dat_a, sizeof(dat_a),"%.2f", get_dbl_array(valdat, idx));
                 #endif
 
                 strcat(tmp_str, dat_a);
@@ -506,12 +506,12 @@ VAL_LABEL funcGabung ()
              } else if(valdat.datatype == 1) {
                #ifdef WIN32
                 #ifndef S_SPLINT_S
-                sprintf_s(dat_a, sizeof(dat_a),"%f", valdat.floatdata);
+                sprintf_s(dat_a, sizeof(dat_a),"%.2f", valdat.floatdata);
                 #else
-                snprintf(dat_a, sizeof(dat_a),"%f", valdat.floatdata);
+                snprintf(dat_a, sizeof(dat_a),"%.2f", valdat.floatdata);
                 #endif
                #else
-               snprintf(dat_a, sizeof(dat_a),"%f", valdat.floatdata);
+               snprintf(dat_a, sizeof(dat_a),"%.2f", valdat.floatdata);
                #endif
 
                strcat(tmp_str, dat_a);

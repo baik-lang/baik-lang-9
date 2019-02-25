@@ -1,0 +1,102 @@
+# ################################
+# tes GUI program dengan BAIK9
+# aksi untuk melukis dgn penunjuk di layar
+# ################################
+
+global x1, y1
+global ltr1
+global mode
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Cek Tekan Mouse dan Aksi Ekspos dgn BAIK9"
+luas_layar  lyr1, 350, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+lyrkanvas = kanvas
+hias_layar lyr2, lyrkanvas
+
+
+aksi_ekspos            lyr1, &lakukan1(lyrkanvas)
+aksi_tekan_penunjuk    lyr1, &lakukan2(lyrkanvas)
+aksi_penunjuk_bergerak lyr1, &lakukan3(lyrkanvas)
+
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(lyrkanvas1) {
+  # buat latar alas pada bidang dengan warna latar R, G, B
+  ltr = latar_layar  lyrkanvas1, 0.8, 0.5, 0.0
+
+  # set warna untuk pena R, G, B
+  warna_pena ltr, 0.0, 1.0, 0.0
+
+  ltr1 = ltr
+
+  # tulis teks pada posisi X, Y
+  atribut_teks ltr, 14, "Sans", "tebal"
+  lukis_teks ltr, 10, 20, "Bahasa Anak Indonesia untuk Komputer"
+
+  atribut_teks ltr, 90, "Monotype Corsiva", "tebal"
+  lekukan_teks   ltr, 10, 100, "BAIK"
+
+  warna_pena   ltr, 0.5, 0.5, 1.0
+  isi_pena_jaga ltr
+  warna_pena    ltr, 0.0, 0.0, 0.0
+  tebal_garis   ltr, 2.0
+  gores_pena    ltr
+
+  # jangan hapus memori latar di sini
+
+}
+
+Fungsi lakukan2(lyrkanvas2) {
+  kalau mode == 1 maka
+    mode = 0
+  lainnya
+    mode = 1
+  akhirkalau
+}
+
+Fungsi lakukan3(lyrkanvas3) {
+  x2 = penunjuk_x
+  y2 = penunjuk_y
+  tulis "posisi x=",x2," y=",y2,"\n";
+
+  x1=x2-1
+  y1=y2-1
+
+  kalau mode == 1 maka
+    warna_pena  ltr1, 1.0, 0.0, 1.0
+    lukis_garis  ltr1, x1, y1, x2, y2
+  akhirkalau
+}
+

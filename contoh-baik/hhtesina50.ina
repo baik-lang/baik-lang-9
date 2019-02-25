@@ -1,0 +1,138 @@
+# #########################################################
+# Pendefinisian Objek
+# Tidak Harus sebelum program utama !
+# #########################################################
+DefinisiBenda MyBenda [
+  param1
+  param2 = "Pesan Objek : Ini Dalam MyBenda"
+  param3=2.3
+  param4
+  param5 = param2
+  lokal param6 = "nama saya haris"
+  param7
+
+
+  fungsi MyBenda(y) {
+    tulis "DALAM OBJECT init : ",y,"\n"
+    tulislog "DALAM OBJECT init : ", y
+  }
+
+  fungsi testProc() {
+    tulis "DALAM OBJECT: param3 : ", param3,"\n"
+    tulislog "DALAM OBJECT: param3 : ", param3 
+  }
+
+  fungsi testJumlah(a,b) {
+    tulis "DALAM OBJECT: test Jumlah\n"
+    c = a + b
+    tulis "DALAM OBJECT: c = a + b = ", c,"\n"
+  }
+
+  fungsi testSin(z) {
+    param4 = sin z
+    tulis "DALAM OBJECT: param4 = sin z : ", param4,"\n"
+  }
+  fungsi testCos(z) {
+    param4 = cos z
+    tulis "DALAM OBJECT: param4 = cos z : ", param4,"\n"
+  }
+  fungsi testAbs(z) {
+    param4 = abs z
+    tulis "DALAM OBJECT: param4 = abs z : ", param4,"\n"
+  }
+  fungsi testFak(z) {
+    param4 = faktorial z
+    tulis "DALAM OBJECT: param4 = faktorial z : ", param4,"\n"
+  }
+
+  fungsi testProc3(z) {
+    param5 = gabung z , " putih"
+    tulis "DALAM OBJECT: param5 = z gabung putih = ", param5,"\n"
+    tulislog "DALAM OBJECT: param5 = z + putih = ", param5
+  }
+
+  fungsi testProc4(z) {
+    param5 = sambung z , " padam"
+    tulis "DALAM OBJECT: param5 = z sambung padam = ", param5,"\n"
+    tulislog "DALAM OBJECT: param5 = z + putih = ", param5
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Penggunaan Kata Fungsi pada Pemrograman berorientasi BENDA\n"
+
+x = "Ini dari Main Program"
+param2 = 77
+
+tulis "===============================================\n"
+tulis "Benda obj \n"
+tulis "obj = BendaBaru MyBenda \n"
+tulis "===============================================\n"
+
+tulislog "==============================================="
+tulislog "Benda obj "
+tulislog "obj = BendaBaru MyBenda "
+tulislog "==============================================="
+
+Benda obj
+obj = BendaBaru MyBenda
+
+obj->awalan(x)
+tulis "---panggil fungsi objek OK\n"
+
+obj->param3 = 6.5
+
+obj->testProc()
+tulis "---panggil fungsi2 objek OK\n"
+
+obj->testJumlah(21,78)
+
+num = 60
+obj->testSin(num)
+obj->testCos(60)
+num = 60.123
+obj->testAbs(num)
+num = 5
+obj->testFak(num)
+
+tulis "---panggil fungsi3 objek OK\n"
+
+tulis "MAIN : param2 : ", param2,"\n"
+tulis "MAIN obj->param2 : ", obj->param2, "\n"
+pesan = gabung "DARI HARIS :: " , obj->param5
+tulis "MAIN pesan : ", pesan, "\n"
+
+a = "merah"
+tulis "MAIN : a =  ",a,"\n"
+obj->testProc3(a)
+obj->testProc4(a)
+tulis "---panggil fungsi4 objek OK\n"
+
+tulis "===============================================\n"
+tulis "Ini Tes untuk Mengkopi Benda\n"
+tulis " obj2 = obj \n"
+tulis " Kopian Benda harus diinisialisasi\n"
+tulis "===============================================\n"
+tulislog "==============================================="
+tulislog "Ini Tes untuk Mengkopi Benda"
+tulislog "obj2 = obj "
+tulislog "Kopian Benda harus diinisialisasi"
+tulislog "==============================================="
+obj2 = obj
+obj2->awalan(x)
+obj2->testProc()
+
+tulis "===============================================\n"
+tulis "Ini Tes untuk Menghapus Benda\n"
+tulis " hapus obj2 \n"
+tulis "===============================================\n"
+tulis "sebelum hapus : obj2->param2 : ", obj2->param2, "\n"
+hapus obj2
+tulis "sesudah hapus : obj2->param2 : ", obj2->param2, "\n"
+
+TAMAT
+
+

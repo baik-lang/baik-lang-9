@@ -148,7 +148,7 @@ int power_on(char *myport) {
     // Check GPIO
     if ((fp = fopen("/sys/class/gpio/export", "ab")) == NULL)
     {
-       printf("Cannot open GPIO export file.\n");
+       printf("Tidak bisa buka GPIO export file.\n");
        exit(1);
     }
 
@@ -168,7 +168,7 @@ int power_on(char *myport) {
         
     if ((fp = fopen(mypath, "rb+")) == NULL)
     {
-       printf("Cannot open direction file.\n");
+       printf("Tidak bisa buka direction file.\n");
        exit(1);
     }
     //Set pointer to begining of the file
@@ -221,7 +221,7 @@ int power_off(char *myport) {
     // Check GPIO
     if ((fp = fopen("/sys/class/gpio/export", "ab")) == NULL)
     {
-       printf("Cannot open GPIO export file.\n");
+       printf("Tidak bisa buka GPIO export file.\n");
        exit(1);
     }
 
@@ -241,7 +241,7 @@ int power_off(char *myport) {
         
     if ((fp = fopen(mypath, "rb+")) == NULL)
     {
-       printf("Cannot open direction file.\n");
+       printf("Tidak bisa buka direction file.\n");
        exit(1);
     }
     //Set pointer to begining of the file

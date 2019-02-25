@@ -1,12 +1,12 @@
 // ---------------------------------------------------------------------
 //  
-// BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.0
+// BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.4
 // Object Oriented Programming Language
 //
-// BAIK ver.9.0 Ready for Professional Web, Desktop and Cloud Computing
+// BAIK ver.9.4 Ready for Professional Web, Desktop and Cloud Computing
 // Haris Script Language : Multi Platform Version
 //
-// Copyright Haris Hasanudin (2015/1/18)
+// Copyright Haris Hasanudin (2017/2/11)
 // ---------------------------------------------------------------------
 
 
@@ -101,12 +101,12 @@ extern BAIK_ADDR tmp_pg;
 // ---------------------------------------------------------------------
 
 void showBaikVersion() {
-  fprintf( stderr, "BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.0\n");
-  fprintf( stderr, "Copyright Haris Hasanudin 2005-2016\n\n");
-  fprintf( stderr, "cara pakai: baik [-v|-h ] <source file>\n");
-  fprintf( stderr, "-v : lihat versi\n" );
-  fprintf( stderr, "-h : lihat cara pakai\n" );
-  exit(0);
+	fprintf(stderr, "BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.4\n");
+	fprintf(stderr, "Optimized for Web and GPIO robot controlling\n");
+	fprintf(stderr, "Copyright Haris Hasanudin 2005-2017\n\n");
+	fprintf(stderr, "cara pakai: baik [-v|-h ] <source file>\n");
+	fprintf(stderr, "-v : lihat versi\n");
+	fprintf(stderr, "-h : lihat cara pakai\n");
+	exit(0);
 }
-
 

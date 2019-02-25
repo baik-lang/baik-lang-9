@@ -1,0 +1,19 @@
+Cara singkat membuat DB di Mysql :
+
+- login ke MySql dengan root account.
+  mysql -u root -p <enter>
+  masukkan password
+- >\. makedb.sql
+- >\. makeuser.sql
+- keluar MySql
+  >exit
+- login ke MySql dengan account haris.
+  mysql -u haris -p <enter>
+  masukkan password
+- change active db
+  >use warungdb;
+- buat tabel DB
+  >\. maketbl1.sql
+
+
+

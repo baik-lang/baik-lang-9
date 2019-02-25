@@ -1,0 +1,20 @@
+# ################################
+# LAYAR dengan BAIK5
+# ################################
+
+pakai_layar
+
+x = 280
+y = 150
+judul = "Contoh LAYAR dgn BAIK v5"
+
+lyr1 = layar
+titel_layar lyr1, judul
+luas_layar  lyr1, x, y
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+

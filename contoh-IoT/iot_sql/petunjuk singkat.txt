@@ -1,0 +1,24 @@
+Petunjuk singkat memakai Mysql/MariaDB :
+========================================
+      oleh Haris 2015
+
+
+- Download Mysql/MariaDB versi 5 keatas
+- Install Mysql/MariaDB
+
+- login ke MySql dengan account root.
+  See : mysql account.txt
+- >\. makedb.sql
+- >\. makeuser.sql
+- logout MySql
+  >exit
+- login ke MySql dengan account haris.
+  See : mysql account.txt
+- change active db
+  >use smartroomdb;
+- make table
+  >\. maketbl1.sql
+...
+...
+
+

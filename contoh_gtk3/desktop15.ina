@@ -1,0 +1,59 @@
+# ################################################
+# tes program Desktop dengan BAIK9 - LABEL-MASUKAN
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Desktop dgn BAIK9"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "pelajaran"
+set_warnahuruf lbl1, "coklat tua"
+set_warnadasar lbl1, "hijau"
+hias_alas alas1, lbl1, 10, 15, 80, 20
+
+coblos1 = tombol_coblos "ilmu komputer"
+hias_alas alas1, coblos1, 100, 15, 150, 15
+
+grup = grup_tombol coblos1
+coblos2 = tombol_coblos grup, "biologi"
+hias_alas alas1, coblos2, 100, 35, 150, 15
+
+grup = grup_tombol coblos2
+coblos3 = tombol_coblos grup, "bahasa indonesia"
+hias_alas alas1, coblos3, 100, 55, 150, 15
+
+
+tombol01 = tombol "OKE"
+hias_alas alas1, tombol01, 110, 150, 80, 30
+
+# aksi pada elemen desktop #
+# ==========================
+aksi_tutup_program lyr1
+aksi_fungsi tombol01, &aksi1(coblos1, coblos2, coblos3)
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(cob1, cob2, cob3) {
+  stat1 = status_cek cob1
+  tulis "pilih ilkom => ", stat1, "\n"
+
+  stat2 = status_cek cob2
+  tulis "pilih bio => ", stat2, "\n"
+
+  stat3 = status_cek cob3
+  tulis "pilih ina => ", stat3, "\n"
+}
+
+
+
+

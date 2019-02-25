@@ -1,0 +1,362 @@
+# ################################
+# Penggunaan TABEL dan Database
+# Dengan BAIK versi 5.1
+# ################################
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Pengakses Database - Tabel WarungDB"
+luas_layar  lyr1, 400, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+pitastatus = papan_status
+susun_papan_status alas1, pitastatus
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnPisah1 = menu_pemisah
+mnPisah2 = menu_pemisah
+
+mnMenu1  = isi_menu "Utama"
+
+mnIsi    = isi_menu "Masukan Data"
+mnTampil = isi_menu "Tampilan Data"
+
+mnBaru   = isi_menu "Hapus Tabel"
+mnTulis  = isi_menu "Tulis Tabel"
+
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnIsi
+ tambah_menu  mn01, mnTampil
+ tambah_menu  mn01, mnPisah1
+
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnTulis
+ tambah_menu  mn01, mnPisah2
+
+ tambah_menu  mn01, mnKeluar
+
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+mn02         = menu
+
+mnMenu2      = isi_menu "DB"
+mnSambungDB  = isi_menu "sambung DB"
+mnTutupDB    = isi_menu "tutup DB"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnSambungDB
+ tambah_menu  mn02, mnTutupDB
+akhir_menu    papan, mnMenu2
+
+# -------------------------
+mn03       = menu
+
+mnMenu3    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu3, mn03
+ tambah_menu  mn03, mnLencana
+akhir_menu    papan, mnMenu3
+
+# ==========================
+susun_menu alas1, papan
+
+aksi_tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+# ==========================
+
+jt_nama = "Warung DB"
+jt_versi = "versi 1.0"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Pengakases Database"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "baik_logo.png"
+aksi_jatidiri  mnLencana, jt_nama, jt_versi, 
+               jt_penulis, jt_komentar, jt_www, jt_logo
+
+# ==========================
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+untaian num[5]
+num[0] = 1
+num[1] = 2
+num[2] = 3
+num[3] = 4
+num[4] = 5
+
+tbl1 = tabel "angka|teks|teks|teks|teks|teks"
+
+tabel_atribut tbl1,"no","nama","merek",
+              "harga dasar", "tanggal masuk",
+              "jumlah"
+
+hias_layar lyr2, tbl1
+
+# aksi koneksi DB ###
+aksi_fungsi mnSambungDB,  &konek_mysql()
+aksi_fungsi mnTutupDB,    &tutup_mysql()
+
+aksi_fungsi mnIsi,     &isidata_tabel(tbl1)
+aksi_fungsi mnTampil,  &tampildata_tabel(tbl1)
+
+aksi_fungsi mnBaru,    &hapus_tabel(tbl1)
+aksi_fungsi mnTulis,    &ngeprin_tabel(tbl1)
+
+tampil_layar lyr1
+tampil_layar lyr2
+kibar_layar
+
+TAMAT
+
+
+# ############################################################
+
+
+# ============================================================
+# Fungsi 1
+# ============================================================
+Fungsi konek_mysql() {
+  ### parameter untuk database
+  alamatdb  = "localhost" 
+  pemakai   = "haris"
+  katasandi = "haris"
+  namadb    = "warungdb"
+  nomerport =  3306
+
+  konek = mysql_koneksi alamatdb, pemakai, katasandi,
+          namadb, nomerport
+
+  hapus_status pitastatus
+  set_status pitastatus, "Koneksi DB tersambung..."
+}
+
+# ============================================================
+# Fungsi 2
+# ============================================================
+Fungsi tutup_mysql() {
+  tutup konek
+
+  hapus_status pitastatus
+  set_status pitastatus, "Koneksi DB tertutup."
+}
+
+# ============================================================
+# Fungsi 3
+# ============================================================
+Fungsi hapus_tabel (tab1) {
+  hapus tab1
+}
+
+# ============================================================
+# Fungsi 4
+# ============================================================
+Fungsi ngeprin_tabel (tab1) {
+  tulis_tabel tab1
+}
+
+# ============================================================
+# Fungsi 5
+# ============================================================
+Fungsi isidata_tabel (tab1) {
+
+  lyr_Msk = layar
+  titel_layar lyr_Msk, "MASUKAN untuk WarungDB"
+  luas_layar  lyr_Msk, 280, 250
+  logo_layar  lyr_Msk, "baik_logo.png"
+
+  alas_Msk = alas_tetap
+  hias_layar lyr_Msk, alas_Msk
+
+  #>>> data ke-1 <<<
+  lbl_Msk1 = label "nama barang"
+  set_warnahuruf lbl_Msk1, "biru"
+  set_warnadasar lbl_Msk1, "merah muda"
+  hias_alas alas_Msk, lbl_Msk1, 10, 15, 100, 20
+
+  teks_Msk1 = masukan
+  set_warnahuruf teks_Msk1, "biru tua"
+  set_warnadasar teks_Msk1, "kuning"
+  hias_alas alas_Msk, teks_Msk1, 120, 15, 150, 20
+
+  #>>> data ke-2 <<<
+  lbl_Msk2 = label "merek"
+  set_warnahuruf lbl_Msk2, "biru"
+  set_warnadasar lbl_Msk2, "merah muda"
+  hias_alas alas_Msk, lbl_Msk2, 10, 40, 100, 20
+
+  teks_Msk2 = masukan
+  set_warnahuruf teks_Msk2, "biru tua"
+  set_warnadasar teks_Msk2, "kuning"
+  hias_alas alas_Msk, teks_Msk2, 120, 40, 150, 20
+
+  pundi = pundi_teks
+  isi_pundi_teks pundi, "cap_01"
+  isi_pundi_teks pundi, "cap_02"
+  isi_pundi_teks pundi, "cap_03"
+  isi_pundi_teks pundi, "cap_04"
+  isi_pundi_teks pundi, "cap_05"
+
+  pelengkap = teks_rampung
+  set_teks_rampung teks_Msk2, pelengkap
+  isi_teks_rampung pelengkap, pundi
+
+  #>>> data ke-3 <<<
+  lbl_Msk3 = label "harga dasar"
+  set_warnahuruf lbl_Msk3, "biru"
+  set_warnadasar lbl_Msk3, "merah muda"
+  hias_alas alas_Msk, lbl_Msk3, 10, 65, 100, 20
+
+  teks_Msk3 = masukan
+  set_warnahuruf teks_Msk3, "biru tua"
+  set_warnadasar teks_Msk3, "kuning"
+  hias_alas alas_Msk, teks_Msk3, 120, 65, 150, 20
+
+  #>>> data ke-4 <<<
+  lbl_Msk4 = label "tanggal masuk"
+  set_warnahuruf lbl_Msk4, "biru"
+  set_warnadasar lbl_Msk4, "merah muda"
+  hias_alas alas_Msk, lbl_Msk4, 10, 90, 100, 20
+
+  teks_Msk4 = masukan
+  set_warnahuruf teks_Msk4, "biru tua"
+  set_warnadasar teks_Msk4, "kuning"
+  hias_alas alas_Msk, teks_Msk4, 120, 90, 130, 20
+
+  tombolTGL = tombol "tgl"
+  hias_alas alas_Msk, tombolTGL, 252, 90, 25, 20
+
+  #>>> data ke-5 <<<
+  lbl_Msk5 = label "jumlah"
+  set_warnahuruf lbl_Msk5, "biru"
+  set_warnadasar lbl_Msk5, "merah muda"
+  hias_alas alas_Msk, lbl_Msk5, 10, 115, 100, 20
+
+  teks_Msk5 = masukan
+  set_warnahuruf teks_Msk5, "biru tua"
+  set_warnadasar teks_Msk5, "kuning"
+  hias_alas alas_Msk, teks_Msk5, 120, 115, 130, 20
+
+
+  tombolOK = tombol "Data Masuk"
+  hias_alas alas_Msk, tombolOK, 180, 200, 90, 35
+
+  tombolHP = tombol "Hapus Masukan"
+  hias_alas alas_Msk, tombolHP, 10, 200, 100, 35
+
+  aksi_fungsi tombolOK, &isidata_mysql(lyr_Msk, 
+              teks_Msk1, teks_Msk2, teks_Msk3, 
+              teks_Msk4, teks_Msk5)
+
+  aksi_fungsi tombolTGL, &aksi_tanggalan(teks_Msk4)
+
+  aksi_fungsi tombolHP, &hapus_masukan(teks_Msk1, 
+                        teks_Msk2, teks_Msk3, 
+                        teks_Msk4, teks_Msk5)
+
+  tampil_layar lyr_Msk
+}
+
+# ============================================================
+# Fungsi 6
+# ============================================================
+Fungsi tampildata_tabel (tab1) {
+  hapus tab1
+
+  # kalimat sql untuk operasi database
+  sql = "select * from tbl_barang"
+
+  # hasil operasi sql
+  hasil = mysql_hasil konek, sql
+  # jumlah data
+  num = mysql_total hasil
+
+  ### mengambil isi data per baris dari suatu Tabel
+  untuk (i=0; i<num; i=i+1) ulang
+    baris = mysql_isidata hasil
+
+    col0 = baris[0]
+    col1 = baris[1]
+    col2 = baris[2]
+    col3 = baris[3]
+    col4 = baris[4]
+    col5 = baris[5]
+
+    tabel_data tab1, col0, col1, col2, col3, 
+               col4, col5
+  lagi
+
+}
+
+# ============================================================
+# Fungsi 7
+# ============================================================
+Fungsi hapus_masukan (Msk1, Msk2, Msk3, Msk4, Msk5) {
+  set_masukan Msk1, ""
+  set_masukan Msk2, ""
+  set_masukan Msk3, ""
+  set_masukan Msk4, ""
+  set_masukan Msk5, ""
+}
+
+# ============================================================
+# Fungsi 8
+# ============================================================
+
+Fungsi aksi_tanggalan(masukTGL) {
+  tanggalan masukTGL, "baik_logo.png"
+}
+
+# ============================================================
+# Fungsi 8
+# ============================================================
+Fungsi isidata_mysql (LyrMsk, Msk1, Msk2, Msk3, Msk4, Msk5) {
+  ini1 = teks_masukan Msk1
+  ini2 = teks_masukan Msk2
+  ini3 = teks_masukan Msk3
+  ini4 = teks_masukan Msk4
+  ini5 = teks_masukan Msk5
+
+  kalau ini3 == "" maka
+   ini3 = "NULL"
+  akhirkalau
+
+  kalau ini5 == "" maka
+   ini5 = "NULL"
+  akhirkalau
+
+  # kalimat sql untuk operasi database
+  sql = "insert into tbl_barang (
+         nama,
+         merek,
+         harga_dasar,
+         tanggal_masuk,
+         jumlah
+         ) values ( "
+  sql =  gabung sql,"'", ini1, "','",
+                ini2, "',",
+                ini3, ",'", 
+                ini4, "',",
+                ini5, ")"
+
+  # tulis "sql : ", sql , "\n"
+
+  kalau ini1 <> "" dan ini2 <> "" maka
+    # hasil operasi sql
+    hasil = mysql_hasil konek, sql
+  akhirkalau
+
+  sembunyikan LyrMsk
+
+}
+

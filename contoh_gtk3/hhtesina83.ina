@@ -1,0 +1,41 @@
+# ###################################################
+# TEKS_RAMPUNG dengan BAIK9 - MASUKAN OTOMATIS
+# ###################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TEKS_RAMPUNG dgn BAIK9"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "apa khabar?"
+set_warnahuruf lbl1, "biru"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 100, 20
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "kuning"
+hias_alas alas1, msk1, 120, 15, 150, 20
+
+pundi = pundi_teks
+isi_pundi_teks pundi, "BAIK Bahasa Komputer"
+isi_pundi_teks pundi, "BAIK-BAIK saja"
+isi_pundi_teks pundi, "BAIK untuk Indonesia"
+
+pelengkap = teks_rampung
+set_teks_rampung msk1, pelengkap
+isi_teks_rampung pelengkap, pundi
+
+tutup_program lyr1
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

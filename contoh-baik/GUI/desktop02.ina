@@ -1,0 +1,31 @@
+# ########################################
+# tes program Desktop dengan BAIK5 - LABEL
+# ########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "LABEL dgn BAIK v5"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "label nama"
+set_warnahuruf lbl1, "biru"
+set_warnadasar lbl1, "kuning"
+hias_alas alas1, lbl1, 10, 15, 120, 20
+
+lbl2 = label "label alamat"
+set_warnahuruf lbl2, "biru muda"
+set_warnadasar lbl2, "biru"
+hias_alas alas1, lbl2, 10, 45, 120, 20
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

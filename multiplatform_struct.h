@@ -11,6 +11,9 @@
 /* ************************************************* */
 #ifndef WINDOWS
 /* ************************************************* */
+
+char* ux_checkweb(int argc, char argv[512]);
+
 int ux_initSocket(const char *transport);
 int ux_closeSocket(int s);
 int ux_connectSocket(int s, char *szServer, const char *portservice);
@@ -22,12 +25,17 @@ int ux_tulisSocket( int sock, char data[MAX_STRING_LEN] );
 int ux_sendMail(char szServer[64], char szPort[8],
     char mailfrom[128], char mailto[1024], char subject[256], char body[4096]);
 
+int ux_sendMail2(char szServer[64], char szPort[8], char pass[1024],
+	char mailfrom[128], char mailto[1024], char subject[256], char body[4096]);
+
 int unixRegexBuf(const char *string, char *pattern);
 
 /* ************************************************* */
 #else
 /* ************************************************* */
 int winRegexBuf(char sbuf[MAX_STRING_LEN*4], char *regex);
+
+char* win_checkweb(int argc, char argv[512]);
 
 SOCKET initSocket(const char *transport);
 int closeSocket(SOCKET s);
@@ -59,6 +67,9 @@ char *readSerialCom(char COM[8], int baudrate);
 
 int win_sendMail(char szServer[64], char szPort[8],
     char mailfrom[128], char mailto[1024], char subject[256], char body[4096]);
+
+int win_sendMail2(char szServer[64], char szPort[8], char pass[1024],
+	char mailfrom[128], char mailto[1024], char subject[256], char body[4096]);
 
 /* ************************************************* */
 #endif

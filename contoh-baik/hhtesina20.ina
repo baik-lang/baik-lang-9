@@ -1,0 +1,85 @@
+# Kode Program Bahasa Basic versi Indonesia
+# Oleh Haris Hasanudin 2008/01
+
+TULIS "Tes Larik/Untaian \n"
+
+p=0
+q=1
+
+tulis "p=", p ,"\n"
+tulis "q=", q ,"\n"
+
+untaian a[10]
+untaian b[5]
+untaian c[10]
+untaian d[10]
+
+c[p] = 257689
+c[q] = 30
+c[2] = 60
+
+a[p] = 123.4562
+
+tulis "c[p]=", c[p] ,"\n"
+tulis "c[q]=", c[q] ,"\n"
+tulis "c[2]=", c[2] ,"\n"
+tulis "a[p]=", a[p] ,"\n"
+
+f = akar c[p]
+e = absolut a[p]
+f = sinus c[q]
+g = cos c[2]
+
+tulis "f = akar c[p]=", f ,"\n"
+tulis "e = abs a[p]=", e ,"\n"
+tulis "f = sin c[q]=", f ,"\n"
+tulis "g = cos c[2]=", g ,"\n"
+
+d[0] = "haris"
+
+b[0] = c[p]
+
+tulis "b[0] = c[p] = ", b[0] ,"\n"
+
+tulis "d[0] = ", d[0] ,"\n"
+
+untaian h[6]
+h[0] = huruf_no d[0], 1
+
+tulis "h[0] =  huruf_no d[0], 1 = ", h[0] ,"\n"
+
+
+h[q] = huruf_no d[0], 1
+tulis "h[1] = ", h[1] ,"\n"
+
+h[2] = huruf_no "program", 1
+tulis "h[2] = ", h[2] ,"\n"
+
+h[3] = "saya"
+tulis "h[3] = ", h[3] ,"\n"
+
+tulis "h[4] = ", h[4] ,"\n"
+tulis "h[5] = ", h[5] ,"\n"
+# tulis "h[6] = ", h[6] ,"\n"
+
+tulis "a[0]=", a[0] ,"\n"
+
+a[1] = akar 25.23
+tulis "a[1], akar =", a[1] ,"\n"
+
+a[2] = sinus 65.23
+tulis "a[2], sin =", a[2] ,"\n"
+
+a[3] = cosinus 35.23
+tulis "a[3], cos =", a[3] ,"\n"
+
+b[1] = absolut 145.23
+tulis "b[1], abs =", b[1] ,"\n"
+
+b[2] = 25
+tulis "b[2] =", b[2] ,"\n"
+
+b[3] = akar c[p]
+tulis "b[3] =", b[3] ,"\n"
+
+END

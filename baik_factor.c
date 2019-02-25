@@ -1,6 +1,6 @@
 // //////////////////////////////////////////////////////////////////////
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
@@ -76,6 +76,8 @@ extern char **dirtp;
 extern char** split(const char *str, const char *delim);
 extern void split_free(char **arr);
 
+extern void chop(char* input);
+
 extern char* createTime(void);  /* international version */
 extern char* createTime2(void); /* indonesian version    */
 
@@ -117,9 +119,20 @@ extern int renban;
 extern long createRenban(int mynum);
 extern void save_str_array(VAL_LABEL valdat, long idx, char entryVal[MAX_STRING_LEN]);
 
-extern STR_ARRY TmpStrBox;
-extern STR_ARRY TmpStrBox2;
-extern int strarryPos;
+static STR_ARRY TmpStrBox;
+static STR_ARRY TmpStrBox2;
+static int strarryPos;
+
+// --------------------------------------
+// Stack for MySQL Array String
+// Feb 11, 2016
+extern STR_ARRY mysql_TmpStrBox;
+extern int      mysql_strarryPos;
+
+extern int      mysql_renban;
+
+extern void save_mysql_str_array(VAL_LABEL valdat, long idx, char entryVal[MAX_STRING_LEN]);
+extern int get_mysql_str_array(VAL_LABEL valdat, long idx, char retVal[MAX_STRING_LEN]);
 // --------------------------------------
 // Stack for Array Int
 #include "stack_int_struct.h"

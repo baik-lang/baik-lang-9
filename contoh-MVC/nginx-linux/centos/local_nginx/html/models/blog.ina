@@ -1,0 +1,10 @@
+
+sub handle(myparams) {
+
+    mystr = "Hello MVC Baik"
+    tulis "INSIDE MODEL: ", mystr, "<BR>\n"
+    tulis "INSIDE MODEL: ", myparams, "<BR>\n"
+
+    balik mystr
+
+}

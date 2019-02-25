@@ -1,0 +1,160 @@
+# #########################################################
+# Pendefinisian Objek
+# Tidak Harus sebelum program utama !
+# #########################################################
+DefinisiBenda MyBenda [
+  param1
+  param2 = "Pesan Objek : Ini Dalam MyBenda"
+  param3=2.3
+  param4
+  param5 = param2
+  lokal param6 = "nama saya haris"
+  param7
+
+  a=0
+  a1=3
+  a2=3
+  a10 = 10
+
+  fungsi MyBenda(y) {
+    tulis "DALAM OBJECT init : ",y,"\n"
+    tulis "Test perintah KALAU dalam Benda\n"
+
+    tulis "a1=",a1,"\n"
+    tulis "a2=",a2,"\n"
+
+    kalau a1 < a2 maka
+      tulis "a1 < a2 \n"
+    lainnya
+      tulis "a1 >= a2 \n"
+    akhirkalau
+
+  }
+
+  fungsi testProc() {
+    tulis "Jalankan Perintah DIR dalam OBJECT\n"
+    perintah param1
+
+    tulis "buka jendela dalam OBJECT\n"
+    jendela param1,"ini jendela"
+  }
+
+  fungsi testSin(z) {
+    param4 = sin z
+    tulis "DALAM OBJECT: param4 = sin z : ", param4,"\n"
+    balik param4
+  }
+  fungsi testCos(z) {
+    param4 = cos z
+    tulis "DALAM OBJECT: param4 = cos z : ", param4,"\n"
+    kalau param4 < 0.2 maka
+      tulis "param4 kurang dari 0.2\n"
+    lainnya
+      tulis "param4 lebih dari 0.2\n"
+    akhirkalau
+  }
+  fungsi testPilih(z) {
+    tulis "Test perintah PILIH dalam Benda\n"
+    Pilih a1
+    {
+       sama a2
+        tulis "a1 sama dengan ",a2,"\n"
+       akhirpilih
+       sama 4
+        tulis "a1 sama dengan 4\n"
+       akhirpilih
+    }
+
+  }
+  fungsi testSelagi(z) {
+    tulis "Test perintah SELAGI dalam Benda\n"
+    tulis "a1 = ",a1,"\n"
+    a1 = a1 + 1
+    tulis "a1+1 = ",a1,"\n"
+
+    selagi ( a1 < a10 ) lakukan
+     a1 = a1 + 1
+     tulis "a1 selagi : ", a1, " \n"
+    baliklagi
+    tulis "Test perintah SELAGI selesai\n"
+
+  }
+
+  fungsi testUntuk(z) {
+    tulis "Test perintah UNTUK dalam Benda\n"
+
+    untuk (a=2; a<=10; a=a+1) ulang
+      tulis "dalam loop Untuk, a=", a, "\n"
+      a1 = a1+1
+      tulis "a1 : ", a1, "\n"
+    lagi
+
+    tulis "test perintah UNTUK OK : ", a, "\n"
+
+  }
+
+  fungsi testProc4(z) {
+    param5 = sambung z , " padam"
+    tulis "DALAM OBJECT: param5 = z sambung padam = ", param5,"\n"
+    tulislog "DALAM OBJECT: param5 = z + putih = ", param5
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes Nilai Balik, Kalau, Pilih, Selagi dalam BENDA\n"
+
+x = "Ini dari Main Program"
+param2 = 99
+
+tulis "===============================================\n"
+tulis "Benda obj \n"
+tulis "obj = BendaBaru MyBenda \n"
+tulis "===============================================\n"
+
+tulislog "==============================================="
+tulislog "Benda obj "
+tulislog "obj = BendaBaru MyBenda "
+tulislog "==============================================="
+
+Benda obj
+obj = BendaBaru MyBenda
+
+obj->awalan(x)
+tulis "---panggil fungsi objek OK\n"
+
+obj->param3 = 6.5
+
+obj->testProc()
+tulis "---panggil fungsi2 objek OK\n"
+
+num = 60
+hasil = &obj->testSin(num)
+tulis "hasil sin = ", hasil, "\n"
+
+obj->testCos(num)
+
+obj->testPilih(num)
+
+obj->testSelagi(num)
+
+obj->testUntuk(num)
+
+tulis "---panggil fungsi3 objek OK\n"
+
+tulis "MAIN : param2 : ", param2,"\n"
+tulis "MAIN obj->param2 : ", obj->param2, "\n"
+pesan = gabung "DARI HARIS :: " , obj->param5
+tulis "MAIN pesan : ", pesan, "\n"
+
+a = "merah"
+tulis "MAIN : a =  ",a,"\n"
+
+obj->testProc4(a)
+tulis "---panggil fungsi4 objek OK\n"
+
+TAMAT
+
+

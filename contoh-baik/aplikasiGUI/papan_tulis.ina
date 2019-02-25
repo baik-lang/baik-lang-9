@@ -1,0 +1,177 @@
+# ###########################################
+# Desktop Program BAIK5 - PAPAN TULIS
+# ###########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Papan Tulis ver.1"
+luas_layar  lyr1, 400, 300
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnPemisah1 = menu_pemisah
+mnPemisah2 = menu_pemisah
+mnPemisah3 = menu_pemisah
+
+mnMenu1  = isi_menu "Utama"
+mnBaru   = isi_menu "Tulis TeKs"
+
+mnBuka   = isi_menu "Buka TeKs"
+mnSimpan   = isi_menu "Simpan TeKs"
+
+mnHapus  = isi_menu "Hapus Teks"
+mnSalin  = isi_menu "Salin Teks Papanklip"
+mnPotong  = isi_menu "Potong Teks Papanklip"
+mnUnduh  = isi_menu "Unduh Teks Papanklip"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnBaru
+ tambah_menu  mn01, mnPemisah1
+
+ tambah_menu  mn01, mnBuka
+ tambah_menu  mn01, mnSimpan
+ tambah_menu  mn01, mnPemisah2
+
+ tambah_menu  mn01, mnHapus
+ tambah_menu  mn01, mnSalin
+ tambah_menu  mn01, mnPotong
+ tambah_menu  mn01, mnUnduh
+
+ tambah_menu  mn01, mnPemisah3
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+
+# -------------------------
+
+mn02       = menu
+
+mnMenu2    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnLencana
+akhir_menu    papan, mnMenu2
+
+# ==========================
+
+susun_menu alas1, papan
+
+# ==========================
+
+jt_nama = "Papan Tulis BAIK"
+jt_versi = "versi 1.0"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Bahasa Komputer berejaan Indonesia"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "BaikLogo3.png"
+aksi_jatidiri  mnLencana, jt_nama, 
+               jt_versi, jt_penulis, jt_komentar, jt_www, jt_logo
+
+# ==========================
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+teks1 = kertas
+set_kertas teks1, "ini papan tulis haris"
+hias_layar_gulung lyr2, teks1
+
+tampil_layar lyr1
+tampil_layar lyr2
+
+kl = papanklip
+
+aksi_fungsi mnBaru, &aksi1(teks1)
+aksi_fungsi mnHapus, &aksi2(teks1)
+aksi_fungsi mnSalin, &aksi3(teks1, kl)
+aksi_fungsi mnPotong, &aksi4(teks1, kl)
+aksi_fungsi mnUnduh, &aksi5(teks1, kl)
+
+aksi_fungsi mnSimpan, &aksi6(teks1)
+aksi_fungsi mnBuka, &aksi7(teks1)
+
+tutup_program mnKeluar
+tutup_program lyr1
+
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi aksi1(kertas1) {
+  kt  = teks_terpilih kertas1
+  pos = posisi_teks kertas1
+
+  tulis "teks terpilih => ", kt, "\n"
+  tulis "teks posisi => ", pos, "\n"
+
+}
+
+Fungsi aksi2(kertas1) {
+  hapus_teks_terpilih kertas1
+}
+
+Fungsi aksi3(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  salin_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi4(kertas1, klip1) {
+  kt   = teks_terpilih kertas1
+  klip = klip1
+  potong_teks_papanklip kt, klip
+
+}
+
+Fungsi aksi5(kertas1, klip1) {
+  krt = kertas1
+  klip = klip1
+  unduh_teks_papanklip krt, klip
+}
+
+Fungsi aksi6(kertas1) {
+  # ambil teks dari kertas
+  A = teks_kertas kertas1
+
+  # buka dialog arsip
+  arsip1 = Dialog_Arsip
+
+  kalau arsip1 <> "" maka
+    fid = arsip arsip1, "t"
+      # tulis teks ke arsip
+      simpan_teks fid, A
+    tutup fid
+  akhirkalau
+
+  tulis "simpan arsip selesai.\n"
+
+}
+
+Fungsi aksi7(kertas1) {
+  # buka dialog arsip
+  arsip1 = Dialog_Arsip
+
+  kalau arsip1 <> "" maka
+    fid = arsip arsip1, "b"
+      # ambil teks dari arsip
+      A = baca_teks fid
+    tutup fid
+
+    set_kertas kertas1, A
+  akhirkalau
+
+  tulis "ambil arsip selesai.\n"
+
+}

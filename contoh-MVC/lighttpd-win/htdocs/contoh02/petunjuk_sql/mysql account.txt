@@ -1,0 +1,6 @@
+mysql account
+
+root/haris
+haris/haris
+
+

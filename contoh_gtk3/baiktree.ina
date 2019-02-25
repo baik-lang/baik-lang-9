@@ -1,0 +1,47 @@
+# ################################################
+# tes program Desktop dengan BAIK7 - TREE
+# ################################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "TREE-01"
+luas_layar  lyr1, 200, 300
+logo_layar  lyr1, "baik_logo.png"
+
+tree = ranting_pohon
+
+iter   = simpul_ranting
+parent = simpul_ranting
+
+iter   = isi_simpul tree, "baik_muka01.png", "Induk"
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child", parent
+parent = iter
+iter   = isi_simpul tree, "baik_muka01.png", "child", parent
+
+iter   = isi_simpul tree, "baik_muka02.png", "Induk2"
+parent = iter
+iter   = isi_simpul tree, "baik_muka02.png", "child2", parent
+
+tree1 = model_ranting tree
+
+cell_txt = simpul_teks
+cell_gmb = simpul_gambar
+kolom = kolom_ranting "Nama Titel", cell_gmb,  cell_txt
+
+tambah_ranting  tree1, kolom
+
+hias_layar lyr1, tree1
+
+
+tutup_program lyr1
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+

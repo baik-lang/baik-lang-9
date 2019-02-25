@@ -1,0 +1,70 @@
+# ###########################################
+# MULTI PANEL¡¡- UTF8 BAIK7
+# ###########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "BUKU - Multi Tab Panel ver.1"
+luas_layar  lyr1, 400, 300
+logo_layar  lyr1, "baik_logo.png"
+
+lbl1 = label "hal 1"
+lbl2 = label "hal 2"
+lbl3 = label "hal 3"
+
+isi1 = tombol "panel 1"
+isi2 = &lyrPnl()
+isi3 = &lyrPnl2()
+
+memo = buku
+  lembar_buku memo, isi1, lbl1
+  lembar_buku memo, isi2, lbl2
+  lembar_buku memo, isi3, lbl3
+tab_buku memo, "bawah"
+
+hias_layar lyr1, memo
+
+tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+
+sub lyrPnl() {
+ lyr2 = layar_gulung
+ krt  = kertas
+
+ hias_layar lyr2, krt
+
+ tampil_layar lyr2
+ balik lyr2
+}
+
+
+sub lyrPnl2() {
+ lyr3 = layar_gulung
+
+ alas1 = alas_tetap
+ hias_layar lyr3, alas1
+
+ lbl = label "Nama"
+ set_warnahuruf lbl, "coklat tua"
+ set_warnadasar lbl, "hijau"
+ hias_alas alas1, lbl, 10, 20, 80, 20
+
+ msk = masukan
+ set_warnahuruf msk, "biru tua"
+ set_warnadasar msk, "kuning"
+ hias_alas alas1, msk, 100, 20, 150, 20
+
+ tmb = tombol "OK"
+ set_tips tmb,"Tekan tombol ini"
+ hias_alas alas1, tmb, 50, 120, 50, 30
+
+ tampil_layar lyr3
+ balik lyr3
+}

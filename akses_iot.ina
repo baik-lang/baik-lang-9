@@ -1,0 +1,17 @@
+# #####################################
+# Program Test Check Web
+# 2015-07-02
+# #####################################
+
+Tulis "----------------------\n"
+
+Tulis "Test perintah CEK_IOT \n"
+
+
+A = akses_iot "http://10.10.10.2/baca_cahaya.ina"
+
+Tulis "MATCH : ", A, "\n"
+
+tamat
+
+

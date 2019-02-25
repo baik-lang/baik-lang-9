@@ -1,20 +1,16 @@
 // ---------------------------------------------------------------------
 // 
-// BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.0 HTML
+// BAIK (Bahasa Anak Indonesia untuk Komputer) versi 9.4
+// BAIK ver.9.4 Ready for Professional IoT, Web, Desktop and Cloud Computing
 //
 // sewing a new history ...
 // my coding, my way, my inspiration ...
 //
-// BAIK versi 9.0 Ready for Commercial class 
-// Professional Web, Desktop and Cloud Computing
-// Haris Script Language : Multi Platform Version
+// BAIK versi 9.4 Ready for Commercial class production software
 
 // Copyright Haris Hasanudin (2015-2016)
 
-// Last : 2015-1-15
-// Fix KODE_LUAR
-// Add RUPA for MVC View
-// Add GTK 3.0 Support
+// Last Update : Feb 11, 2017 Fix compiling at IGOS Linux
 
 // ---------------------------------------------------------------------
 
@@ -24,7 +20,7 @@
 // ---------------------------------------------------------------------
 
 // ======================================================================================
-// Lisensi untuk BAIK versi 9.0 adalah sebagai berikut :
+// Lisensi untuk BAIK versi 9.4 adalah sebagai berikut :
 // ======================================================================================
 // 0. Desain Program dan Kode Sumber BAIK versi 9 memiliki hak cipta dan bersifat rahasia.
 //    - BAIK Software Design is confidential and copyrighted. 
@@ -234,6 +230,8 @@ int main( int argc, char *argv[] )
       exit( 0 );
     }
   }
+
+  setbuf(stdout, NULL);
 
   pg.source = (char *)calloc(st.st_size + 1, sizeof(char));
   if( pg.source == NULL ){

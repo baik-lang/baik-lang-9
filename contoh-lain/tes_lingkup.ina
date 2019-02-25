@@ -1,0 +1,38 @@
+# #####################################
+# Program Test SET_LINGKUP
+# Environtment Variable
+# 2015-07-02
+# #####################################
+
+Tulis "----------------------\n"
+
+Tulis "Test SET_LINGKUP \n"
+
+
+A = "PROG"
+B = "baik"
+
+C = SET_LINGKUP A,B
+
+D = LINGKUP A
+
+Tulis "D : ", D, "\n"
+
+
+
+
+tulis "<script language=\"JavaScript\"> \n"
+
+tulis "function myRedirect(redirectUrl, arg, value) { "
+tulis "  var form = $('<form action=\"' + redirectUrl + '\" method=\"post\">' + "
+tulis "  '<input type=\"hidden\" name=\"'+ arg +'\" value=\"' + value + '\"></input>' + '</form>'); "
+tulis "  $('body').append(form); "
+tulis "  $(form).submit(); "
+tulis "}; "
+
+tulis "</script>"
+
+
+tamat
+
+

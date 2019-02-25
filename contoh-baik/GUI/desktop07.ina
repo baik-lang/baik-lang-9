@@ -1,0 +1,29 @@
+# ###############################################
+# tes program Desktop dengan BAIK5 - TOMBOL_PUTAR
+# ###############################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Contoh TOMBOL_PUTAR"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nomer urut"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "hijau"
+hias_alas alas1, lbl1, 10, 15, 100, 20
+
+ptr1 = tombol_putar 1,10,1
+hias_alas alas1, ptr1, 120, 15, 100, 20
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

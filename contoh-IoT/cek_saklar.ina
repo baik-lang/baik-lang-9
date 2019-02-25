@@ -1,0 +1,27 @@
+# #####################################
+# Program Test Check Saklar via Web
+# 2015-07-02
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# #####################################
+
+Tulis "----------------------\n"
+
+Tulis "Test perintah CEK_IOT \n"
+
+www = "http://10.10.10.3/saklar1_stat.ina"
+
+A = akses_iot www
+
+Tulis "MATCH1 : ", A, "\n"
+
+
+www = "http://10.10.10.3/saklar2_stat.ina"
+
+A = akses_iot www
+
+Tulis "MATCH2 : ", A, "\n"
+
+tamat
+
+

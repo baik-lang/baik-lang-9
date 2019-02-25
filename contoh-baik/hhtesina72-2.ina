@@ -1,0 +1,43 @@
+# ################################
+# tes LAYAR GULUNG dengan BAIK5
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MENU Program dgn BAIK v5"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+susun_menu alas1, papan
+
+aksi_tutup_program lyr1
+aksi_tutup_program mnKeluar
+
+lyr2 = layar_gulung
+hias_layar alas1, lyr2
+
+teks1 = kanvas
+hias_layar lyr2, teks1
+
+tampil_layar lyr1
+tampil_layar lyr2
+kibar_layar
+
+TAMAT
+

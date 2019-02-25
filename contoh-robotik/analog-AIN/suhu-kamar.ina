@@ -1,0 +1,17 @@
+# ################################################
+# Contoh pengambil nilai sensor suhu
+# Dites dengan Beaglebone / Beagleboard
+# Menggunakan sensor suhu : LM35
+# 
+# Copyright : Haris Hasanudin 2015
+# ################################################
+
+tulis "tes Analog Input dgn BAIK\n"
+
+val = ain_status "AIN2"
+#tulis "val=", val, "\n"
+
+suhu = val * 1.8 / 4096 * 100
+tulis "suhu kamar=", suhu, " Celcius\n"
+
+tamat

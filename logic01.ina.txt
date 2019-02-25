@@ -1,0 +1,30 @@
+typedef struct
+{
+
+  MVC_LEX_T mvc_lex;
+  MVC_S_ADDR mvc_pg;
+  char c;
+
+
+  int  datatype;                       // data type of var
+
+  long   val;                          // value: int or expression bool
+  double floatdata;                    // valee: dbl
+  char   str[MAX_STRING_LEN];          // value: str
+
+  long   array_i;                      /* stackid for array: int               */
+  long   array_d;                      /* stackid for array: double            */
+  long   array_s;                      /* stackid for array: string            */
+
+  long   array_widget;                 /* stackid for array: string            */
+
+  char   array_str[MAX_STRING_LEN],    /* parsed array string all              */
+         array_name[MAX_STRING_LEN/2], /* array name                           */
+         array_idx[MAX_STRING_LEN/2];  /* array index                          */
+  long   array_max;                    /* array member max                     */
+
+  char   **long_str;                   /* pointer string                       */
+  int    isLongStr;                    /* 1 or 0  && datatype = 10             */
+
+} MVCPARSING;
+

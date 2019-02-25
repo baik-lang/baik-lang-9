@@ -1,0 +1,30 @@
+# #####################################
+# Tes I2C Dengan BAIK
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# ####################################
+
+tulis "Contoh membaca data sensor dari I2C\n"
+
+loop = 1
+
+selagi (loop == 1) lakukan
+
+  tgl = waktu
+
+  temp = baca_i2c "/dev/i2c-1"
+
+  # 2 degree plus for computer heat temperature
+
+  temp = temp - 2
+
+
+  tulis tgl, " suhu = ", temp, " Celcius\n"
+
+  tunggu 10
+
+baliklagi
+
+
+tamat
+

@@ -1,0 +1,23 @@
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2008/02
+
+untaian p[5]
+
+p[0] = akar 25
+p[1] = 4.5
+
+L = panjang p
+
+tulis "p[0]:", p[0] ,"\n"
+tulis "p[1]:", p[1] ,"\n"
+tulis "panjang p = ", L ,"\n"
+
+
+S = KONFIGURASI "hhftpd.conf", "MAILSERVER"
+P = KONFIGURASI "hhftpd.conf", "MAILPORT"
+
+Tulis "server = ", S ,"\n"
+Tulis "port = ", P ,"\n"
+
+
+END

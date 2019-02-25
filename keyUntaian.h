@@ -1,5 +1,5 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
@@ -17,7 +17,7 @@ void keyUntaian (char ident[MAX_IDENT_LEN])
 
   memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
 
-  // printf("inside keyUntaian\n");
+  // printf("======================== inside keyUntaian <BR>\n");
   // get variabel for array init
   getlex();
 
@@ -83,23 +83,20 @@ void keyUntaian (char ident[MAX_IDENT_LEN])
                 if(valdat.array_max < 0 || valdat.array_max > MAX_ARRAY)
                   Error("ukuran Untaian tidak sesuai kapasitas");
 
-                if(renban != '\0')
-                  renban++;
-                else
-                  renban = 0;
+                renban++;
 
-		if(renban > 999) {
+		        if(renban > 9999) {
                   renban = 0;
-		}
+		        }
                 // printf("keyUntaian renban %d \n", renban);
 
-		// /////////////////////
+		        // /////////////////////
                 // create INTEGER array
-		// /////////////////////
+		        // /////////////////////
                 memset(&TmpIntBox, '\0', sizeof(TmpIntBox));
                 memset(&TmpIntBox.var.array_name, '\0', sizeof(TmpIntBox.var.array_name));
-		strcpy(TmpIntBox.var.array_name, valdat.array_name);
-		// printf("start createRenban \n");
+		        strcpy(TmpIntBox.var.array_name, valdat.array_name);
+		        // printf("start createRenban \n");
                 TmpIntBox.var.stackid = createRenban(renban);
                 valdat.array_i = TmpIntBox.var.stackid;             // keep stackid
                 // printf("STACKID %d\n", TmpIntBox.var.stackid);
@@ -109,13 +106,13 @@ void keyUntaian (char ident[MAX_IDENT_LEN])
                   stackInt_addFirst(TmpIntBox.var);
                 }
 
-		// /////////////////////
+		        // /////////////////////
                 // create DOUBLE array
-		// /////////////////////
+		        // /////////////////////
                 memset(&TmpDblBox, '\0', sizeof(TmpDblBox));
                 memset(&TmpDblBox.var.array_name, '\0', sizeof(TmpDblBox.var.array_name));
-		strcpy(TmpDblBox.var.array_name, valdat.array_name);
-		// printf("start createRenban \n");
+		        strcpy(TmpDblBox.var.array_name, valdat.array_name);
+		        // printf("start createRenban \n");
                 TmpDblBox.var.stackid = createRenban(renban);
                 valdat.array_d = TmpDblBox.var.stackid;             // keep stackid
                 // printf("STACKID %d\n", TmpIntBox.var.stackid);
@@ -134,7 +131,7 @@ void keyUntaian (char ident[MAX_IDENT_LEN])
 				// printf("start createRenban \n");
                 TmpStrBox.var.stackid = createRenban(renban);       // create stackid here
                 valdat.array_s = TmpStrBox.var.stackid;             // keep stackid
-                // printf("STACKID %d\n", TmpStrBox.var.stackid);
+                // printf("== ARRY in STACKID %d <BR>\n", TmpStrBox.var.stackid);
                 if(stackStr_getID(TmpStrBox.var) >= 0.0) {
                   printf("nama variabel sudah terpakai! \n");
                 } else {
@@ -142,9 +139,13 @@ void keyUntaian (char ident[MAX_IDENT_LEN])
                 }
 
 
-		// ///////////////////////
+				/* Write Array Value to Node memory tree */
+				// printf("saving valdat.array_name: %s <BR> \n", valdat.array_name);
+				ValLabel(valdat.array_name, sub_deep, valdat, VAL_FLAG_SEARCH_W);
+
+		        // ///////////////////////
                 // create GUI Widget array
-		// ///////////////////////
+	         	// ///////////////////////
                 #ifdef USE_GTK2
                 memset(&TmpGuiBox, '\0', sizeof(TmpIntBox));
                 memset(&TmpGuiBox.var.array_name, '\0', sizeof(TmpGuiBox.var.array_name));

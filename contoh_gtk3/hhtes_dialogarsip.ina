@@ -1,0 +1,59 @@
+# ################################
+# tes GUI program dengan BAIK9
+# tekan tombol-selesai untuk keluar
+# ################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Dialog Arsip dgn BAIK9"
+luas_layar  lyr1, 470, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nama arsip"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "merah bata"
+hias_alas alas1, lbl1, 10, 15, 80, 20
+
+msk1 = masukan
+set_warnahuruf msk1, "biru tua"
+set_warnadasar msk1, "merah anggrek"
+set_tips msk1, "masukkan nama arsip"
+hias_alas alas1, msk1, 100, 15, 250, 20
+
+
+btn1 = tombol "arsip"
+set_tips btn1, "dialog arsip"
+hias_alas alas1, btn1, 360, 15, 50, 20
+
+aksi_fungsi btn1, &lakukan1(msk1)
+
+btn2 = tombol "Keluar"
+set_tips btn2, "tutup layar"
+hias_alas alas1, btn2, 10, 85, 50, 20
+
+tutup_program btn2
+tutup_program lyr1
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+# ################################
+Fungsi lakukan1(in1) {
+  kata1 = teks_masukan in1
+  tulis "masukan => ", kata1, "\n"
+
+  arsip1 = Dialog_Arsip
+
+  tulis "ambil arsip: ", arsip1, "\n"
+
+  kalau arsip1 <> "" maka
+   set_masukan in1, arsip1
+  akhirkalau
+
+}

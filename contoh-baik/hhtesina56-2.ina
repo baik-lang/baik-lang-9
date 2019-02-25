@@ -1,0 +1,12 @@
+# #########################################################
+# Pendefinisian Sub
+# Tes Penggunaan Kode Luar
+# #########################################################
+
+sub just_print(b) {
+
+  tulis "INI dari Kode Luar : ", b, "\n"
+
+}
+
+AKHIR_KODE_LUAR

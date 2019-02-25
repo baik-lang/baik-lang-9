@@ -1,0 +1,22 @@
+tulis "contoh penggunaan array/untaian\n\n"
+
+#definisikan besaran untaian
+untaian a[5]
+
+#isi untaian ke-x dengan data
+a[0] = "haris"
+tulis "a[0]=", a[0], "\n"
+
+p = a[0]
+tulis "p=", p, "\n"
+
+untaian b[5]
+
+b[0] = 5
+tulis "b[0]=", b[0], "\n"
+
+q = b[0]
+tulis "q=", q, "\n"
+
+
+END

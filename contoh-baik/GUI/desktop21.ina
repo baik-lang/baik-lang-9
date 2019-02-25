@@ -1,0 +1,60 @@
+# ################################
+# tes GUI MENU dengan BAIK5
+# ################################
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "MENU Program dgn BAIK v5"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tegak
+hias_layar lyr1, alas1
+
+papan = papan_menu
+# -------------------------
+mn01  = menu
+
+mnMenu1  = isi_menu "Utama"
+mnNew    = isi_menu "Buat Baru"
+mnKeluar = isi_menu "Keluar"
+
+submenu       mnMenu1, mn01
+ tambah_menu  mn01, mnNew
+ tambah_menu  mn01, mnKeluar
+akhir_menu    papan, mnMenu1
+
+# -------------------------
+mn02       = menu
+mnMenu2    = isi_menu "Identitas"
+mnLencana  = isi_menu "Jatidiri"
+
+submenu       mnMenu2, mn02
+ tambah_menu  mn02, mnLencana
+akhir_menu    papan, mnMenu2
+
+# -------------------------
+susun_menu alas1, papan
+
+aksi_tutup_layar lyr1
+aksi_tutup_layar mnKeluar
+
+
+jt_nama = "Bahasa BAIK"
+jt_versi = "ver 5"
+jt_penulis = "Haris Hasanudin"
+jt_komentar = "Bahasa Komputer berejaan Indonesia"
+jt_www = "http://sourceforge.net/projects/baik/"
+jt_logo = "baik_logo.png"
+
+aksi_jatidiri  mnLencana, jt_nama, jt_versi, 
+jt_penulis, jt_komentar, jt_www, jt_logo
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+
+

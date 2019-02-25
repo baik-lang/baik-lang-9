@@ -1,0 +1,19 @@
+# ###################################
+# tes SSL - blowfish CBC
+# ###################################
+
+tulis "Tes SSL blowfish CBC dengan BAIK\n"
+
+kalimat = "Hello Haris Hasanudin"
+sandi   = "this's my secret"
+
+rhs  = enkripsi_blowfishcbc kalimat, sandi
+asal = dekripsi_blowfishcbc rhs, sandi
+
+tulis "kalimat: ", kalimat, "\n"
+tulis "blowfish CBC : ", rhs, "\n"
+tulis "asal : ", asal, "\n"
+
+tamat
+
+

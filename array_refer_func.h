@@ -240,7 +240,7 @@ int get_str_array(VAL_LABEL valdat, long idx, char retVal[MAX_STRING_LEN * 2]) {
   memset(&TmpStrBox.var.array_name, '\0', sizeof(TmpStrBox.var.array_name));
   strcpy(TmpStrBox.var.array_name, valdat.array_name);
   myrenban = valdat.array_s;
-  // printf("\n get renban %d\n", renban);
+  //printf("\n [**] get renban stackID %d <BR>\n", myrenban);
 
   if(myrenban < 0) {
     printf("variabel untaian tidak ditemukan\n");
@@ -255,7 +255,7 @@ int get_str_array(VAL_LABEL valdat, long idx, char retVal[MAX_STRING_LEN * 2]) {
 	  ret = 0; // for not found
     } else {
       TmpStrBox.str = string_getElement(strarryPos);
-	  // printf("get str value : %s\n", TmpStrBox.str.mystring);
+	  //printf("[**] get str value : %s <BR>\n", TmpStrBox.str.mystring);
 
       // get value
       strcpy(retVal, TmpStrBox.str.mystring); 
@@ -270,6 +270,48 @@ int get_str_array(VAL_LABEL valdat, long idx, char retVal[MAX_STRING_LEN * 2]) {
   memset(&valdat, '\0', sizeof(valdat));
 
   return ret;
+}
+
+int get_mysql_str_array(VAL_LABEL valdat, long idx, char retVal[MAX_STRING_LEN]) {
+	int ret = '\0';
+	int myrenban = 0;
+
+	// get valdat current stackid
+	memset(&mysql_TmpStrBox.var.array_name, '\0', sizeof(mysql_TmpStrBox.var.array_name));
+	strcpy(mysql_TmpStrBox.var.array_name, valdat.array_name);
+	myrenban = valdat.array_s;
+	//printf("\n (**) get mysql renban stackID %d <BR>\n", myrenban);
+
+	if (myrenban < 0) {
+		printf("variabel untaian tidak ditemukan\n");
+	}
+	else {
+		mysql_TmpStrBox.str.stackid = myrenban;
+		mysql_TmpStrBox.str.idx = idx;
+
+		// get current str value
+		strarryPos = string_findData(mysql_TmpStrBox.str);
+		if (strarryPos < 0) {
+			// printf("nilai untaian tidak ditemukan\n");
+			ret = 0; // for not found
+		}
+		else {
+			mysql_TmpStrBox.str = string_getElement(strarryPos);
+			//printf("** get str value : %s <BR>\n", TmpStrBox.str.mystring);
+
+			// get value
+			strcpy(retVal, mysql_TmpStrBox.str.mystring);
+			// printf("nilai : %s\n", retVal);
+			ret = 1; // for found
+		}
+	}
+	// nothing changed with current datatype
+	valdat.datatype = 8;
+
+	// clear memory
+	memset(&valdat, '\0', sizeof(valdat));
+
+	return ret;
 }
 
 void del_str_array(VAL_LABEL valdat, long idx) {
@@ -345,6 +387,42 @@ void save_str_array(VAL_LABEL valdat, long idx, char entryVal[MAX_STRING_LEN]) {
 
 }
 
+void save_mysql_str_array(VAL_LABEL valdat, long idx, char entryVal[MAX_STRING_LEN]) {
+	int ret = '\0';
+	int myrenban = 0;
+
+	// get valdat current stackid
+	memset(&mysql_TmpStrBox.var.array_name, '\0', sizeof(mysql_TmpStrBox.var.array_name));
+	strcpy(mysql_TmpStrBox.var.array_name, valdat.array_name);
+	myrenban = valdat.array_s;
+	if(myrenban < 0) {
+		printf("variabel untaian tidak ditemukan\n");
+	} else {
+		mysql_TmpStrBox.str.stackid = myrenban;
+		mysql_TmpStrBox.str.idx = idx;
+
+		// get current int value
+		strarryPos = string_findData(mysql_TmpStrBox.str);
+		if(strarryPos < 0) {
+			// printf(" %s idx %d , new value: %s\n", valdat.array_name, idx, entryVal);
+			// set value
+			strcpy(mysql_TmpStrBox.str.mystring , entryVal); 
+			string_addFirst(mysql_TmpStrBox.str);
+		} else {
+			// printf(" %s idx %d , value ALREADY inside\n", valdat.array_name, idx);
+			mysql_TmpStrBox.str = string_getElement(strarryPos);
+			// set value
+			strcpy(mysql_TmpStrBox.str.mystring , entryVal); 
+			string_addFirst(mysql_TmpStrBox.str);
+		}
+	}
+	// nothing changed with current datatype
+	valdat.datatype = 8;
+
+	// clear memory
+	memset(&valdat, '\0', sizeof(valdat));
+
+}
 
 
 // ////////////////////////////////////////////////////////////////

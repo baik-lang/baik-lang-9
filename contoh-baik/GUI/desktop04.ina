@@ -1,0 +1,33 @@
+# ##########################################
+# tes program Desktop dengan BAIK5 - PILIHAN
+# ##########################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "PILIHAN dgn BAIK v5"
+luas_layar  lyr1, 280, 150
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+lbl1 = label "nama buah"
+set_warnahuruf lbl1, "biru laut"
+set_warnadasar lbl1, "jingga"
+hias_alas alas1, lbl1, 10, 15, 100, 20
+
+pil1 = pilihan
+set_pilihan pil1, "mangga indramayu"
+set_pilihan pil1, "pisang"
+set_pilihan pil1, "nangka"
+set_pilihan pil1, "belimbing"
+hias_alas alas1, pil1, 120, 15, 150, 20
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+
+

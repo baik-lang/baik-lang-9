@@ -1,0 +1,11 @@
+Tulis "Tes Tulis Rinci \n"
+
+
+a = 13
+b = 7
+
+c = a/b
+
+Tulis_Rinci "c = ", c, "\n"
+
+END

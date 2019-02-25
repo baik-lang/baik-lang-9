@@ -1,0 +1,58 @@
+#!C:/baik
+# Kode Program Bahasa Baik versi Indonesia
+# Oleh Haris Hasanudin 2009/03
+
+warna_halaman = "biru muda"
+#lokasi_filestyle = "C:/Program Files/Apache Group/Apache/style"
+lokasi_filestyle = "C:/temp/hh_baik/baik4"
+SEDIA_KERTASWEB lokasi_filestyle, warna_halaman
+
+KERTASWEB_AWAL  "KORAN WEB HARIAN UTAMA"
+
+lokasi_style = "/style"
+KERTASWEB_MODEL lokasi_style
+
+Kertasweb_Menu_Awal
+
+  Untuk(A=1; A<9; A=A+1) ulang
+    kalau A==1 maka
+      Nama = "Berita Utama"
+    lainnya
+      Nama = Gabung "Berita Ke-", A
+    akhirkalau
+
+    Deskripsi = gabung "Halaman ", A
+    Halaman = gabung "hal", A , ".html"
+
+    Kertasweb_Menu Nama, Deskripsi, Halaman
+  Lagi
+
+  Kertasweb_Hakcipta "Dilarang keras NYONTEK kertasweb ini - BAIK 2009"
+
+Kertasweb_Menu_Akhir
+
+Judul = "KORAN WEB HARIAN UTAMA"
+Nama = "BERITA UTAMA"
+Deskripsi = WAKTU
+
+ISIWEB_AWAL
+  ISIWEB_TITEL Judul, Nama, Deskripsi
+
+  tulis "<h2>Berita pertama </h2>"
+  tulis "ini berita asyik <BR>"
+
+  tulis "<h2>Berita Selanjutnya </h2>"
+  tulis "ini berita menarik <BR>"
+
+  tulis "<h2>Kolom Pembaca </h2>"
+  tulis "Prospek software di Indonesia <BR>"
+
+ISIWEB_AKHIR
+
+KERTASWEB_AKHIR
+
+END
+
+
+
+

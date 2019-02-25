@@ -1,0 +1,70 @@
+# Oleh Haris Hasanudin 2015/05
+
+tulis "Content-type: text/html\n\n"
+
+TULIS "<h3>Belajar Database dengan BAIK </h3>\n"
+
+### parameter untuk database
+alamatdb  = "localhost"
+pemakai   = "haris"
+katasandi = "haris"
+namadb    = "warungdb"
+nomerport =  3306
+
+tulis "alamatdb : ", alamatdb ," <BR>\n"
+tulis "pemakai  : ", pemakai ," <BR>\n"
+tulis "namadb   : ", namadb ," <BR>\n"
+
+tulis "------------------------------------ <BR>\n"
+
+### kalimat sql untuk operasi database
+sql = "select * from tbl_barang"
+
+### koneksi ke database
+kon = mysql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+hasil = mysql_hasil kon, sql
+
+num = mysql_total hasil
+tulis "jumlah data=", num ," <BR>\n"
+
+tulis "------------------------------------ <BR>\n"
+
+### mengambil nama kolom dari suatu Tabel
+kolom = mysql_namakolom hasil
+besarkolom = panjang kolom
+untuk (i=0; i<besarkolom; i=i+1) ulang
+  tulis "kolom ", i ," = ", kolom[i] ," <BR>\n"
+lagi
+
+
+    tulis "<table border='0' cellspacing='1' bgcolor='#3333ff'>"
+    tulis "<tr>"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>No</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Produk</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Merk</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Harga</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Tgl</th>\n"
+    tulis "<th bgcolor='#3399ff'><font color='#ffffff'>Stok</th>\n"
+    tulis "</tr>\n\n"
+
+    ### mengambil isi data per baris dari suatu Tabel
+
+    untuk (i=0; i<num; i=i+1) ulang
+      baris = mysql_isidata hasil
+
+      tulis "</tr><tr>"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[0], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[1], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[2], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[3], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[4], "</font></center></td>\n"
+      tulis "<td bgcolor='#ffffff'><center><font color='#ff6633'>", baris[5], "</font></center></td>\n"
+      tulis "</tr>\n"
+    lagi
+
+    tulis "</table><br>"
+
+### menutup koneksi database
+tutup kon
+
+tamat

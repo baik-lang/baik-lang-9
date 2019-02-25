@@ -1,0 +1,27 @@
+2010-04-23 Supporting PostgreSql 8.0
+
+- Download PostgreSql 8 ke atas
+- Install PostgreSql
+
+- Jalankan pgAdmin
+-> Make Login Role
+   hariscom/hariscom
+-> Make database
+   hhbaikdb
+   owner : hariscom
+
+# ################################
+
+Command Line
+C> psql hhbaikdb hariscom <enter>
+Password: hariscom <enter>
+
+=# \i maketbl1.sql  <enter>
+
+=# \q <enter>        -> exit
+
+
+
+
+
+

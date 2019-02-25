@@ -1,0 +1,59 @@
+# #########################################################
+# Pendefinisian Objek 
+# #########################################################
+DefinisiBenda AksesData [
+  param1
+  param2
+  param3
+  param4
+
+  fungsi AksesData() {
+    tulis "DALAM BENDA: test Untaian\n"
+  }
+
+  fungsi tesUntaian() {
+
+    untaian a[5]
+
+    a[0] = 5
+    a[1] = 7
+    a[2] = 9
+    a[3] = 100
+
+    tulis "a[0] = ",a[0],"\n"
+    tulis "a[1] = ",a[1],"\n"
+    tulis "a[2] = ",a[2],"\n"
+
+    param1 = a[0] + 3
+    param2 = a[1] * 3
+    param3 = a[2] / 3
+    param4 = akar a[3]
+
+    tulis "param1 = ",param1,"\n"
+    tulis "param2 = ",param2,"\n"
+    tulis "param3 = ",param3,"\n"
+    tulis "param4 = ",param4,"\n"
+
+    tulis "DALAM BENDA: selesai\n"
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes Untaian dalam Pemrograman berorientasi BENDA\n"
+
+Benda obj
+obj = BendaBaru AksesData
+
+obj->awalan()
+obj->tesUntaian()
+
+tulis "MAIN obj->a[0] = ",obj->a[0],"\n"
+tulis "MAIN obj->a[1] = ",obj->a[1],"\n"
+tulis "MAIN obj->param3 = ",obj->param3,"\n"
+
+TAMAT
+
+

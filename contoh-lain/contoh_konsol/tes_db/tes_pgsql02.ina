@@ -1,0 +1,85 @@
+# #########################################################
+# Pendefinisian Objek untuk menggambar
+# #########################################################
+DefinisiBenda AksesDatabase [
+  param1
+  param2
+  param3
+  param4
+
+  fungsi AksesDatabase() {
+    tulis "DALAM BENDA: test mengakses PosgreSql\n"
+  }
+
+  fungsi tesAksesDB(alamatdb) {
+    ### parameter untuk database
+    pemakai   = "hariscom"
+    katasandi = "hariscom"
+    namadb    = "hhbaikdb"
+    nomerport =  5432
+
+    tulis "alamatdb : ", alamatdb ,"\n"
+    tulis "pemakai  : ", pemakai ,"\n"
+    tulis "namadb   : ", namadb ,"\n"
+
+    tulis "-----------------------------------------\n"
+
+    ### kalimat sql untuk operasi database
+    sql = "select * from tbl_barang"
+
+    ### koneksi ke database
+    kon = pgsql_koneksi alamatdb, pemakai, katasandi, namadb, nomerport
+    hasil = pgsql_hasil kon, sql
+
+    num = pgsql_total hasil
+    tulis "jumlah data=", num ,"\n"
+
+    ### mengambil nama kolom dari suatu Tabel
+    kolom = pgsql_namakolom hasil
+    besarkolom = panjang kolom
+
+    tulis "besar kolom ",besarkolom,"\n"
+
+    untuk (i=0; i<besarkolom; i=i+1) ulang
+      tulis " kolom ", i ," = ", kolom[i] ,"\n"
+    lagi
+
+    ### mengambil isi data per baris dari suatu Tabel
+    untuk (i=0; i<num; i=i+1) ulang
+      tulis "-----------------------------------------\n"
+      baris = pgsql_isidata hasil, i
+      tulis "Ambil data baris ", i, " OK\n"
+
+      kolomnum = panjang baris
+      tulis "jumlah kolom=", kolomnum ,"\n"
+
+      untuk (j=0; j<kolomnum; j=j+1) ulang
+        tulis " baris ", i, " kolom ", j, " = ", baris[j] ,"\n"
+      lagi
+
+    lagi
+
+    ### menutup koneksi database
+    tutup kon
+
+    tulis "DALAM BENDA: selesai\n"
+  }
+
+]
+
+# #########################################################
+# Program Utama
+# #########################################################
+Tulis "Tes PGSQL dalam Pemrograman berorientasi BENDA\n"
+
+mydb  = "localhost"
+
+Benda obj
+obj = BendaBaru AksesDatabase
+
+obj->awalan()
+obj->tesAksesDB(mydb)
+
+TAMAT
+
+

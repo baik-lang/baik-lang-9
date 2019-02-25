@@ -1,0 +1,28 @@
+# #######################################
+# tes program Desktop dengan BAIK5 - AKSI
+# #######################################
+
+pakai_layar
+
+lyr1 = layar
+titel_layar lyr1, "Program Desktop dgn BAIK v5"
+luas_layar  lyr1, 300, 200
+logo_layar  lyr1, "baik_logo.png"
+
+alas1 = alas_tetap
+hias_layar lyr1, alas1
+
+tombol01 = tombol "tutup"
+hias_alas alas1, tombol01, 100, 50, 80, 35
+
+# aksi pada elemen desktop #
+# ==========================
+aksi_tutup_progrqm lyr1
+aksi_tutup_program tombol01
+
+tampil_layar lyr1
+kibar_layar
+
+TAMAT
+
+

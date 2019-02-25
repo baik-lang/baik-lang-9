@@ -1,0 +1,7 @@
+tulis "tes gpio\n"
+
+a = saklar_status "157"
+
+tulis "a=", a, "\n"
+
+tamat

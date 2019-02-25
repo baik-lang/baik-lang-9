@@ -1,0 +1,15 @@
+# #########################################################
+# Program Utama
+# #########################################################
+
+KODE_LUAR "hhtesina56-2.ina"
+
+Tulis "Penggunaan Kode Luar untuk pendefinisian SUB\n"
+
+a = 5
+&just_print(a)
+
+Tulis "Program Selesai OK\n"
+TAMAT
+
+

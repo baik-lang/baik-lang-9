@@ -1,8 +1,10 @@
 // Bahasa Anak Indonesia untuk Komputer - BAIK
-// Copyright Haris Hasanudin -  2005 - 2015
+// Copyright Haris Hasanudin -  2005 - 2016
 //
 // Kupersembahkan untuk istriku tercinta Masako, anakku tersayang Takumi
 // dan Tomoki serta seluruh putra putri Indonesia
+
+// Last Update : Feb 13, 2016
 
 #include "my_common.h"
 
@@ -582,7 +584,7 @@ VAL_LABEL funcMYSQL_NAMAKOLOM ()
 VAL_LABEL funcMYSQL_ISIDATA ()
 {
   VAL_LABEL datx;
-  VAL_LABEL valdat;
+  VAL_LABEL valdat, tmpdat;
   int  j=0;
   char class_tmpvar[MAX_STRING_LEN];
 
@@ -591,6 +593,7 @@ VAL_LABEL funcMYSQL_ISIDATA ()
 
   memset(&datx, '\0', sizeof(datx));
   memset(&valdat, '\0', sizeof(valdat));
+  memset(&tmpdat, '\0', sizeof(tmpdat));
   memset(&class_tmpvar, '\0', sizeof(class_tmpvar));
   memset(&tmpstr, '\0', sizeof(tmpstr));
 
@@ -608,25 +611,37 @@ VAL_LABEL funcMYSQL_ISIDATA ()
              valdat = ValLabel( lex.detail.ident, sub_deep, datx, VAL_FLAG_SEARCH_R );
            }
 
-		   //printf("get ident : %s\n", valdat.ident);
-		   //printf("get dttype : %d\n", valdat.datatype);
+		   //printf("get valdat ident : %s <BR>\n", valdat.ident);
+		   //printf("get valdat dt type : %d <BR>\n", valdat.datatype);
+
+		   mysql_renban++;
+		   datx.datatype = 8;                                   // save as real array
+		   datx.array_s = createRenban(mysql_renban);
 
            if(valdat.datatype == 12) {
-             get = DBrows_get(valdat.my_res);
 
-             for(j=0; get[j] != '\0'; j++) {
+			   get = DBrows_get(valdat.my_res);
 
-			   if(j==0) {
-			     datx.array_s = createRenban(renban);
-			     datx.datatype = 8;                      // save as real array
+			   for (j = 0; get[j] != '\0'; j++) {
+				   //printf("ggggggggggggggggggggggggggggggggggg %d <BR> \n", j);
+
+				   // Array String
+				   memset(&tmpstr, '\0', sizeof(tmpstr));
+				   tmpdat.datatype = 8;
+				   strcpy(tmpdat.array_name, "mysql_DBrows");
+
+				   tmpdat = ValLabel(tmpdat.array_name, 1, tmpdat, VAL_FLAG_SEARCH_R);
+
+				   get_mysql_str_array(tmpdat, j, (char *)&tmpstr);
+
+				   //printf("get mysql str array : %i %s <BR>\n", j, tmpstr);
+				   //printf("mysql #2 renban %d <BR>\n", mysql_renban);
+
+				   save_str_array(datx, j, tmpstr);
 			   }
-			   memset(&tmpstr, '\0', sizeof(tmpstr));
-			   sprintf(tmpstr, "%s", get[j]);
-               save_str_array(datx, j, tmpstr);
-
-             }
 
              datx.array_max = j;
+
              split_free(get);
 
              /* printf("get stored data num: %d\n", datx.val ); */
@@ -637,6 +652,7 @@ VAL_LABEL funcMYSQL_ISIDATA ()
            Error("MYSQL_DATA: masukan data salah");
          } 
 
+		 //printf("datx dt type : %d <BR>\n", datx.datatype);
   
       return datx;
 }
@@ -699,26 +715,73 @@ char** DBfields_get(MYSQL_RES *my_res)
 
 char** DBrows_get(MYSQL_RES *my_res)
 {
-   MYSQL_ROW   my_row = NULL;    //MYSQL_DATABARIS
-   int         rowcount = 0;
+	VAL_LABEL valdat;
+	char   tmpstr[MAX_STRING_LEN];
 
-   char **arr = NULL; 
-   int  n   = 0;    
-   int  i   = 0;  
-   char *buf=NULL;
-   char *tp=NULL;
+	MYSQL_ROW   my_row = NULL;    //MYSQL_DATABARIS
+	int         rowcount = 0;
+
+	char **arr = NULL;
+	int  n = 0;
+	int  i = 0;
+	char *buf = NULL;
+	char *tp = NULL;
 
 	if (my_res == NULL) {
-           return NULL;
+		return NULL;
 	}
 
-        rowcount = (int)mysql_num_rows(my_res);
-        my_row   = mysql_fetch_row(my_res);
+	//printf("*** DBrows_get ...%d <BR>\n", mysql_renban);
 
-        /* printf(">>> data num %d \n", rowcount); */
+	memset(&tmpstr, '\0', sizeof(tmpstr));
+	memset(&valdat, '\0', sizeof(valdat));
+	valdat.val = -1;
+	valdat.array_i = '\0';
+	valdat.array_d = '\0';
+	valdat.datatype = -1;
+
+//	if (mysql_renban != '\0')
+		mysql_renban++;
+//	else
+//		mysql_renban = 0;
+
+	if (mysql_renban > 9999) {
+		mysql_renban = 0;
+	}
+
+	//printf("after ++, mysql renban %d <BR>\n", mysql_renban);
+
+	// ///////////////////////////////////////////////////////
+	// create STRING array
+	// ///////////////////////////////////////////////////////
+	memset(&mysql_TmpStrBox, '\0', sizeof(mysql_TmpStrBox));
+	memset(&mysql_TmpStrBox.var.array_name, '\0', sizeof(mysql_TmpStrBox.var.array_name));
+	strcpy(mysql_TmpStrBox.var.array_name, "mysql_DBrows");
+	// printf("start createRenban \n");
+	mysql_TmpStrBox.var.stackid = createRenban(mysql_renban);       // create stackid here
+	valdat.array_s = mysql_TmpStrBox.var.stackid;                   // keep stackid
+	//printf("mysql renban %d <BR>\n", mysql_renban);
+	//printf("STACKID %d <BR>\n", mysql_TmpStrBox.var.stackid);
+
+	if (stackStr_getID(mysql_TmpStrBox.var) >= 0.0) {
+	//	printf("nama variabel sudah terpakai! \n");
+	}
+	else {
+		stackStr_addFirst(mysql_TmpStrBox.var);
+	}
+	
+	/* Store Array Initialization to Node memory tree */
+	valdat.datatype = 8;
+	strcpy(valdat.array_name, "baik_mysql_DBrows");
+	ValLabel(valdat.array_name, 1, valdat, VAL_FLAG_SEARCH_W);
+
+	rowcount = (int)mysql_num_rows(my_res);
+	my_row = mysql_fetch_row(my_res);
+
+	/* printf(">>> data num %d \n", rowcount); */
 
 	if (rowcount <= 0) {
-           return NULL;
+		return NULL;
 	}
 
 	buf = (char*)malloc(strlen((char *)my_row) + 1);
@@ -727,41 +790,53 @@ char** DBrows_get(MYSQL_RES *my_res)
 	}
 	strcpy(buf, (char *)my_row);
 
-        /* printf(">>> row num %d \n", (int)mysql_num_fields(my_res)); */
+	/* printf(">>> row num %d \n", (int)mysql_num_fields(my_res)); */
 
-        n = 0;
-        for(i=0; i < (int)mysql_num_fields(my_res); i++) {
-           char **a = (char**)realloc(arr, sizeof(*arr) * (n+3));
-           if(my_row[i]!=NULL && strlen(my_row[i])>0 ) {
-                tp = (char*)malloc(strlen(my_row[i]) + 1);
-                if(strlen(my_row[i]) > 0) {
-                  strcpy(tp, my_row[i]);
-                  // printf("%d data: %s\n", i, my_row[i]);
-                } else {
-                  strcpy(tp, "");
-                }
+	n = 0;
+	for (i = 0; i < (int)mysql_num_fields(my_res); i++) {
+		char **a = (char**)realloc(arr, sizeof(*arr) * (n + 3));
+		if (my_row[i] != NULL && strlen(my_row[i])>0) {
+			tp = (char*)malloc(strlen(my_row[i]) + 1);
+			if (strlen(my_row[i]) > 0) {
+				strcpy(tp, my_row[i]);
 
-		a[++n] = tp;
-		arr = a;
-           } else {
-                // printf("%d OTHER\n", i);
-                tp = (char*)malloc(2);
-                strcpy(tp, " ");
+				memset(&tmpstr, '\0', sizeof(tmpstr));
+				strcpy(tmpstr, my_row[i]);
 
-		a[++n] = tp;
-		arr = a;
-           }
+				memset(&valdat, '\0', sizeof(valdat));
+				valdat.datatype = 8;
+				strcpy(valdat.array_name, "baik_mysql_DBrows");
+				save_mysql_str_array(valdat, i, tmpstr);
+				
+				//printf("mysql renban %d <BR>\n", mysql_renban);
+				//printf("Save mysql Str Array %d data: %s <BR>\n", i, my_row[i]);
+			}
+			else {
+				strcpy(tp, "");
+			}
+
+			a[++n] = tp;
+			arr = a;
+		}
+		else {
+			// printf("%d OTHER\n", i);
+			tp = (char*)malloc(2);
+			strcpy(tp, " ");
+
+			a[++n] = tp;
+			arr = a;
+		}
 	}
 
 	if (arr != '\0') {
 		arr[0] = buf;
 		arr++;
 		arr[n] = '\0';
-	} else {
-      free (buf);
+	}
+	else {
+		free(buf);
 	}
 
-        my_row = NULL;
+	my_row = NULL;
 	return arr;
 }
-

@@ -1,0 +1,19 @@
+
+
+KODE_LUAR "./models/blog.ina"
+
+Tulis "Penggunaan Kode Luar untuk pendefinisian SUB\n"
+
+buffer = 7
+
+a = 5
+
+&handle(a)
+
+
+myview =  "./views/blog.ina"
+
+RUPA myview
+
+Tulis "Program Selesai OK\n"
+TAMAT

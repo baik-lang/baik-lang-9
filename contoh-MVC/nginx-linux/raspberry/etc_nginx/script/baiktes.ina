@@ -1,0 +1,9 @@
+#!/usr/bin/baik
+
+tulis "Content-type: text/html\n\n"
+tulis "<html>"
+tulis "<center><h2>Tes CGI dengan BAIK</h2></center>"
+tulis "<img src=BaikLogoNEW.png>"
+
+tulis "</html>"
+end

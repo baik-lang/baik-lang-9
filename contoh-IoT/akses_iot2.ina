@@ -1,0 +1,363 @@
+#!/usr/bin/baik
+# #####################################
+# Program Test Check IoT Web
+# 2015-08-08
+# To Buy DGI IoT Machine, Contact : 
+# Email: dgi.marketing@digiorchid.com
+# #####################################
+#
+# use : http://<localhost>/akses_iot.ina?ip=11.11.11.11
+#
+
+tulis "Content-type: text/html\n\n"
+
+#params = lingkup "QUERY_STRING"
+#tulis "params=", params, "<BR>\n"
+
+#all[] = pisah params, "&"
+
+ipdata   = "ip=192.168.123.111"
+typedata = "type=101"
+roomdata = "room=100"
+
+len = panjang ipdata
+
+jika (len > 0) maka
+  #Tulis "ipdata : ", ipdata, "<BR>\n"
+  #Tulis "typedata : ", typedata, "<BR>\n"
+
+  aa[] = pisah ipdata, "="
+  ip   = aa[1]
+  bb[] = pisah typedata, "="
+  type = bb[1]
+
+  Tulis "ip : ", ip, "<BR>\n"
+  Tulis "type : ", type, "<BR>\n"
+  tulis "room : ", roomdata, "<BR>\n"
+
+  # #####################################
+  global alamatdb, dbuser, dbsandi,namadb,portdb
+
+  alamatdb  = "127.0.0.1"
+  dbuser    = "mypass"
+  dbsandi   = "mypass"
+  namadb    = "smartroomdb"
+  portdb    =  3306
+
+  #tulis "DB setting OK <BR>\n"
+
+  sql = gabung "select * from iot_machine where iot_type =", type, " "
+
+  kon = mysql_koneksi alamatdb, dbuser, dbsandi, namadb, portdb
+  hasil = mysql_hasil kon, sql
+
+  num = mysql_total hasil
+  tulis "current total data : ", num, "<BR>\n"
+
+  untuk (i=0; i<num; i=i+1) ulang
+    baris = mysql_isidata hasil
+
+    col0 = baris[0]
+    col1 = baris[1]
+    col2 = baris[2]
+    max = baris[3]
+    min = baris[4]
+  lagi
+
+  #tulis "max : ", max, "<BR>\n"
+  #tulis "min : ", min, "<BR>\n"
+
+  # #####################################
+
+  sql = "select * from monitor_alert where monitor_id = 1"
+
+  kon = mysql_koneksi alamatdb, dbuser, dbsandi, namadb, portdb
+  hasil = mysql_hasil kon, sql
+
+  num = mysql_total hasil
+  #tulis "current total data : ", num, "<BR>\n"
+
+  untuk (i=0; i<num; i=i+1) ulang
+    baris = mysql_isidata hasil
+
+    mon0 = baris[0]
+    mon1 = baris[1]
+    mon2 = baris[2]
+    mon3 = baris[3]
+    mon4 = baris[4]
+    mon5 = baris[5]
+    mon6 = baris[6]
+    mon7 = baris[7]
+  lagi
+
+  tulis "notif : ", mon1, "<BR>\n"
+  tulis "ip : ", mon2, "<BR>\n"
+  tulis "port : ", mon3, "<BR>\n"
+  tulis "msg : ", mon7, "<BR>\n"
+
+  mailmsg = gabung "Alert from DGI Smart Room Manager !\n\n", roomdata
+  jika (type == "1") maka
+    mailmsg = gabung mailmsg, "\niot=thermo"
+  lainjika (type == "2") maka
+    mailmsg = gabung mailmsg, "\niot=bright"
+  lainjika (type == "3") maka
+    mailmsg = gabung mailmsg, "\niot=switch"
+  akhirjika
+
+  #tulis "msg : ", mailmsg, "<BR>\n"
+
+  # #####################################
+
+  url  = gabung "http://" , ip ,"/"
+  url2 = gabung "http://" , ip ,"/"
+
+  iot  = ""
+  iot2  = ""
+  jika (type == "1") maka
+    iot = "baca_suhu.ina"
+  lainjika (type == "2") maka
+    iot = "baca_cahaya.ina"
+  lainjika (type == "3") maka
+    iot  = "saklar1_stat.ina"
+    iot2 = "saklar2_stat.ina"
+  lainjika (type == "100") maka
+    iot  = "saklar1_on.ina"
+  lainjika (type == "101") maka
+    iot  = "saklar1_off.ina"
+  lainjika (type == "200") maka
+    iot  = "saklar2_on.ina"
+  lainjika (type == "201") maka
+    iot  = "saklar2_off.ina"
+  akhirjika
+
+  url  = gabung url, iot
+  url2 = gabung url2, iot2
+  Tulis "url ", url, "<BR>\n"
+  Tulis "url2 ", url2, "<BR>\n"
+
+  AA = akses_iot url
+
+tulis "akses_iot done: ", AA, " ."
+
+  jika (type == "100") maka
+    # switch and stop operation
+    tulis "<html> \n"
+    tulis "<body> \n"
+    tulis "<script language=\"JavaScript\"> \n"
+    tulis "var f = document.createElement('form'); "
+    tulis "f.action='page02.ina'; "
+    tulis "document.body.appendChild(f); "
+    tulis "f.submit(); "
+    tulis "</script> \n"
+    tulis "</body> \n"
+    tulis "</html>"
+  akhirjika
+  jika (type == "101") maka
+    # switch and stop operation
+    tulis "<html> \n"
+    tulis "<body> \n"
+    tulis "<script language=\"JavaScript\"> \n"
+    tulis "var f = document.createElement('form'); "
+    tulis "f.action='page02.ina'; "
+    tulis "document.body.appendChild(f); "
+    tulis "f.submit(); "
+    tulis "</script> \n"
+    tulis "</body> \n"
+    tulis "</html>"
+  akhirjika
+
+  tulis "jika 101 selesai\n"
+
+  jika (type == "200") maka
+    # switch and stop operation
+    tulis "<html> \n"
+    tulis "<body> \n"
+    tulis "<script language=\"JavaScript\"> \n"
+    tulis "var f = document.createElement('form'); "
+    tulis "f.action='page02.ina'; "
+    tulis "document.body.appendChild(f); "
+    tulis "f.submit(); "
+    tulis "</script> \n"
+    tulis "</body> \n"
+    tulis "</html>"
+  akhirjika
+  jika (type == "201") maka
+    # switch and stop operation
+    tulis "<html> \n"
+    tulis "<body> \n"
+    tulis "<script language=\"JavaScript\"> \n"
+    tulis "var f = document.createElement('form'); "
+    tulis "f.action='page02.ina'; "
+    tulis "document.body.appendChild(f); "
+    tulis "f.submit(); "
+    tulis "</script> \n"
+    tulis "</body> \n"
+    tulis "</html>"
+  akhirjika
+
+tulis "check No Connection\n"
+
+  # stop displaying if No Connection
+  jika (AA == "No Connection!") maka
+    tulis AA, "\n"
+    tutup kon
+    hapus sql, hasil, params
+    tamat
+  akhirjika
+
+  # continue to check switch 2 status, if switch type
+  jika (type == "3") maka
+    tulis "checkweb url2\n"
+    AA2 = akses_iot url2
+  akhirjika
+
+  lenAA = panjang AA
+  tulis "mulai pisah AA: ", lenAA, " \n"
+
+  jika (lenAA == 0) maka
+   val = ""
+   tamat
+  lainnya
+   res[] = pisah AA, "="
+   param = res[0]
+   val   = res[1]
+  akhirjika
+
+  mailmsg = gabung mailmsg, "\nvalue", val
+
+  tulis "mulai ambil WAKTU\n"
+  time = WAKTU
+  mailmsg = gabung mailmsg, "\ntime=", time
+
+  mailmsg = gabung mailmsg, "\n\nPowered by DGI"
+
+  subjectmsg = gabung roomdata, " TEST DGI IoT Alert!"
+
+  len = panjang val
+  Tulis "len:", len, "<BR>\n"
+
+  jika (len > 1) && (type <> "3") maka
+    hasil[] = pisah val, " "
+
+    cel0 = hasil[0]
+    cel1 = hasil[1]
+
+    cel0 = ke_pecahan cel0
+    min  = ke_pecahan min
+    max  = ke_pecahan max
+
+    #tulis "cel0:", cel0, "<BR>\n"
+    #tulis "max:", max, "<BR>\n"
+    #tulis "min:", min, "<BR>\n"
+
+    jika (cel0 < min) maka
+      tulis "<font color=red>Alert Status!</font> <BR>\n"
+      cel0 = gabung "<b><font color=red>", cel0, "</font></b>"
+      cel1 = gabung "<b><font color=red>", cel1, "</font></b>"
+      jika (mon1 == "1") maka
+        # SURAT pengirim, penerima, perihal, isisurat , server, password
+        SURAT mon5, mon6, subjectmsg, mailmsg , mon2, mon4
+      akhirjika
+    lainjika (cel0 > max) maka
+      tulis "<font color=red>Alert Status!</font> <BR>\n"
+      cel0 = gabung "<b><font color=red>", cel0, "</font></b>"
+      cel1 = gabung "<b><font color=red>", cel1, "</font></b>"
+      jika (mon1 == "1") maka
+        # SURAT pengirim, penerima, perihal, isisurat , server, password
+        SURAT mon5, mon6, subjectmsg, mailmsg , mon2, mon4
+      akhirjika
+    lainnya
+      tulis "<font color=blue>Normal : </font>\n"
+    akhirjika
+
+    jika (cel1 == "Celcius") maka
+      cel1 = "C"
+      val = gabung cel0, " ", cel1
+    lainnya
+      val = gabung cel0, " ", cel1
+    akhirjika
+
+    jika (type <> "3") maka
+      tulis cel0, " ", cel1, "\n"
+    akhirjika
+
+  lainjika (type <> "3") maka
+    tulis AA, "\n"
+  akhirjika
+
+  hapus hasil
+  hapus cel0, cel1
+
+  #Tulis "type:", type, "<BR>\n"
+
+  jika (type =="3") maka
+    #tulis val,  "<BR>\n"
+
+    res2[] = pisah AA2, "="
+    param2 = res2[0]
+    val2   = res2[1]
+
+    #tulis val2, "<BR>\n"
+
+    jika (val == "0") maka
+     # Do SW1 power-on
+     typedata = "type=100"
+     params = gabung ipdata , "&", typedata
+     do_url = gabung "akses_iot.ina?", params
+     # tulis do_url, "<BR>"
+     tulis "<FORM METHOD=\"post\" ACTION=", do_url ,"> \n"
+     tulis "sw1 <input type=button value=off disabled=disabled style=\"width:30px;background-color:blue;\"> "
+     tulis "  <INPUT TYPE=\"submit\" style=\"width:40px;\" VALUE=\" ON\"> \n"
+     tulis " </FORM> \n"
+    lainnya
+     # Do SW1 power-off
+     typedata = "type=101"
+     params = gabung ipdata , "&", typedata
+     do_url = gabung "akses_iot.ina?", params
+     # tulis do_url, "<BR>"
+     tulis "<FORM METHOD=\"post\" ACTION=", do_url ,"> \n"
+     tulis "sw1 <input type=button value=on disabled=disabled style=\"width:30px;background-color:red;\"> "
+     tulis "  <INPUT TYPE=\"submit\" style=\"width:40px;\" VALUE=\"OFF\"> \n"
+     tulis " </FORM> "
+    akhirjika
+
+  akhirjika
+
+  #Tulis "type:", type, "<BR>\n"
+
+  jika (type =="3") maka
+
+    jika (val2 == "0") maka
+     # Do SW2 power-on
+     typedata = "type=200"
+     params = gabung ipdata , "&", typedata
+     do_url = gabung "akses_iot.ina?", params
+     # tulis do_url, "<BR>"
+     tulis "<FORM METHOD=\"post\" ACTION=", do_url ,"> \n"
+     tulis "sw2 <input type=button value=off disabled=disabled style=\"width:30px;background-color:blue;\"> "
+     tulis "  <INPUT TYPE=\"submit\" style=\"width:40px;\" VALUE=\" ON\"> \n"
+     tulis " </FORM> \n"
+    lainnya
+     # Do SW2 power-off
+     typedata = "type=201"
+     params = gabung ipdata , "&", typedata
+     do_url = gabung "akses_iot.ina?", params
+     # tulis do_url, "<BR>"
+     tulis "<FORM METHOD=\"post\" ACTION=", do_url ,"> \n"
+     tulis "sw2 <input type=button value=on disabled=disabled style=\"width:30px;background-color:red;\"> "
+     tulis "  <INPUT TYPE=\"submit\" style=\"width:40px;\" VALUE=\"OFF\"> \n"
+     tulis " </FORM> \n"
+    akhirjika
+
+    tamat
+  akhirjika
+
+
+akhirjika
+
+tutup kon
+hapus sql, hasil, params
+
+tamat
+
+
