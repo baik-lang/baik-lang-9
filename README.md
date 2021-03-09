@@ -1,5 +1,6 @@
 # BAIK LANG
 BAIK (Bahasa Anak Indonesia Untuk Komputer) adalah sebuah bahasa dengan sintak dasar bahasa Indonesia.
+
 ## Memasang
 Untuk memasang, silahkan install paket pendukung terlebih dahulu
 ```
