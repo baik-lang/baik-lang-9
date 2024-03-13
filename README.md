@@ -1,59 +1,70 @@
 # BAIK LANG
-BAIK (Bahasa Anak Indonesia Untuk Komputer) adalah sebuah bahasa dengan sintak dasar bahasa Indonesia.
 
-## Memasang
-Untuk memasang, silahkan install paket pendukung terlebih dahulu
-```
+BAIK (Bahasa Anak Indonesia Untuk Komputer) adalah sebuah bahasa pemrograman dengan sintaks dasar berbahasa Indonesia.
+
+## Instalasi
+
+Sebelum memulai instalasi, pastikan paket pendukung telah terpasang. Untuk distribusi Linux, Anda dapat menggunakan perintah berikut untuk menginstal paket yang diperlukan:
+
+```bash
 $ sudo apt-get install libgtk-3-dev
 ```
-Lalu klon repo ini
-```shell
+
+Setelah itu, lakukan klon pada repositori ini:
+
+```bash
 $ git clone https://github.com/baik-lang/baik-lang-9
 $ cd baik-lang-9
 ```
-Lalu compile dan pasang
-- Linux
-```shell
+
+Kemudian, kompilasi dan pasang BAIK:
+
+### Linux
+```bash
 $ chmod +x compile.sh
 $ ./compile.sh
 ```
 
-- CentOS
-```shell
+### CentOS
+```bash
 $ chmod +x compile.sh.centos
 $ ./compile.sh.centos
 ```
 
-- IGOS12
-```shell
+### IGOS12
+```bash
 $ chmod +x compile.sh.igos12
 $ ./compile.sh.igos12
 ```
 
-- LNX Full GTK2
-```shell
+### LNX Full GTK2
+```bash
 $ chmod +x compile_lnx_full_gtk2.sh
 $ ./compile_lnx_full_gtk2.sh
 ```
-- LNX Full GTK3
-```shell
+
+### LNX Full GTK3
+```bash
 $ chmod +x compile_lnx_full_gtk3.sh
 $ ./compile_lnx_full_gtk3.sh
 ```
 
-- Full
-```shell
+### Full
+```bash
 $ chmod +x compile_lnx_full.sh
 $ ./compile_lnx_full.sh
 ```
 
-Jika sudah di compile lalu kita pindahkan file ke ```/usr/local/bin``` 
-```shell
+Setelah proses kompilasi selesai, pindahkan file yang dihasilkan ke direktori `/usr/local/bin` dengan perintah:
+
+```bash
 $ sudo cp -rf baik /usr/local/bin/baik
 ```
 
-## Penggunaan
-Cek jika paket sudah dipasang
-```shell
+## Periksa Hasil Instalasi
+
+Untuk memastikan bahwa BAIK telah terpasang dengan benar, jalankan perintah berikut:
+
+```bash
 $ baik -v
 ```
